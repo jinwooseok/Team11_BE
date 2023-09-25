@@ -1,6 +1,7 @@
 name: "✨ Docs"
 description: "작성할 문서가 있나요??"
 labels: "✨ Docs"
+body:
   - type: textarea
     attributes:
       label: 🙋docs
