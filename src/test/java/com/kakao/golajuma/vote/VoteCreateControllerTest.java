@@ -132,4 +132,29 @@ public class VoteCreateControllerTest {
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
 	}
+
+	@DisplayName("투표 생성 시 존재하지 않는 카테고리인 경우")
+	@Test
+	public void createVoteTest_error4() throws Exception {
+		List<CreateVoteRequest.OptionDTO> options = new ArrayList<>();
+		CreateVoteRequest.OptionDTO option1 = new CreateVoteRequest.OptionDTO("가라", "image1");
+		CreateVoteRequest.OptionDTO option2 = new CreateVoteRequest.OptionDTO("가지마라", "image2");
+		options.add(option1);
+		options.add(option2);
+
+		CreateVoteRequest request = new CreateVoteRequest("군대 가야할까요?", "no category", "...", "60", options);
+
+		String requestBody = om.writeValueAsString(request);
+		System.out.println("테스트 : " + requestBody);
+
+		// when
+		ResultActions resultActions =
+				mvc.perform(
+						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
+		resultActions.andExpect(status().is4xxClientError());
+
+		// eye
+		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+		System.out.println("테스트 : " + responseBody);
+	}
 }
