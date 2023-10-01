@@ -39,9 +39,8 @@ public class CreateVoteRequest implements AbstractRequestDto {
 		VoteEntity vote =
 				VoteEntity.builder()
 						.userId(1)
-						//                .category(Category.valueOf(category))
+						.voteTotalCount(0)
 						.category(Category.findCategory(category).get())
-						//                .category(Category.TOTAL)
 						.voteTitle(title)
 						.voteContent(content)
 						.voteType("null")
