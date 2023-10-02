@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface OptionJPARepository extends JpaRepository<OptionEntity, Integer> {
 
-	@Query("select o from OptionEntity where o.voteId = :voteId")
-	List<OptionEntity> findAllByVoteId(@Param("voteID") long voteId);
+	@Query("select o from OptionEntity o where o.voteId = :voteId")
+	List<OptionEntity> findAllByVoteId(@Param("voteId") long voteId);
 }
