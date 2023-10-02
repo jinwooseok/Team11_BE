@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class VoteCreateControllerTest {
+public class CreateVoteControllerTest {
 
 	@Autowired private ObjectMapper om;
 	@Autowired private MockMvc mvc;
@@ -142,7 +142,8 @@ public class VoteCreateControllerTest {
 		options.add(option1);
 		options.add(option2);
 
-		CreateVoteRequest request = new CreateVoteRequest("군대 가야할까요?", "no category", "...", "60", options);
+		CreateVoteRequest request =
+				new CreateVoteRequest("군대 가야할까요?", "no category", "...", "60", options);
 
 		String requestBody = om.writeValueAsString(request);
 		System.out.println("테스트 : " + requestBody);
