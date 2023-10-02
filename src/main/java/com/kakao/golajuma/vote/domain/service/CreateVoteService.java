@@ -1,6 +1,5 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.domain.exception.CategoryException;
 import com.kakao.golajuma.vote.domain.exception.NullException;
 import com.kakao.golajuma.vote.domain.exception.OptionNumException;
 import com.kakao.golajuma.vote.infra.entity.Category;
@@ -9,7 +8,6 @@ import com.kakao.golajuma.vote.infra.repository.OptionJPARepository;
 import com.kakao.golajuma.vote.infra.repository.VoteJPARepository;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import com.kakao.golajuma.vote.web.dto.response.CreateVoteResponse;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,10 +41,7 @@ public class CreateVoteService {
 		}
 
 		// 4. 카테고리가 맞는지 확인
-		Optional<Category> category = Category.findCategory(requestDto.getCategory());
-		if (!category.isPresent()) {
-			throw new CategoryException("해당 카테고리를 찾을 수 없습니다.");
-		}
+		Category.findCategory(requestDto.getCategory());
 
 		System.out.println(requestDto);
 		VoteEntity vote = voteJPARepository.save(requestDto.toEntity());
