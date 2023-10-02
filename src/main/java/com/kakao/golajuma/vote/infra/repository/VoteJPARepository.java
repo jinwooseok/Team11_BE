@@ -10,13 +10,13 @@ import org.springframework.data.repository.query.Param;
 
 public interface VoteJPARepository extends JpaRepository<VoteEntity, Integer> {
 
-	//    @Query("select o from OptionEntity o where o.product.id = :productId")
-	//    List<Option> findByProductId(@Param("productId") int productId);
-	@Query("select v from VoteEntity v where v.voteActive = :active and v.category = :category ORDER BY v.createdDate")
+	@Query(
+			"select v from VoteEntity v where v.voteActive = :active and v.category = :category ORDER BY v.createdDate desc ")
 	List<VoteEntity> findAllByActiveAndCategoryOrderByCreatedDate(
 			@Param("active") String active, @Param("category") Category category, Pageable pageable);
 
-	@Query("select v from VoteEntity v where v.voteActive = :active and v.category = :category ORDER BY v.voteTotalCount")
+	@Query(
+			"select v from VoteEntity v where v.voteActive = :active and v.category = :category ORDER BY v.voteTotalCount desc ")
 	List<VoteEntity> findAllByActiveAndCategoryOrderByVoteTotalCount(
 			@Param("active") String active, @Param("category") Category category, Pageable pageable);
 
