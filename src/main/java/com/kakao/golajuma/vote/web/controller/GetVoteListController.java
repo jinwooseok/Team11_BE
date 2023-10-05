@@ -22,11 +22,13 @@ public class GetVoteListController {
 	@GetMapping("/votes")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVoteListResponse.MainAndFinishPage>>
 			getVoteList(
+					@RequestParam(defaultValue = "99999999999999999") long idx,
+					@RequestParam(defaultValue = "99999999999999999") long totalCount,
 					@RequestParam(defaultValue = "current") String sort,
 					@RequestParam(defaultValue = "continue") String active,
 					@RequestParam(defaultValue = "total") String category) {
 		GetVoteListResponse.MainAndFinishPage responseDto =
-				getVoteListService.getVoteList(sort, active, category);
+				getVoteListService.getVoteList(idx, totalCount, sort, active, category);
 
 		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.CREATE);
 	}

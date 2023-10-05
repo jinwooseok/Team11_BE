@@ -12,6 +12,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,15 +26,17 @@ public class GetVoteListService {
 	//    private final DesicionJPARepository desicionJPARepository;
 
 	static int page = 0;
-	static int size = 10;
+	static int size = 5;
 
 	public GetVoteListResponse.MainAndFinishPage getVoteList(
-			String sort, String active, String category) {
+			long idx, long totalCount, String sort, String active, String category) {
 		/*
 		투표 중 active = continue 이고, createdDate가 최신순으로 정렬하여 가져와서 보여준다
 		사용자의 id를 가져와서 참여한 투표와 참여하지 않은 투표를 다른 데이터 형식으로 반환한다.
 		*/
 		long userId = 1;
+
+		// 응답 dto
 		GetVoteListResponse.MainAndFinishPage responseBody =
 				new GetVoteListResponse.MainAndFinishPage();
 
@@ -41,59 +44,83 @@ public class GetVoteListService {
 		boolean on = checkActive(active);
 
 		// 1. vote list 를 가져온다
-		List<VoteEntity> voteList = findByRepository(sort, active, checkCategory(category));
+		Slice<VoteEntity> voteList =
+				findByRepository(idx, totalCount, sort, active, checkCategory(category));
 
 		// 마지막 페이지인지 검사
-		boolean isLast = false;
-		if (voteList.size() <= size) {
-			isLast = true;
-		}
+		responseBody.isLast(voteList.isLast());
 
-		// 2. 각 vote 별로 vote option 을 찾는다
+		// 2. 각 vote 별로 vote option 을 찾는다 - slice 방식
 		for (VoteEntity vote : voteList) {
 			List<OptionEntity> options = optionJPARepository.findAllByVoteId(vote.getId());
-			boolean isOwner = (userId == vote.getUserId());
+			boolean isOwner = isOwner(userId, vote);
 			//			boolean participate = desicionJPARepository.findByUserIdAndVoteId(userId, vote.getId());
 			boolean participate = true;
-			long totalCount = vote.getVoteTotalCount();
+
+			// 참여했다면 어느 옵션 id에 투표했는지 알아야함
+			List<Boolean> choiceList = checkChoiceOption(options, userId);
+
+			long voteTotalCount = vote.getVoteTotalCount();
+
+			// 투표 작성자를 보여준다면??
+			// vote.getType?? 으로 익명인지 판단
+			// 1. 익명이 아닌 경우 user repo 에서 voteUserId로 작성자의 닉네임을 가져온다
+			// 2. 익명인 경우 작성자명을 비공개처리
 
 			// 여기서 문제 완료된 페이지 요청인 경우 투표 옵션 count를 무조건 보여줘야함
-			responseBody.toDto(vote, on, isOwner, participate, totalCount, options, isLast);
+			responseBody.toDto(vote, on, isOwner, participate, voteTotalCount, options, choiceList);
 		}
+
 		return responseBody;
+	}
+
+	public List<Boolean> checkChoiceOption(List<OptionEntity> options, long userId) {
+		List<Boolean> choiceList = new ArrayList<>();
+		//
+		for (OptionEntity option : options) {
+			long optionId = option.getId();
+			// decision repo 에서 확인해야함
+			//			if(decisionJPARepository.checkByUserIdAndOptionId(userId, optionId))
+			//				choiceList.add(true);
+			//			else choiceList.add(false);
+			choiceList.add(true); // dummy data
+		}
+		return choiceList;
+	}
+
+	public boolean isOwner(long userId, VoteEntity vote) {
+		return userId == vote.getUserId();
 	}
 
 	public boolean checkActive(String active) {
 		if (active.equals("continue")) {
 			return true;
-		} else if (active.equals("finish")) {
-			return false;
-		} else {
-			throw new RequestParamException("잘못된 요청입니다.(active)");
 		}
+		if (active.equals("finish")) {
+			return false;
+		}
+		throw new RequestParamException("잘못된 요청입니다.(active)");
 	}
 
 	public Category checkCategory(String category) {
 		return Category.findCategory(category);
 	}
 
-	public List<VoteEntity> findByRepository(String sort, String active, Category category) {
+	public Slice<VoteEntity> findByRepository(
+			long idx, long totalCount, String sort, String active, Category category) {
 		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(page, size);
 
-		List<VoteEntity> voteList;
 		if (sort.equals("current")) {
-			voteList =
-					voteJPARepository.findAllByActiveAndCategoryOrderByCreatedDate(
-							active, category, pageable);
-		} else if (sort.equals("popular")) {
-			voteList =
-					voteJPARepository.findAllByActiveAndCategoryOrderByVoteTotalCount(
-							active, category, pageable);
-		} else {
-			throw new RequestParamException("잘못된 요청입니다.(sort)");
+			return voteJPARepository.findAllByActiveAndCategoryOrderByCreatedDate(
+					idx, active, category, pageable);
 		}
-		return voteList;
+		if (sort.equals("popular")) {
+			return voteJPARepository.findAllByActiveAndCategoryOrderByVoteTotalCount(
+					totalCount, active, category, pageable);
+		}
+
+		throw new RequestParamException("잘못된 요청입니다.(sort)");
 	}
 
 	public GetVoteListResponse.MyPage getVoteListInMyPageByParticipate() {
@@ -101,7 +128,7 @@ public class GetVoteListService {
 		long userId = 1;
 		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
 
-		// userId가 투표한 투표 리스트를 decision 레포에서 찾음
+		// userId가 투표한 투표 리스트를 decision 레포에서 찾아야함
 		//        List<VoteEntity> voteList = decisionJPARepository.findAllUserId(userId);
 		List<VoteEntity> voteList = new ArrayList<>();
 		responseBody.toDto(voteList);
