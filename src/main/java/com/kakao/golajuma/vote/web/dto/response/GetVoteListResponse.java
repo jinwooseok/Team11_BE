@@ -16,7 +16,11 @@ public class GetVoteListResponse implements AbstractResponseDto {
 	@Getter
 	public static class MainAndFinishPage {
 		List<VoteDto> votes = new ArrayList<>();
-		boolean isLast;
+		Boolean isLast;
+
+		public void isLast(boolean isLast) {
+			this.isLast = isLast;
+		}
 
 		public void toDto(
 				VoteEntity vote,
@@ -25,7 +29,7 @@ public class GetVoteListResponse implements AbstractResponseDto {
 				boolean participate,
 				long totalCount,
 				List<OptionEntity> options,
-				boolean isLast) {
+				List<Boolean> choiceList) {
 			VoteDto voteDto = VoteToDto(vote, isOwner, participate, totalCount);
 			this.votes.add(voteDto);
 			// case 1 : 질문자, isOwner : true, participate : false, 옵션 카운트 표시
@@ -36,9 +40,8 @@ public class GetVoteListResponse implements AbstractResponseDto {
 			if (noParticipateCase(on, isOwner, participate)) {
 				voteDto.addOption(options);
 			} else {
-				voteDto.addCountOption(options); // 투표 카운트 표시
+				voteDto.addCountOption(options, choiceList); // 투표 카운트 표시
 			}
-			this.isLast = isLast;
 		}
 
 		// 투표가 진행되고 있는 상태에서(on) 주인이 아니고, 참여하지 않았을때
@@ -51,7 +54,7 @@ public class GetVoteListResponse implements AbstractResponseDto {
 		@Builder
 		public static class VoteDto {
 			private long id;
-			private boolean isOwner;
+			private Boolean isOwner;
 			private long totalCount;
 			private LocalDateTime createdDate;
 			private LocalDateTime endDate;
@@ -61,10 +64,10 @@ public class GetVoteListResponse implements AbstractResponseDto {
 			private String content;
 			private List<OptionDto> options;
 
-			public void addCountOption(List<OptionEntity> options) {
+			public void addCountOption(List<OptionEntity> options, List<Boolean> choiceList) {
 				this.options = new ArrayList<>();
-				for (OptionEntity option : options) {
-					this.options.add(toCountOptionDto(option, totalCount));
+				for (int i = 0; i < options.size(); i++) {
+					this.options.add(toCountOptionDto(options.get(i), choiceList.get(i), totalCount));
 				}
 			}
 
@@ -108,22 +111,27 @@ public class GetVoteListResponse implements AbstractResponseDto {
 		@Getter
 		@Setter
 		public static class CountOptionDto extends OptionDto {
+			private boolean choiced;
 			private long count;
 			private int ratio;
 
-			public CountOptionDto(long id, String name, String image, long count, int ratio) {
+			public CountOptionDto(
+					long id, String name, String image, boolean choiced, long count, int ratio) {
 				super(id, name, image);
+				this.choiced = choiced;
 				this.count = count;
 				this.ratio = ratio;
 			}
 		}
 
-		public static CountOptionDto toCountOptionDto(OptionEntity option, long totalCount) {
+		public static CountOptionDto toCountOptionDto(
+				OptionEntity option, boolean choiced, long totalCount) {
 			if (totalCount == 0) totalCount = 1;
 			return new CountOptionDto(
 					option.getId(),
 					option.getOptionName(),
 					option.getOptionImage(),
+					choiced,
 					option.getOptionCount(),
 					Math.round(option.getOptionCount() / totalCount));
 		}
