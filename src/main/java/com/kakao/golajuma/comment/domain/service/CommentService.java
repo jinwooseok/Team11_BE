@@ -12,17 +12,19 @@ import com.kakao.golajuma.comment.web.dto.response.SaveCommentResponse;
 import com.kakao.golajuma.comment.web.dto.response.UpdateCommentResponse;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class CommentService {
 
 	private final CommentRepository commentRepository;
+
+	EntityManager em;
 
 	@Transactional
 	public SaveCommentResponse create(SaveCommentRequest requestDto, Long voteId, Long userId) {
@@ -33,13 +35,14 @@ public class CommentService {
 		// 저장
 		CommentEntity commentEntity = requestDto.toEntity(voteId, userId);
 		commentRepository.save(commentEntity);
-
+		String username = "asdf";
 		// return
-		SaveCommentResponse response = new SaveCommentResponse(commentEntity, true, 1);
+		SaveCommentResponse response = new SaveCommentResponse(commentEntity, true, username);
 		return response;
 	}
 
 	// 페이지 구현하기 안해둠
+	@Transactional(readOnly = true)
 	public ReadCommentListResponse readList(Long voteId, Long userId) {
 		// 1. 투표한 유저인지 확인 -decision이 나와야함
 		// decisionRepository.findByUserIdVoteId(voteId,userId).orElseThrow(new NoDecisionException("투표
@@ -88,8 +91,9 @@ public class CommentService {
 		String newContent = requestDto.getContent();
 		// setter는 명확하지 않기 때문에 댓글을 업데이트를 한다는걸 명시한 새로운 메서드 정의
 		commentEntity.updateContent(newContent);
+		String username = "asdf";
 
-		UpdateCommentResponse response = new UpdateCommentResponse(commentEntity, true, 1);
+		UpdateCommentResponse response = new UpdateCommentResponse(commentEntity, true, username);
 		return response;
 	}
 
