@@ -1,6 +1,7 @@
 package com.kakao.golajuma.comment.domain.service;
 
 import com.kakao.golajuma.comment.domain.exception.NoOwnershipException;
+import com.kakao.golajuma.comment.domain.exception.NullPointerException;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
 import com.kakao.golajuma.comment.infra.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.request.SaveCommentRequest;
@@ -46,15 +47,20 @@ public class CommentService {
 
 		// 가져오기
 		List<CommentEntity> commentEntityList = commentRepository.findByVoteId(voteId);
-		boolean isOwner;
+
 		// 2. 유저이름 가져오기 로직
 		List<ReadCommentDto> readCommentDtoList = new ArrayList<>();
+
 		for (CommentEntity commentEntity : commentEntityList) {
+			// for문 안에서만 사용하는 변수 선언
+			boolean isOwner;
+
 			Long id = commentEntity.getUserId();
+
 			String username = "asdf"; // 데이터베이스에서 유저 닉네임 가져오기 위한 레포지토리가 들어갈 부분 - 미완성
+
 			// 3. 주인 판별 로직
-			if (userId.equals(id)) isOwner = true;
-			else isOwner = false;
+			isOwner = userId.equals(id);
 
 			readCommentDtoList.add(new ReadCommentDto(commentEntity, isOwner, username));
 		}
@@ -67,25 +73,38 @@ public class CommentService {
 	@Transactional
 	public UpdateCommentResponse update(
 			UpdateCommentRequest requestDto, Long commentId, Long userId) {
-		// 1. 본인의 comment인지 확인
-		CommentEntity commentEntity = commentRepository.findById(commentId);
-		if (commentEntity.getUserId().equals(userId))
-			throw new NoOwnershipException("접근할 수 없습니다.", HttpStatus.FORBIDDEN);
+		// 1. 존재하는 댓글인지 확인
+		CommentEntity commentEntity =
+				commentRepository
+						.findById(commentId)
+						.orElseThrow(() -> new NullPointerException("댓글이 존재하지 않습니다.", HttpStatus.BAD_REQUEST));
 
-		// update하기
-		commentEntity.setContent(requestDto.getContent());
-		commentRepository.save(commentEntity);
+		// 2. 본인의 comment인지 확인
+		if (!commentEntity.isUser(userId)) {
+			throw new NoOwnershipException("접근할 수 없습니다.", HttpStatus.FORBIDDEN);
+		}
+
+		// repository update >> entity update
+		String newContent = requestDto.getContent();
+		// setter는 명확하지 않기 때문에 댓글을 업데이트를 한다는걸 명시한 새로운 메서드 정의
+		commentEntity.updateContent(newContent);
+
 		UpdateCommentResponse response = new UpdateCommentResponse(commentEntity, true, 1);
 		return response;
 	}
 
 	@Transactional
 	public void delete(Long commentId, Long userId) {
-		// 1. 본인의 comment인지 확인
-		CommentEntity commentEntity = commentRepository.findById(commentId);
-		if (commentEntity.getUserId().equals(userId))
-			throw new NoOwnershipException("접근할 수 없습니다.", HttpStatus.FORBIDDEN);
+		// 1. 존재하는 댓글인지 확인
+		CommentEntity commentEntity =
+				commentRepository
+						.findById(commentId)
+						.orElseThrow(() -> new NullPointerException("댓글이 존재하지 않습니다.", HttpStatus.BAD_REQUEST));
 
+		// 2. 본인의 comment인지 확인
+		if (!commentEntity.isUser(userId)) {
+			throw new NoOwnershipException("접근할 수 없습니다.", HttpStatus.FORBIDDEN);
+		}
 		// 삭제로직
 		commentRepository.delete(commentEntity);
 	}
