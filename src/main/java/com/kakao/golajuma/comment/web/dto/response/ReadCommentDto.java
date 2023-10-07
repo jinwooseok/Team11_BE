@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReadCommentDto implements AbstractResponseDto {
 	private Long id;
-	private boolean isOwner;
+	private Boolean isOwner;
 	private String username;
 	private String content;
 	private LocalDateTime createTime;
 
-	public ReadCommentDto(CommentEntity entity, boolean isOwner, String username) {
+	public ReadCommentDto(CommentEntity entity, Boolean isOwner, String username) {
 		this.id = entity.getId();
 		this.isOwner = isOwner;
 		this.username = username;
