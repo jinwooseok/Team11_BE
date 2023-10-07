@@ -1,7 +1,7 @@
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: local-mysql
   datasource:
     url: jdbc:mysql://localhost:13306/golajuma?allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
     username: root
