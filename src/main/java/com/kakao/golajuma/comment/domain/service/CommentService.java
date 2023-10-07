@@ -106,6 +106,6 @@ public class CommentService {
 			throw new NoOwnershipException("접근할 수 없습니다.", HttpStatus.FORBIDDEN);
 		}
 		// 삭제로직
-		commentRepository.delete(commentEntity);
+		commentEntity.delete();
 	}
 }
