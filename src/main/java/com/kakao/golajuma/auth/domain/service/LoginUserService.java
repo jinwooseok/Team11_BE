@@ -22,6 +22,7 @@ public class LoginUserService {
 	private final TokenConverter tokenConverter;
 	private final TokenResolver tokenResolver;
 	private final TokenService tokenService;
+	private final Encoder encoder;
 
 	@Transactional
 	public TokenResponse execute(final LoginUserRequest request) {
