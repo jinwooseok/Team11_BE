@@ -27,7 +27,6 @@ public class TokenResolver {
 			return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();
 		} catch (ExpiredJwtException e) {
 			throw new NotValidToken("만료된 토큰입니다");
-
 		}
 	}
 
