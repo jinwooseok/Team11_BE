@@ -1,9 +1,15 @@
+
+spring:
+  config:
+    activate:
+      on-profile: local-security
+
 security:
   jwt:
     token:
+      secretKey: asccesssecretkeyoverflowsecrekey
       access:
-        secretKey: asccesssecretkeygolajumasecrekey
         validTime: 1800000
       refresh:
-        secretKey: refreshsecretkeygolajumasecrekey
-        validTime: 604800000
+        validTime: 3600000
+
