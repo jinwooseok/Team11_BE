@@ -24,7 +24,6 @@ public class VoteEntity extends BaseEntity {
 	@Column(name = "user_id", nullable = false)
 	private long userId;
 
-
 	@Column(name = ENTITY_PREFIX + "_total_count", nullable = false)
 	private long voteTotalCount;
 

@@ -1,5 +1,6 @@
 package com.kakao.golajuma.auth.infra.converter;
 
+
 import com.kakao.golajuma.auth.domain.helper.Encoder;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.web.dto.request.SaveUserRequest;

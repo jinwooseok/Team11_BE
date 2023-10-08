@@ -10,6 +10,7 @@ import com.kakao.golajuma.auth.web.dto.converter.TokenConverter;
 import com.kakao.golajuma.auth.web.dto.request.LoginUserRequest;
 import com.kakao.golajuma.auth.web.dto.response.TokenResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public class LoginUserService {
 	private final TokenConverter tokenConverter;
 	private final TokenResolver tokenResolver;
 	private final TokenService tokenService;
-	private final Encoder encoder;
+
 
 	@Transactional
 	public TokenResponse execute(final LoginUserRequest request) {
@@ -51,5 +52,6 @@ public class LoginUserService {
 
 	private boolean matchPassword(final String requestPassword, final String password) {
 		return encoder.matches(requestPassword, password);
+
 	}
 }
