@@ -1,6 +1,7 @@
 package com.kakao.golajuma.auth.domain.service;
 
 import com.kakao.golajuma.auth.domain.exception.NotFoundException;
+import com.kakao.golajuma.auth.domain.helper.Encoder;
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
 import com.kakao.golajuma.auth.domain.token.TokenResolver;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;

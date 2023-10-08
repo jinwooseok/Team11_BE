@@ -1,5 +1,6 @@
 package com.kakao.golajuma.vote.web.controller;
 
+import com.kakao.golajuma.auth.web.support.Login;
 import com.kakao.golajuma.common.support.respnose.ApiResponse;
 import com.kakao.golajuma.common.support.respnose.ApiResponseBody;
 import com.kakao.golajuma.common.support.respnose.ApiResponseGenerator;
@@ -22,32 +23,34 @@ public class GetVoteListController {
 	@GetMapping("/votes")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVoteListResponse.MainAndFinishPage>>
 			getVoteList(
+					@Login Long userId,
 					@RequestParam(defaultValue = "99999999999999999") long idx,
 					@RequestParam(defaultValue = "99999999999999999") long totalCount,
 					@RequestParam(defaultValue = "current") String sort,
 					@RequestParam(defaultValue = "continue") String active,
 					@RequestParam(defaultValue = "total") String category) {
 		GetVoteListResponse.MainAndFinishPage responseDto =
-				getVoteListService.getVoteList(idx, totalCount, sort, active, category);
+				getVoteListService.getVoteList(userId, idx, totalCount, sort, active, category);
 
-		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.CREATE);
+		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.GET);
 	}
 
 	// 투표 리스트 조회 - 마이페이지 참여한 투표
 	@GetMapping("/users/votes/participate")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVoteListResponse.MyPage>>
-			getVoteListInMyPageByParticipate() {
-		GetVoteListResponse.MyPage responseDto = getVoteListService.getVoteListInMyPageByParticipate();
+			getVoteListInMyPageByParticipate(@Login Long userId) {
+		GetVoteListResponse.MyPage responseDto =
+				getVoteListService.getVoteListInMyPageByParticipate(userId);
 
-		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.CREATE);
+		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.GET);
 	}
 
 	// 투표 리스트 조회 - 마이페이지 올린 투표
 	@GetMapping("/users/votes/ask")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVoteListResponse.MyPage>>
-			getVoteListInMyPageByAsk() {
-		GetVoteListResponse.MyPage responseDto = getVoteListService.getVoteListInMyPageByAsk();
+			getVoteListInMyPageByAsk(@Login Long userId) {
+		GetVoteListResponse.MyPage responseDto = getVoteListService.getVoteListInMyPageByAsk(userId);
 
-		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.CREATE);
+		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.GET);
 	}
 }
