@@ -20,13 +20,13 @@ public class CreateVoteRequest implements AbstractRequestDto {
 	private String content;
 	List<OptionDTO> options;
 	private String category;
-	private String timeLimit; // 시간 제한 받아서 연산해야함
+	private int timeLimit; // 시간 제한 받아서 연산해야함
 
 	public CreateVoteRequest(
 			String voteTitle,
 			String category,
 			String voteContent,
-			String timeLimit,
+			int timeLimit,
 			List<OptionDTO> options) {
 		this.title = voteTitle;
 		this.category = category;
@@ -39,13 +39,12 @@ public class CreateVoteRequest implements AbstractRequestDto {
 		VoteEntity vote =
 				VoteEntity.builder()
 						.userId(1)
-						//                .category(Category.valueOf(category))
-						.category(Category.findCategory(category).get())
-						//                .category(Category.TOTAL)
+						.voteTotalCount(0)
+						.category(Category.findCategory(category))
 						.voteTitle(title)
 						.voteContent(content)
 						.voteType("null")
-						.voteEndDate(LocalDateTime.now().plusMinutes(Integer.parseInt(timeLimit)))
+						.voteEndDate(LocalDateTime.now().plusMinutes(timeLimit))
 						.build();
 		System.out.println(vote);
 		return vote;
