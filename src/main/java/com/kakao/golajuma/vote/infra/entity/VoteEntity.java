@@ -66,4 +66,8 @@ public class VoteEntity extends BaseEntity {
 		this.voteEndDate = voteEndDate;
 		this.voteType = voteType;
 	}
+
+	public boolean isOwner(long userId) {
+		return userId == this.getUserId();
+	}
 }
