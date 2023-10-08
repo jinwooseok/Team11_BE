@@ -8,7 +8,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Getter
-@Setter
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -37,5 +36,12 @@ public class CommentEntity extends BaseEntity {
 		this.voteId = voteId;
 		this.userId = userId;
 		this.content = content;
+	}
+	public void updateContent(String content) {
+		this.content = content;
+	}
+
+	public Boolean isUser(Long userId) {
+		return this.userId.equals(userId);
 	}
 }

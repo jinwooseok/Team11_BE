@@ -1,6 +1,7 @@
 package com.kakao.golajuma.auth.domain.service;
 
 import com.kakao.golajuma.auth.domain.exception.NotFoundException;
+import com.kakao.golajuma.auth.domain.helper.Encoder;
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
 import com.kakao.golajuma.auth.domain.token.TokenResolver;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
@@ -20,7 +21,6 @@ public class LoginUserService {
 
 	private final TokenProvider tokenProvider;
 	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
 	private final TokenConverter tokenConverter;
 	private final TokenResolver tokenResolver;
 	private final TokenService tokenService;
@@ -50,6 +50,6 @@ public class LoginUserService {
 	}
 
 	private boolean matchPassword(final String requestPassword, final String password) {
-		return passwordEncoder.matches(requestPassword, password);
+		return encoder.matches(requestPassword, password);
 	}
 }

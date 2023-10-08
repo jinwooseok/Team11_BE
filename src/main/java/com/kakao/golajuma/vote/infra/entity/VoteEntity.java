@@ -24,6 +24,9 @@ public class VoteEntity extends BaseEntity {
 	@Column(name = "user_id", nullable = false)
 	private long userId;
 
+	@Column(name = ENTITY_PREFIX + "_total_count", nullable = false)
+	private long voteTotalCount;
+
 	@Column(name = ENTITY_PREFIX + "_title", length = 256, nullable = false)
 	private String voteTitle;
 
@@ -48,6 +51,7 @@ public class VoteEntity extends BaseEntity {
 	public VoteEntity(
 			long id,
 			long userId,
+			long voteTotalCount,
 			Category category,
 			String voteTitle,
 			String voteContent,
@@ -55,6 +59,7 @@ public class VoteEntity extends BaseEntity {
 			String voteType) {
 		this.id = id;
 		this.userId = userId;
+		this.voteTotalCount = voteTotalCount;
 		this.category = category;
 		this.voteTitle = voteTitle;
 		this.voteContent = voteContent;
