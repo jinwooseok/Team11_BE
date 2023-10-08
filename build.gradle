@@ -57,10 +57,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
-
     // encryption
     implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
-
 
     // jwt
     implementation "io.jsonwebtoken:jjwt-api:${jsonwebtokenVersion}"

@@ -37,3 +37,4 @@ public interface VoteJPARepository extends JpaRepository<VoteEntity, Integer> {
 	//	Slice<VoteEntity> searchVotes(@Param("keyword") String keyword, Pageable pageable);
 
 }
+

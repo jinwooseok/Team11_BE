@@ -25,7 +25,6 @@ public class LoginUserService {
 	private final TokenResolver tokenResolver;
 	private final TokenService tokenService;
 
-
 	@Transactional
 	public TokenResponse execute(final LoginUserRequest request) {
 		UserEntity userEntity =
@@ -52,6 +51,5 @@ public class LoginUserService {
 
 	private boolean matchPassword(final String requestPassword, final String password) {
 		return encoder.matches(requestPassword, password);
-
 	}
 }

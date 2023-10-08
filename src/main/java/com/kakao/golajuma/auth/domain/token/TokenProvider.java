@@ -14,7 +14,6 @@ public class TokenProvider {
 
 	private static final String USER_ID_CLAIM_KEY = "userId";
 	private final SecretKey secretKey;
-
 	private final long accessValidTime;
 	private final long refreshValidTime;
 
