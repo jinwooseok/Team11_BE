@@ -32,7 +32,7 @@ public class VoteCreateControllerTest {
 		options.add(option1);
 		options.add(option2);
 
-		CreateVoteRequest request = new CreateVoteRequest("군대 가야할까요?", "total", "...", "60", options);
+		CreateVoteRequest request = new CreateVoteRequest("군대 가야할까요?", "total", "...", 60, options);
 
 		String requestBody = om.writeValueAsString(request);
 		System.out.println("테스트 : " + requestBody);
@@ -57,7 +57,7 @@ public class VoteCreateControllerTest {
 		options.add(option1);
 		options.add(option2);
 
-		CreateVoteRequest request = new CreateVoteRequest(null, "total", "...", "60", options);
+		CreateVoteRequest request = new CreateVoteRequest(null, "total", "...", 60, options);
 
 		String requestBody = om.writeValueAsString(request);
 		System.out.println("테스트 : " + requestBody);
@@ -82,7 +82,7 @@ public class VoteCreateControllerTest {
 		options.add(option1);
 		options.add(option2);
 
-		CreateVoteRequest request = new CreateVoteRequest("군대 가야할까요?", "total", "...", "60", options);
+		CreateVoteRequest request = new CreateVoteRequest("군대 가야할까요?", "total", "...", 60, options);
 
 		String requestBody = om.writeValueAsString(request);
 		System.out.println("테스트 : " + requestBody);
@@ -117,7 +117,7 @@ public class VoteCreateControllerTest {
 		options.add(option6);
 		options.add(option7);
 
-		CreateVoteRequest request = new CreateVoteRequest("군대 가야할까요?", "total", "...", "60", options);
+		CreateVoteRequest request = new CreateVoteRequest("군대 가야할까요?", "total", "...", 60, options);
 
 		String requestBody = om.writeValueAsString(request);
 		System.out.println("테스트 : " + requestBody);
