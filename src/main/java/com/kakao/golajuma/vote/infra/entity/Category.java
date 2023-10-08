@@ -1,7 +1,7 @@
 package com.kakao.golajuma.vote.infra.entity;
 
+import com.kakao.golajuma.vote.domain.exception.CategoryException;
 import java.util.Arrays;
-import java.util.Optional;
 
 public enum Category {
 	TOTAL("total"),
@@ -18,9 +18,10 @@ public enum Category {
 		return this.category;
 	}
 
-	public static Optional<Category> findCategory(String category) {
+	public static Category findCategory(String category) {
 		return Arrays.stream(Category.values())
 				.filter(Category -> Category.getCategory().equals(category))
-				.findAny();
+				.findAny()
+				.orElseThrow(() -> new CategoryException("해당 카테고리는 존재하지 않습니다."));
 	}
 }
