@@ -4,9 +4,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kakao.golajuma.auth.domain.token.TokenProvider;
+import com.kakao.golajuma.auth.infra.entity.UserEntity;
+import com.kakao.golajuma.auth.infra.repository.UserRepository;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,23 @@ public class CreateVoteControllerTest {
 
 	@Autowired private ObjectMapper om;
 	@Autowired private MockMvc mvc;
+
+	@Autowired private UserRepository userRepository;
+	@Autowired private TokenProvider tokenProvider;
+	private String jwtToken;
+
+	@BeforeEach
+	public void setup() throws Exception {
+		jwtToken = tokenProvider.createAccessToken(1L);
+		UserEntity user =
+				UserEntity.builder()
+						.id(1L)
+						.nickname("test")
+						.email("test@gmail.com")
+						.password("1234")
+						.build();
+		userRepository.save(user);
+	}
 
 	@DisplayName("투표 생성 정상 작동")
 	@Test
@@ -40,7 +61,10 @@ public class CreateVoteControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
+						post("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.content(requestBody)
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
 		resultActions.andExpect(status().isOk());
 
 		// eye
@@ -65,7 +89,10 @@ public class CreateVoteControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
+						post("/votes")
+								.content(requestBody)
+								.header("Authorization", "Bearer " + jwtToken)
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
 		resultActions.andExpect(status().is4xxClientError());
 
 		// eye
@@ -90,7 +117,10 @@ public class CreateVoteControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
+						post("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.content(requestBody)
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
 		resultActions.andExpect(status().is4xxClientError());
 
 		// eye
@@ -125,7 +155,10 @@ public class CreateVoteControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
+						post("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.content(requestBody)
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
 		resultActions.andExpect(status().is4xxClientError());
 
 		// eye
