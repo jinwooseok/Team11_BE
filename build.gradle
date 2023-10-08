@@ -60,6 +60,7 @@ dependencies {
     // encryption
     implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
 
+
     // jwt
     implementation "io.jsonwebtoken:jjwt-api:${jsonwebtokenVersion}"
     implementation "io.jsonwebtoken:jjwt-impl:${jsonwebtokenVersion}"

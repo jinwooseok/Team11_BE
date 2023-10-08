@@ -12,38 +12,34 @@ import com.kakao.golajuma.comment.web.dto.response.SaveCommentResponse;
 import com.kakao.golajuma.comment.web.dto.response.UpdateCommentResponse;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class CommentService {
 
 	private final CommentRepository commentRepository;
-
-	EntityManager em;
 
 	@Transactional
 	public SaveCommentResponse create(SaveCommentRequest requestDto, Long voteId, Long userId) {
 		// 1. 투표한 유저인지 확인 -decision이 나와야함
 		// decisionRepository.findByUserIdVoteId(voteId,userId).orElseThrow(new NoDecisionException("투표
 		// 후에 가능합니다.", HttpStatus.UNAUTHORIZED));
-		System.out.println("들어왔다");
 		// 저장
 		CommentEntity commentEntity = requestDto.toEntity(voteId, userId);
 		commentRepository.save(commentEntity);
-		String username = "asdf";
+
 		// return
-		SaveCommentResponse response = new SaveCommentResponse(commentEntity, true, username);
+		SaveCommentResponse response = new SaveCommentResponse(commentEntity, true, 1);
 		return response;
 	}
 
 	// 페이지 구현하기 안해둠
-
 	public ReadCommentListResponse readList(Long voteId, Long userId) {
 		// 1. 투표한 유저인지 확인 -decision이 나와야함
 		// decisionRepository.findByUserIdVoteId(voteId,userId).orElseThrow(new NoDecisionException("투표
