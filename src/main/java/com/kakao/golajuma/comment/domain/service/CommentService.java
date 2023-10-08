@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class CommentService {
 
 	private final CommentRepository commentRepository;
@@ -31,7 +32,7 @@ public class CommentService {
 		// 1. 투표한 유저인지 확인 -decision이 나와야함
 		// decisionRepository.findByUserIdVoteId(voteId,userId).orElseThrow(new NoDecisionException("투표
 		// 후에 가능합니다.", HttpStatus.UNAUTHORIZED));
-
+		System.out.println("들어왔다");
 		// 저장
 		CommentEntity commentEntity = requestDto.toEntity(voteId, userId);
 		commentRepository.save(commentEntity);
@@ -42,7 +43,7 @@ public class CommentService {
 	}
 
 	// 페이지 구현하기 안해둠
-	@Transactional(readOnly = true)
+
 	public ReadCommentListResponse readList(Long voteId, Long userId) {
 		// 1. 투표한 유저인지 확인 -decision이 나와야함
 		// decisionRepository.findByUserIdVoteId(voteId,userId).orElseThrow(new NoDecisionException("투표
@@ -59,13 +60,13 @@ public class CommentService {
 			boolean isOwner;
 
 			Long id = commentEntity.getUserId();
-
+			System.out.println(id);
 			String username = "asdf"; // 데이터베이스에서 유저 닉네임 가져오기 위한 레포지토리가 들어갈 부분 - 미완성
 
 			// 3. 주인 판별 로직
 			isOwner = userId.equals(id);
-
-			readCommentDtoList.add(new ReadCommentDto(commentEntity, isOwner, username));
+			ReadCommentDto readCommentDto = new ReadCommentDto(commentEntity, isOwner, username);
+			readCommentDtoList.add(readCommentDto);
 		}
 
 		ReadCommentListResponse response = new ReadCommentListResponse(readCommentDtoList);
