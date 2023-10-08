@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(BindException.class)
 	protected ApiResponse<FailureBody> handleBindException(BindException e) {
 		log.error("handleBindException", e);
-		return ApiResponseGenerator.fail(e.getMessage(), HttpStatus.BAD_REQUEST);
+		return ApiResponseGenerator.fail(e.getBindingResult(), HttpStatus.BAD_REQUEST);
 	}
 
 	/** 주로 @RequestParam enum으로 binding 못했을 경우 발생 */
