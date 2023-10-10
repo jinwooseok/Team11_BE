@@ -66,6 +66,7 @@ public class GetVoteListControllerTest {
 		ResultActions resultActions =
 				mvc.perform(
 						get("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
 								.param("sort", "current")
 								.param("active", "finish")
 								.param("category", "total"));
@@ -79,9 +80,10 @@ public class GetVoteListControllerTest {
 	public void getVoteListInMyPageByAsk_test() throws Exception {
 
 		// when
-		ResultActions resultActions = mvc.perform(get("/users/votes/ask"));
+		ResultActions resultActions =
+				mvc.perform(get("/users/votes/ask").header("Authorization", "Bearer " + jwtToken));
 
-		//        resultActions.andExpect(status().isOk());
+		resultActions.andExpect(status().isOk());
 
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
