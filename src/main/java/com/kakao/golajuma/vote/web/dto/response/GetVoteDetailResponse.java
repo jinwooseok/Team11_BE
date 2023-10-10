@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class GetVoteDetailResponse implements AbstractResponseDto {
-	VoteDto voteDto;
+	VoteDto vote;
 
 	public GetVoteDetailResponse(VoteDto voteDto) {
-		this.voteDto = voteDto;
+		this.vote = voteDto;
 	}
 }
