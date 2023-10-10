@@ -1,7 +1,6 @@
 package com.kakao.golajuma.vote.infra.entity;
 
 import com.kakao.golajuma.common.BaseEntity;
-import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +35,4 @@ public class DecisionEntity extends BaseEntity {
 
 	@Column(name = ENTITY_PREFIX + "_user_id", nullable = false)
 	private Long userId;
-
-	@Column(name = ENTITY_PREFIX + "_end_datetime", nullable = false)
-	private LocalDateTime endDateTime;
 }
