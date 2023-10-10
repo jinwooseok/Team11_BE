@@ -1,11 +1,7 @@
 package com.kakao.golajuma.vote.web.dto.request;
 
 import com.kakao.golajuma.common.marker.AbstractRequestDto;
-import com.kakao.golajuma.vote.infra.entity.Category;
-import com.kakao.golajuma.vote.infra.entity.OptionEntity;
-import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.util.OptionCheck;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -39,21 +35,6 @@ public class CreateVoteRequest implements AbstractRequestDto {
 		this.options = options;
 	}
 
-	public VoteEntity toEntity() {
-		VoteEntity vote =
-				VoteEntity.builder()
-						.userId(1)
-						.voteTotalCount(0)
-						.category(Category.findCategory(category))
-						.voteTitle(title)
-						.voteContent(content)
-						.voteType("null")
-						.voteEndDate(LocalDateTime.now().plusMinutes(timeLimit))
-						.build();
-		System.out.println(vote);
-		return vote;
-	}
-
 	@Getter
 	public static class OptionDTO {
 		private String name;
@@ -62,10 +43,6 @@ public class CreateVoteRequest implements AbstractRequestDto {
 		public OptionDTO(String name, String image) {
 			this.name = name;
 			this.image = image;
-		}
-
-		public OptionEntity toEntity(long voteId) {
-			return OptionEntity.builder().voteId(voteId).optionName(name).optionImage(image).build();
 		}
 	}
 }
