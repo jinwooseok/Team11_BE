@@ -10,7 +10,7 @@ import javax.validation.Constraint;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = OptionValidator.class)
 public @interface OptionCheck {
-	String message() default "옵션 개수는 2개 이상 6개 이상이어야 합니다.";
+	String message() default "정상 요청이 아닙니다. [옵션]";
 
 	Class<?>[] groups() default {};
 
