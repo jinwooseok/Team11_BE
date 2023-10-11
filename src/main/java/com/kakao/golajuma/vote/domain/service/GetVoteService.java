@@ -4,6 +4,7 @@ import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
 import com.kakao.golajuma.vote.infra.entity.OptionEntity;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
+import com.kakao.golajuma.vote.infra.repository.DecisionRepository;
 import com.kakao.golajuma.vote.infra.repository.OptionRepository;
 import com.kakao.golajuma.vote.web.dto.response.CountOptionDto;
 import com.kakao.golajuma.vote.web.dto.response.OptionDto;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GetVoteService {
 	private final OptionRepository optionJPARepository;
 	private final UserRepository userRepository;
+	private final DecisionRepository decisionRepository;
 
 	public VoteDto getVote(VoteEntity vote, long userId, boolean on) {
 
@@ -40,7 +42,7 @@ public class GetVoteService {
 		// case 1 : 질문자, isOwner : true, participate : false, 옵션 카운트 표시
 		// case 2 : 응답자, 참여 O, isOwner : false, participate : true, 옵션 카운트 표시
 		// case 3 : 응답자, 참여 X, isOwner : false, participate : false, 옵션 카운트 미표시
-		// 투표가 진행되고 있는 상태에서(on) 주인이 아니고, 참여하지 않았을때만 옵션 Count를 보여주지 않음
+		// 투표가 진행되고 있는 상태에서(on) && 주인이 아니고 && 참여하지 않았을때만 옵션 Count를 보여주지 않음 그냥 OptionDto
 		if (noParticipateCase(on, isOwner, participate)) {
 			for (OptionEntity option : options) {
 				OptionDto optionDto = OptionDto.makeOptionDto(option);
@@ -55,8 +57,12 @@ public class GetVoteService {
 				optionList.add(countOptionDto);
 			}
 		}
+		String category = getCategory(vote);
 
-		return VoteDto.makeDto(vote, on, user, isOwner, participate, optionList);
+		return VoteDto.makeDto(vote, user, isOwner, participate, category, optionList);
+	}
+	public String getCategory(VoteEntity vote){
+		return vote.getCategory().getCategory();
 	}
 
 	public static boolean noParticipateCase(boolean on, boolean isOwner, boolean participate) {
@@ -72,8 +78,8 @@ public class GetVoteService {
 	}
 
 	public boolean checkChoiceOption(OptionEntity option, long userId) {
-		// decision repo 탐색
-		//		return decisionRepository.existByUserIdAndOptionId(userId, option.getId());
+//		 decision repo 탐색
+//		return decisionRepository.existByUserIdAndOptionId(userId, option.getId());
 		return true;
 	}
 

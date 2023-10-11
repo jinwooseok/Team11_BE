@@ -70,6 +70,7 @@ public class GetVoteListControllerTest {
 				.andExpect(jsonPath("$.data.votes[0].endDate").hasJsonPath())
 				.andExpect(jsonPath("$.data.votes[0].active").hasJsonPath())
 				.andExpect(jsonPath("$.data.votes[0].participate").hasJsonPath())
+				.andExpect(jsonPath("$.data.votes[0].category").hasJsonPath())
 				.andExpect(jsonPath("$.data.votes[0].title").hasJsonPath())
 				.andExpect(jsonPath("$.data.votes[0].content").hasJsonPath())
 				.andExpect(jsonPath("$.data.votes[0].options").isArray())
