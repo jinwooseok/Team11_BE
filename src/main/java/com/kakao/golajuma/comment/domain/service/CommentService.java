@@ -33,9 +33,9 @@ public class CommentService {
 		// 저장
 		CommentEntity commentEntity = requestDto.toEntity(voteId, userId);
 		commentRepository.save(commentEntity);
-
+		String username = "asdf";
 		// return
-		SaveCommentResponse response = new SaveCommentResponse(commentEntity, true, 1);
+		SaveCommentResponse response = new SaveCommentResponse(commentEntity, true, username);
 		return response;
 	}
 

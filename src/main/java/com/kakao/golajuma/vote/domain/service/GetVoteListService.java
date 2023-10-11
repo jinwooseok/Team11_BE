@@ -2,11 +2,10 @@ package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.exception.RequestParamException;
 import com.kakao.golajuma.vote.infra.entity.Category;
-import com.kakao.golajuma.vote.infra.entity.OptionEntity;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.OptionJPARepository;
-import com.kakao.golajuma.vote.infra.repository.VoteJPARepository;
+import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteListResponse;
+import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -21,24 +20,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class GetVoteListService {
 
-	private final VoteJPARepository voteJPARepository;
-	private final OptionJPARepository optionJPARepository;
-	//    private final DesicionJPARepository desicionJPARepository;
+	private final VoteRepository voteJPARepository;
+	private final GetVoteService getVoteService;
 
 	static int page = 0;
 	static int size = 5;
 
 	public GetVoteListResponse.MainAndFinishPage getVoteList(
-			long idx, long totalCount, String sort, String active, String category) {
+			long userId, long idx, long totalCount, String sort, String active, String category) {
 		/*
 		투표 중 active = continue 이고, createdDate가 최신순으로 정렬하여 가져와서 보여준다
 		사용자의 id를 가져와서 참여한 투표와 참여하지 않은 투표를 다른 데이터 형식으로 반환한다.
 		*/
-		long userId = 1;
-
-		// 응답 dto
-		GetVoteListResponse.MainAndFinishPage responseBody =
-				new GetVoteListResponse.MainAndFinishPage();
 
 		// 진행중인 투표(on) or 완료된 투표 요청 판단
 		boolean on = checkActive(active);
@@ -47,49 +40,16 @@ public class GetVoteListService {
 		Slice<VoteEntity> voteList =
 				findByRepository(idx, totalCount, sort, active, checkCategory(category));
 
-		// 마지막 페이지인지 검사
-		responseBody.isLast(voteList.isLast());
-
+		List<VoteDto> votes = new ArrayList<>();
 		// 2. 각 vote 별로 vote option 을 찾는다 - slice 방식
 		for (VoteEntity vote : voteList) {
-			List<OptionEntity> options = optionJPARepository.findAllByVoteId(vote.getId());
-			boolean isOwner = isOwner(userId, vote);
-			//			boolean participate = desicionJPARepository.findByUserIdAndVoteId(userId, vote.getId());
-			boolean participate = true;
-
-			// 참여했다면 어느 옵션 id에 투표했는지 알아야함
-			List<Boolean> choiceList = checkChoiceOption(options, userId);
-
-			long voteTotalCount = vote.getVoteTotalCount();
-
-			// 투표 작성자를 보여준다면??
-			// vote.getType?? 으로 익명인지 판단
-			// 1. 익명이 아닌 경우 user repo 에서 voteUserId로 작성자의 닉네임을 가져온다
-			// 2. 익명인 경우 작성자명을 비공개처리
-
-			// 여기서 문제 완료된 페이지 요청인 경우 투표 옵션 count를 무조건 보여줘야함
-			responseBody.toDto(vote, on, isOwner, participate, voteTotalCount, options, choiceList);
+			VoteDto voteDto = getVoteService.getVote(vote, userId, on);
+			votes.add(voteDto);
 		}
+		// 마지막 페이지인지 검사
+		boolean isLast = voteList.isLast();
 
-		return responseBody;
-	}
-
-	public List<Boolean> checkChoiceOption(List<OptionEntity> options, long userId) {
-		List<Boolean> choiceList = new ArrayList<>();
-		//
-		for (OptionEntity option : options) {
-			long optionId = option.getId();
-			// decision repo 에서 확인해야함
-			//			if(decisionJPARepository.checkByUserIdAndOptionId(userId, optionId))
-			//				choiceList.add(true);
-			//			else choiceList.add(false);
-			choiceList.add(true); // dummy data
-		}
-		return choiceList;
-	}
-
-	public boolean isOwner(long userId, VoteEntity vote) {
-		return userId == vote.getUserId();
+		return new GetVoteListResponse.MainAndFinishPage(votes, isLast);
 	}
 
 	public boolean checkActive(String active) {
@@ -123,9 +83,8 @@ public class GetVoteListService {
 		throw new RequestParamException("잘못된 요청입니다.(sort)");
 	}
 
-	public GetVoteListResponse.MyPage getVoteListInMyPageByParticipate() {
+	public GetVoteListResponse.MyPage getVoteListInMyPageByParticipate(long userId) {
 		// 임의 유저값 가져옴 나중에 유효성 처리 해야함
-		long userId = 1;
 		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
 
 		// userId가 투표한 투표 리스트를 decision 레포에서 찾아야함
@@ -136,9 +95,8 @@ public class GetVoteListService {
 		return responseBody;
 	}
 
-	public GetVoteListResponse.MyPage getVoteListInMyPageByAsk() {
+	public GetVoteListResponse.MyPage getVoteListInMyPageByAsk(long userId) {
 		// 임의 유저값 가져옴 나중에 유효성 처리 해야함
-		long userId = 1;
 		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
 
 		// userId가 올린 투표를 가져옴

@@ -18,10 +18,11 @@ import org.springframework.test.web.servlet.ResultActions;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class GetVoteListControllerTest {
+public class GetVoteDetailControllerTest {
 
 	@Autowired private ObjectMapper om;
 	@Autowired private MockMvc mvc;
+
 	@Autowired private UserRepository userRepository;
 	@Autowired private TokenProvider tokenProvider;
 	private String jwtToken;
@@ -39,52 +40,15 @@ public class GetVoteListControllerTest {
 		userRepository.save(user);
 	}
 
-	@DisplayName("메인페이지 투표 조회 정상 요청")
+	@DisplayName("투표 상세 조회 정상 요청")
 	@Test
-	public void getVoteList_test() throws Exception {
-
+	public void getVoteDetail_test() throws Exception {
+		// given
+		long voteId = 1;
 		// when
 		ResultActions resultActions =
-				mvc.perform(
-						get("/votes")
-								.header("Authorization", "Bearer " + jwtToken)
-								.param("idx", "5")
-								.param("sort", "current")
-								.param("active", "continue")
-								.param("category", "total"));
+				mvc.perform(get("/vote/" + voteId).header("Authorization", "Bearer " + jwtToken));
 		resultActions.andExpect(status().isOk());
-		// eye
-		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-		System.out.println("테스트 : " + responseBody);
-	}
-
-	@DisplayName("완료된 페이지 조회 정상 요청")
-	@Test
-	public void getVoteList_finishPage_test() throws Exception {
-
-		// when
-		ResultActions resultActions =
-				mvc.perform(
-						get("/votes")
-								.header("Authorization", "Bearer " + jwtToken)
-								.param("sort", "current")
-								.param("active", "finish")
-								.param("category", "total"));
-		resultActions.andExpect(status().isOk());
-		// eye
-		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-		System.out.println("테스트 : " + responseBody);
-	}
-
-	@Test
-	public void getVoteListInMyPageByAsk_test() throws Exception {
-
-		// when
-		ResultActions resultActions =
-				mvc.perform(get("/users/votes/ask").header("Authorization", "Bearer " + jwtToken));
-
-		resultActions.andExpect(status().isOk());
-
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
