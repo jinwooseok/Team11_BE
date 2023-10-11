@@ -1,6 +1,7 @@
 package com.kakao.golajuma.vote.infra.entity;
 
 import com.kakao.golajuma.common.BaseEntity;
+import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
@@ -65,6 +66,20 @@ public class VoteEntity extends BaseEntity {
 		this.voteContent = voteContent;
 		this.voteEndDate = voteEndDate;
 		this.voteType = voteType;
+	}
+
+	public static VoteEntity createEntity(CreateVoteRequest request, long userId) {
+		VoteEntity vote =
+				VoteEntity.builder()
+						.userId(userId)
+						.voteTotalCount(0)
+						.category(Category.findCategory(request.getCategory()))
+						.voteTitle(request.getTitle())
+						.voteContent(request.getContent())
+						.voteType("null")
+						.voteEndDate(LocalDateTime.now().plusMinutes(request.getTimeLimit()))
+						.build();
+		return vote;
 	}
 
 	public boolean isOwner(long userId) {

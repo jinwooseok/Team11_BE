@@ -12,15 +12,12 @@ public class GetVoteListResponse implements AbstractResponseDto {
 
 	@Getter
 	public static class MainAndFinishPage {
-		List<VoteDto> votes = new ArrayList<>();
+		List<VoteDto> votes;
 		Boolean isLast;
 
-		public void isLast(boolean isLast) {
+		public MainAndFinishPage(List<VoteDto> votes, boolean isLast) {
+			this.votes = votes;
 			this.isLast = isLast;
-		}
-
-		public void addVote(VoteDto voteDto) {
-			this.votes.add(voteDto);
 		}
 	}
 

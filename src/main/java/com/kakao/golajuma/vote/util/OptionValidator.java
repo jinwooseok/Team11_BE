@@ -1,5 +1,7 @@
 package com.kakao.golajuma.vote.util;
 
+import com.kakao.golajuma.vote.domain.exception.NullException;
+import com.kakao.golajuma.vote.domain.exception.OptionNumException;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import java.util.List;
 import java.util.Objects;
@@ -16,16 +18,26 @@ public class OptionValidator
 	public boolean isValid(
 			List<CreateVoteRequest.OptionDTO> value, ConstraintValidatorContext context) {
 		Objects.requireNonNull(value);
-		for (CreateVoteRequest.OptionDTO option : value) {
-			if (option.getName() == null) {
-				// 기존 메세지 비활성화
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate("옵션 이름을 입력해주세요.").addConstraintViolation();
-				//                context.
-				// 새로운 메세지 추가
-				return false;
-			}
+		if (checkOptionName(value)) {
+			throw new NullException("옵션명은 필수입니다.");
 		}
-		return value.size() >= MIN_NUM && value.size() <= MAX_NUM;
+		if (checkOptionNum(value)) {
+			// TODO : HV000028: Unexpected exception during isValid call 에러 해결해야함
+			throw new OptionNumException("옵션 개수는 2개 이상 6개 이하여야 합니다.");
+		}
+		return true;
+	}
+
+	public boolean checkOptionName(List<CreateVoteRequest.OptionDTO> value) {
+		return value.stream().anyMatch(this::isNull);
+	}
+
+	public boolean isNull(CreateVoteRequest.OptionDTO value) {
+		return value.getName() == null;
+	}
+
+	public boolean checkOptionNum(List<CreateVoteRequest.OptionDTO> value) {
+		int size = value.size();
+		return size < MIN_NUM || size > MAX_NUM;
 	}
 }

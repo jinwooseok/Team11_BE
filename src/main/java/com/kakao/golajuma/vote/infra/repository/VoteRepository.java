@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface VoteJPARepository extends JpaRepository<VoteEntity, Integer> {
+public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 
 	@Query(
 			"select v from VoteEntity v where v.deleted = false and v.id < :idx and v.voteActive = :active and v.category = :category ORDER BY v.createdDate desc ")

@@ -1,6 +1,7 @@
 package com.kakao.golajuma.vote.infra.entity;
 
 import com.kakao.golajuma.common.BaseEntity;
+import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -41,5 +42,13 @@ public class OptionEntity extends BaseEntity {
 		this.optionName = optionName;
 		this.optionImage = optionImage;
 		this.optionCount = 0;
+	}
+
+	public static OptionEntity createEntity(CreateVoteRequest.OptionDTO request, long voteId) {
+		return OptionEntity.builder()
+				.voteId(voteId)
+				.optionName(request.getName())
+				.optionImage(request.getImage())
+				.build();
 	}
 }
