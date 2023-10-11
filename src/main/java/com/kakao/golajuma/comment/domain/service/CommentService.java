@@ -29,6 +29,7 @@ public class CommentService {
 		// 1. 투표한 유저인지 확인 -decision이 나와야함
 		// decisionRepository.findByUserIdVoteId(voteId,userId).orElseThrow(new NoDecisionException("투표
 		// 후에 가능합니다.", HttpStatus.UNAUTHORIZED));
+
 		// 저장
 		CommentEntity commentEntity = requestDto.toEntity(voteId, userId);
 		commentRepository.save(commentEntity);

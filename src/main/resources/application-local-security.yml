@@ -1,4 +1,3 @@
-
 spring:
   config:
     activate:
@@ -12,4 +11,3 @@ security:
         validTime: 1800000
       refresh:
         validTime: 3600000
-
