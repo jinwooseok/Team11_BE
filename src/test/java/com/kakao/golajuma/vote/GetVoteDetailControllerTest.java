@@ -1,6 +1,7 @@
 package com.kakao.golajuma.vote;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,9 +49,32 @@ public class GetVoteDetailControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(get("/vote/" + voteId).header("Authorization", "Bearer " + jwtToken));
-		resultActions.andExpect(status().isOk());
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.data").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.id").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.username").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.isOwner").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.totalCount").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.createdDate").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.endDate").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.active").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.participate").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.title").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.content").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.options").isArray())
+				.andExpect(jsonPath("$.data.vote.options[0].id").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.options[0].name").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.options[0].image").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.options[0].choice").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.options[0].count").hasJsonPath())
+				.andExpect(jsonPath("$.data.vote.options[0].ratio").hasJsonPath())
+				.andExpect(jsonPath("$.message").hasJsonPath());
 	}
 }

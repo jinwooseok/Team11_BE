@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @SuperBuilder(toBuilder = true)
-@Entity(name = DecisionEntity.ENTITY_PREFIX + "_entity")
+@Entity
 @Table(name = DecisionEntity.ENTITY_PREFIX + "_tb")
 public class DecisionEntity extends BaseEntity {
 
@@ -30,8 +30,8 @@ public class DecisionEntity extends BaseEntity {
 	@Column(name = ENTITY_PREFIX + "_id")
 	private Long id;
 
-	@Column(name = ENTITY_PREFIX + "_vote_id", nullable = false)
-	private Long voteId;
+	@Column(name = ENTITY_PREFIX + "_option_id", nullable = false)
+	private Long optionId;
 
 	@Column(name = ENTITY_PREFIX + "_user_id", nullable = false)
 	private Long userId;

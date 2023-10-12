@@ -1,7 +1,5 @@
 package com.kakao.golajuma.vote.util;
 
-import com.kakao.golajuma.vote.domain.exception.NullException;
-import com.kakao.golajuma.vote.domain.exception.OptionNumException;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import java.util.List;
 import java.util.Objects;
@@ -19,11 +17,12 @@ public class OptionValidator
 			List<CreateVoteRequest.OptionDTO> value, ConstraintValidatorContext context) {
 		Objects.requireNonNull(value);
 		if (checkOptionName(value)) {
-			throw new NullException("옵션명은 필수입니다.");
+			addConstraintViolation(context, "옵션명은 필수입니다.");
+			return false;
 		}
 		if (checkOptionNum(value)) {
-			// TODO : HV000028: Unexpected exception during isValid call 에러 해결해야함
-			throw new OptionNumException("옵션 개수는 2개 이상 6개 이하여야 합니다.");
+			addConstraintViolation(context, "옵션 개수는 2개 이상 6개 이하여야 합니다.");
+			return false;
 		}
 		return true;
 	}
@@ -39,5 +38,12 @@ public class OptionValidator
 	public boolean checkOptionNum(List<CreateVoteRequest.OptionDTO> value) {
 		int size = value.size();
 		return size < MIN_NUM || size > MAX_NUM;
+	}
+
+	private void addConstraintViolation(ConstraintValidatorContext context, String errorMessage) {
+		// 기본 에러 메시지 비활성화
+		context.disableDefaultConstraintViolation();
+		// 새로운 에러 메시지 추가 
+		context.buildConstraintViolationWithTemplate(errorMessage).addConstraintViolation();
 	}
 }
