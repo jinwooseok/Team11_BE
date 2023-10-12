@@ -23,14 +23,20 @@ public class VoteDto implements AbstractResponseDto {
 	private String content;
 	private List<? super OptionDto> options = new ArrayList<>();
 
-	public VoteDto(VoteEntity vote, String username, boolean isOwner, boolean participate, String category) {
+	public VoteDto(
+			VoteEntity vote,
+			String username,
+			String active,
+			boolean isOwner,
+			boolean participate,
+			String category) {
 		this.id = vote.getId();
 		this.username = username;
 		this.isOwner = isOwner;
 		this.totalCount = vote.getVoteTotalCount();
 		this.createdDate = vote.getCreatedDate();
 		this.endDate = vote.getVoteEndDate();
-		this.active = vote.getVoteActive();
+		this.active = active;
 		this.participate = participate;
 		this.category = category;
 		this.title = vote.getVoteTitle();
@@ -40,11 +46,13 @@ public class VoteDto implements AbstractResponseDto {
 	public static VoteDto makeDto(
 			VoteEntity vote,
 			UserEntity username,
+			String active,
 			boolean isOwner,
 			boolean participate,
 			String category,
 			List<? super OptionDto> options) {
-		VoteDto voteDto = new VoteDto(vote, username.getNickname(), isOwner, participate, category);
+		VoteDto voteDto =
+				new VoteDto(vote, username.getNickname(), active, isOwner, participate, category);
 
 		voteDto.addOption(options);
 

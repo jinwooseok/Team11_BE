@@ -2,6 +2,7 @@ package com.kakao.golajuma.vote.infra.repository;
 
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -12,18 +13,54 @@ import org.springframework.data.repository.query.Param;
 public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 
 	@Query(
-			"select v from VoteEntity v where v.deleted = false and v.id < :idx and v.voteActive = :active and v.category = :category ORDER BY v.createdDate desc ")
-	Slice<VoteEntity> findAllByActiveAndCategoryOrderByCreatedDate(
+			"select v from VoteEntity v"
+					+ " where v.deleted = false"
+					+ " and v.voteEndDate > :now"
+					+ " and v.id < :idx"
+					+ " and v.category = :category"
+					+ " ORDER BY v.createdDate desc ")
+	Slice<VoteEntity> findAllContinueVotesOrderByCreatedDate(
 			@Param("idx") long idx,
-			@Param("active") String active,
+			@Param("now") LocalDateTime now,
 			@Param("category") Category category,
 			Pageable pageable);
 
 	@Query(
-			"select v from VoteEntity v where v.deleted = false and v.voteTotalCount < :totalCount and v.voteActive = :active and v.category = :category ORDER BY v.voteTotalCount desc ")
-	Slice<VoteEntity> findAllByActiveAndCategoryOrderByVoteTotalCount(
-			@Param("totalCount") long idx,
-			@Param("active") String active,
+			"select v from VoteEntity v"
+					+ " where v.deleted = false"
+					+ " and v.voteEndDate > :now"
+					+ " and v.voteTotalCount < :totalCount"
+					+ " and v.category = :category"
+					+ " ORDER BY v.voteTotalCount desc ")
+	Slice<VoteEntity> findAllContinueVotesOrderByVoteTotalCount(
+			@Param("totalCount") long totalCount,
+			@Param("now") LocalDateTime now,
+			@Param("category") Category category,
+			Pageable pageable);
+
+	@Query(
+			"select v from VoteEntity v"
+					+ " where v.deleted = false"
+					+ " and v.voteEndDate < :now"
+					+ " and v.id < :idx"
+					+ " and v.category = :category"
+					+ " ORDER BY v.createdDate desc ")
+	Slice<VoteEntity> findAllFinishVotesOrderByCreatedDate(
+			@Param("idx") long idx,
+			@Param("now") LocalDateTime now,
+			@Param("category") Category category,
+			Pageable pageable);
+
+	@Query(
+			"select v from VoteEntity v"
+					+ " where v.deleted = false"
+					+ " and v.voteEndDate < :now"
+					+ " and v.voteTotalCount < :totalCount"
+					+ " and v.category = :category"
+					+ " ORDER BY v.voteTotalCount desc ")
+	Slice<VoteEntity> findAllFinishVotesOrderByVoteTotalCount(
+			@Param("totalCount") long totalCount,
+			@Param("now") LocalDateTime now,
 			@Param("category") Category category,
 			Pageable pageable);
 
