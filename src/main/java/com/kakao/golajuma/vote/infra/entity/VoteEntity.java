@@ -41,6 +41,10 @@ public class VoteEntity extends BaseEntity {
 	@Column(name = ENTITY_PREFIX + "_end_date", nullable = false)
 	private LocalDateTime voteEndDate;
 
+	@Builder.Default
+	@Column(name = ENTITY_PREFIX + "_active", nullable = false)
+	private String voteActive = "continue";
+
 	@Column(name = ENTITY_PREFIX + "_type")
 	private String voteType;
 
