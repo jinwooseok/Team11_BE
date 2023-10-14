@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -29,16 +30,19 @@ public class UpdateCommentApiTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						MockMvcRequestBuilders.post("/votes/1/comments/1")
+						MockMvcRequestBuilders.patch("/votes/1/comments/1")
 								.content(requestBody)
 								.contentType(MediaType.APPLICATION_JSON));
 
-		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-
-		System.out.println("테스트 : " + responseBody);
-
 		// then
-		//        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value("true"));
-		//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+		resultActions
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.data.id").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.data.isOwner").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.data.username").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.data.content").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.message").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.code").hasJsonPath());
 	}
 }

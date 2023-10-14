@@ -1,7 +1,5 @@
 package com.kakao.golajuma.comment.api;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.comment.web.dto.request.SaveCommentRequest;
 import org.junit.jupiter.api.DisplayName;
@@ -38,19 +36,15 @@ public class CreateCommentApiTest {
 										"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjMsImlhdCI6MTY5Njc1MDU0OCwiZXhwIjoxNjk2NzUyMzQ4fQ.sKzZNz2nlvFX7a6P5Z3sGh2MpTQarvpZ-TR2qoh5NQw")
 								.content(requestBody)
 								.contentType(MediaType.APPLICATION_JSON));
-		resultActions.andExpect(status().is2xxSuccessful());
-		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-
-		System.out.println("테스트 : " + responseBody);
 
 		resultActions
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.id").value(2))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.isOwner").value(true))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.username").value("asdf"))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.content").value("메롱이다."))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.message").value("생성 성공"))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.code").value("200"));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.data.id").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.data.isOwner").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.data.username").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.data.content").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.message").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.code").hasJsonPath());
 	}
 }

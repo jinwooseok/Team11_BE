@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -23,11 +24,13 @@ public class DeleteCommentApiTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						MockMvcRequestBuilders.post("/votes/1/comments/1")
+						MockMvcRequestBuilders.delete("/votes/1/comments/1")
 								.contentType(MediaType.APPLICATION_JSON));
 
-		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-
-		System.out.println("테스트 : " + responseBody);
+		resultActions
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.message").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.code").hasJsonPath());
 	}
 }
