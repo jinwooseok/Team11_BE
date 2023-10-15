@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = VoteEntity.ENTITY_PREFIX + "_tb")
+@Table(name = VoteEntity.ENTITY_PREFIX)
 public class VoteEntity extends BaseEntity {
 
 	public static final String ENTITY_PREFIX = "vote";
@@ -20,10 +20,10 @@ public class VoteEntity extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = ENTITY_PREFIX + "_id", nullable = false)
-	private long id;
+	private Long id;
 
 	@Column(name = "user_id", nullable = false)
-	private long userId;
+	private Long userId;
 
 	@Column(name = ENTITY_PREFIX + "_total_count", nullable = false)
 	private long voteTotalCount;
@@ -40,10 +40,6 @@ public class VoteEntity extends BaseEntity {
 
 	@Column(name = ENTITY_PREFIX + "_end_date", nullable = false)
 	private LocalDateTime voteEndDate;
-
-	@Builder.Default
-	@Column(name = ENTITY_PREFIX + "_active", nullable = false)
-	private String voteActive = "continue";
 
 	@Column(name = ENTITY_PREFIX + "_type")
 	private String voteType;
@@ -66,6 +62,14 @@ public class VoteEntity extends BaseEntity {
 		this.voteContent = voteContent;
 		this.voteEndDate = voteEndDate;
 		this.voteType = voteType;
+	}
+
+	public String checkActive() {
+		LocalDateTime now = LocalDateTime.now();
+		if (voteEndDate.isBefore(now)) {
+			return "finish";
+		}
+		return "continue";
 	}
 
 	public static VoteEntity createEntity(CreateVoteRequest request, long userId) {

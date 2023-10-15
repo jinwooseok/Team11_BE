@@ -14,11 +14,10 @@ public interface HotVoteRepository extends JpaRepository<VoteEntity, Long> {
 					+ "FROM VoteEntity v "
 					+ "JOIN OptionEntity o ON o.voteId = v.id "
 					+ "JOIN DecisionEntity d ON o.id = d.optionId "
-					+ "WHERE d.updatedDate >= :startTime AND d.updatedDate < :endTime AND v.deleted = false and v.voteActive = :active "
+					+ "WHERE d.updatedDate >= :startTime AND d.updatedDate < :endTime AND v.deleted = false "
 					+ "GROUP BY v.id "
 					+ "ORDER BY count(d.id) DESC")
 	Slice<VoteEntity> read(
-			@Param("active") String active,
 			@Param("endTime") LocalDateTime endTime,
 			@Param("startTime") LocalDateTime startTime,
 			Pageable pageable);

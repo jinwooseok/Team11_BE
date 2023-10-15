@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(name = ENTITY_PREFIX + "_tb")
+@Table(name = ENTITY_PREFIX)
 public class CommentEntity extends BaseEntity {
 
 	public static final String ENTITY_PREFIX = "comment";
