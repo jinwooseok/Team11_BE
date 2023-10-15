@@ -2,7 +2,9 @@ package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.exception.RequestParamException;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
+import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteDetailResponse;
+import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,20 +22,21 @@ public class GetVoteDetailService {
 		VoteEntity vote = voteJPARepository.findById(voteId);
 
 		// 투표 진행 상태
-		boolean on = checkActive(vote.getVoteActive());
+		boolean on = checkActive(vote);
 
 		VoteDto voteDto = getVoteService.getVote(vote, userId, on);
 
 		return new GetVoteDetailResponse(voteDto);
 	}
 
-	public boolean checkActive(String active) {
-		if (active.equals("continue")) {
+	public boolean checkActive(VoteEntity vote) {
+		if (vote.checkActive() == "continue") {
 			return true;
 		}
-		if (active.equals("finish")) {
+		if (vote.checkActive() == "finish") {
 			return false;
 		}
+
 		throw new RequestParamException("잘못된 요청입니다.(active)");
 	}
 }
