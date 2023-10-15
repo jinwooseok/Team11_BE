@@ -1,13 +1,36 @@
 use golajuma;
 INSERT INTO user (user_id, user_nickname, user_email, user_password, created_date, updated_date, deleted)
 VALUES
-    (1, "진우석","jws@gmail.com","$2a$10$7eEORrZ6", "2023-10-15 14:43:01.696000", "2023-10-15 14:43:01.696000",false);
-
+    (1, "진우석","jws@gmail.com","asdf1234", NOW(), NOW(),false),
+    (2, "문지혜","mjh@gmail.com","asdf1234", NOW(), NOW(),false),
+    (3, "박현수","phs@gmail.com","asdf1234", NOW(), NOW(),false),
+    (4, "김수민","ksm@gmail.com","asdf1234", NOW(), NOW(),false),
+    (5, "강성준","kky@gmail.com","asdf1234", NOW(), NOW(),false),
+    (6, "김가연","ksj@gmail.com","asdf1234", NOW(), NOW(),false),
+    (7, "유리", "yuri@gmail.com", "password1", NOW(), NOW(), false),
+    (8, "태호", "taeho@gmail.com", "password2", NOW(), NOW(), false),
+    (9, "지은", "jieun@gmail.com", "password3", NOW(), NOW(), false),
+    (10, "민재", "minjae@gmail.com", "password4", NOW(), NOW(), false),
+    (11, "예린", "yerin@gmail.com", "password5", NOW(), NOW(), false),
+    (12, "성민", "seongmin@gmail.com", "password6", NOW(), NOW(), false),
+    (13, "지훈", "jihun@gmail.com", "password7", NOW(), NOW(), false),
+    (14, "민지", "minji@gmail.com", "password8", NOW(), NOW(), false),
+    (15, "준호", "junho@gmail.com", "password9", NOW(), NOW(), false),
+    (16, "유진", "yujin@gmail.com", "password10", NOW(), NOW(), false),
+    (17, "동현", "donghyun@gmail.com", "password11", NOW(), NOW(), false),
+    (18, "지우", "jiwoo@gmail.com", "password12", NOW(), NOW(), false),
+    (19, "은지", "eunji@gmail.com", "password13", NOW(), NOW(), false),
+    (20, "재원", "jaewon@gmail.com", "password14", NOW(), NOW(), false),
+    (21, "서연", "seoyeon@gmail.com", "password15", NOW(), NOW(), false),
+    (22, "민우", "minwoo@gmail.com", "password16", NOW(), NOW(), false),
+    (23, "가온", "gaon@gmail.com", "password17", NOW(), NOW(), false),
+    (24, "윤호", "yunho@gmail.com", "password18", NOW(), NOW(), false),
+    (25, "서윤", "seoyun@gmail.com", "password19", NOW(), NOW(), false);
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (1, 1,"product", "축제 때 어떤 옷 입고갈까?", "낼모레 축제인데 츄리닝은 오바지?",
-        "2023-10-20","continue","기본",NOW(), NOW(),false, 20);
+                     vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
+VALUES (1, 1,"TOTAL", "축제 때 어떤 옷 입고갈까?", "낼모레 축제인데 츄리닝은 오바지?",
+        "2023-10-20","기본",NOW(), NOW(),false, 20);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (1, "캐쥬얼한 조끼니트",5,1,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (2, "힙합!",10,1,"default",NOW(), NOW(),false);
@@ -45,9 +68,9 @@ INSERT INTO decision_tb (created_date, deleted, updated_date, decision_user_id, 
 INSERT INTO decision_tb (created_date, deleted, updated_date, decision_user_id, decision_option_id) VALUES ('2023-10-11 12:34:56.789', false, '2023-10-11 12:34:56.789', 20, 3);
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (2, 2,"video", "넷플릭스 뭐 볼지 추천 좀 ㅠㅠ", "재밌는게 너무 많앙",
-        "2023-10-20","continue","기본",NOW(), NOW(),false,8);
+                     vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
+VALUES (2, 2,"MOVIE", "넷플릭스 뭐 볼지 추천 좀 ㅠㅠ", "재밌는게 너무 많앙",
+        "2023-10-20","기본",NOW(), NOW(),false,8);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (4,"무서운이야기",5,2,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (5,"오징어게임3",3,2,"default",NOW(), NOW(),false);
@@ -68,9 +91,9 @@ INSERT INTO decision_tb (created_date, deleted, updated_date, decision_user_id, 
 
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (3, 2,"doing", "학교가기싫다", "ㅇㅈ?",
-        "2023-10-20","continue","기본",NOW(), NOW(),false,10);
+                     vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
+VALUES (3, 2,TOTAL"total", "학교가기싫다", "ㅇㅈ?",
+        "2023-10-20","기본",NOW(), NOW(),false,10);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (6,"갈까?",0,3,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (7,"말까?",10,3,"default",NOW(), NOW(),false);
@@ -94,9 +117,9 @@ INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_co
 INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_content, created_date, updated_date, deleted) VALUES (14,3,1,"윗댓아 출근하자..",NOW(), NOW(),false);
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted,vote_total_count)
-VALUES (4, 3,"food", "여자친구랑 데이트 뭐 먹을까요?", "넷 중에 하나로 갈 예정임",
-        "2023-10-20","continue","기본",NOW(), NOW(),false, 12);
+                     vote_end_date, vote_type, created_date, updated_date, deleted,vote_total_count)
+VALUES (4, 3,"FOOD", "여자친구랑 데이트 뭐 먹을까요?", "넷 중에 하나로 갈 예정임",
+        "2023-10-20","기본",NOW(), NOW(),false, 12);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (8,"짜이나궁",1,4,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (9,"라쿵푸마라탕",2,4,"default",NOW(), NOW(),false);
@@ -125,9 +148,9 @@ INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_co
 INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_content, created_date, updated_date, deleted) VALUES (19,4,1,"그..여친이 전대생이면 로니로티는 좀 질려할듯",NOW(), NOW(),false);
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (5, 1,"consult", "군대..가야하나?", "이제 대학교 2학년 올라가는데 군대를 가야할지 말아야할지 고민이에요.. 사실 얼마 안 된 여친이 있는데 헤어지기 너무 싫어요",
-        "2023-9-27","finish","기본",NOW(), NOW(),false, 6);
+                     vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
+VALUES (5, 4,"TOTAL", "군대..가야하나?", "이제 대학교 2학년 올라가는데 군대를 가야할지 말아야할지 고민이에요.. 사실 얼마 안 된 여친이 있는데 헤어지기 너무 싫어요",
+        "2023-9-27","기본",NOW(), NOW(),false, 6);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (12,"걍 가라",5,5,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (13,"가지마라",1,5,"default",NOW(), NOW(),false);
@@ -146,9 +169,9 @@ INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_co
 INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_content, created_date, updated_date, deleted) VALUES (23,5,2,"사귄지 얼마 안된거면 일말상초도 아님 요즘엔 훈말이초임",NOW(), NOW(),false);
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (6, 3,"consult", "대학원엘 갈지 취업을 해서 경험을 먼저 쌓을지가 고민입니다", "취업하기가 무섭다 애들아..",
-        "2023-10-20","continue","기본",NOW(), NOW(),false, 10);
+                     vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
+VALUES (6, 3,"TOTAL", "대학원엘 갈지 취업을 해서 경험을 먼저 쌓을지가 고민입니다", "취업하기가 무섭다 애들아..",
+        "2023-10-20","기본",NOW(), NOW(),false, 10);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (14,"대학원",0,6,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (15,"취업",10,6,"default",NOW(), NOW(),false);
@@ -172,9 +195,9 @@ INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_co
 INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_content, created_date, updated_date, deleted) VALUES (28,6,3,"이 투표는 전국대학원생협회에서 점령했습니다",NOW(), NOW(),false);
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (7, 1,"doing", "과제를 지금 할까 말까", "오늘 12시까지인데 하기 너무 싫어 ㅠㅠ",
-        "2023-09-26","finish","기본",NOW(), NOW(),false,6);
+                     vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
+VALUES (7, 1,"WHAT", "과제를 지금 할까 말까", "오늘 12시까지인데 하기 너무 싫어 ㅠㅠ",
+        "2023-09-26","기본",NOW(), NOW(),false,6);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (16,"지금 하자",3,7,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (17,"좀만 놀다 하자",3,7,"default",NOW(), NOW(),false);
@@ -198,10 +221,10 @@ INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_co
 INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_content, created_date, updated_date, deleted) VALUES (32,7,4,"방금알았어요 ㅜㅜ",NOW(), NOW(),false);
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (8, 1,"consult", "제가 팔랑귀인지 고민이에요", "그 종종 다른 사람들이 이 수업 좋다좋다 하길래 다 하는데..지금 그래서 이번학기에 경제, 컴공, 심리 강의 다
+                     vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
+VALUES (8, 1,"TOTAL", "제가 팔랑귀인지 고민이에요", "그 종종 다른 사람들이 이 수업 좋다좋다 하길래 다 하는데..지금 그래서 이번학기에 경제, 컴공, 심리 강의 다
 듣게 됐거든..이거 팔랑귀야?",
-        "2023-10-20","continue","기본",NOW(), NOW(),false, 0);
+        "2023-10-20","기본",NOW(), NOW(),false, 0);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (19,"맞다",0,8,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (20,"그럴 수 있다",0,8,"default",NOW(), NOW(),false);
@@ -213,9 +236,9 @@ INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_co
 
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (9, 2,"product", "컴활 딸까 말까?", "컴활 진짜 중요해? 따는거 추천함?",
-        "2023-10-20","continue","기본",NOW(), NOW(),false, 8);
+                     vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
+VALUES (9, 2,"TOTAL", "컴활 딸까 말까?", "컴활 진짜 중요해? 따는거 추천함?",
+        "2023-10-20","기본",NOW(), NOW(),false, 8);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (21,"딴다",4,9,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (22,"그걸 왜 함",4,9,"default",NOW(), NOW(),false);
@@ -236,10 +259,10 @@ INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_co
 INSERT INTO comment_tb (comment_id, comment_vote_id, comment_user_id, comment_content, created_date, updated_date, deleted) VALUES (39,9,3,"그걸 왜 함 까지는 아닌데 굳이싶기는 함",NOW(), NOW(),false);
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
-                     vote_end_date, vote_active, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (10, 3,"product", "어떤 이성이 더 좋은 이성인가..", "성격은 진짜 잘 맞는데 내 스탈은 아닌 동생이 있고 이번에 소개팅나갔는데 얼굴은 예쁘신데 난 조용한걸
+                     vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
+VALUES (10, 3,"TOTAL", "어떤 이성이 더 좋은 이성인가..", "성격은 진짜 잘 맞는데 내 스탈은 아닌 동생이 있고 이번에 소개팅나갔는데 얼굴은 예쁘신데 난 조용한걸
 별로 안좋아해서..",
-        "2023-10-20","continue","기본",NOW(), NOW(),false,11);
+        "2023-10-20"    ,"기본",NOW(), NOW(),false,11);
 
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (23,"전자",3,10,"default",NOW(), NOW(),false);
 INSERT INTO option_tb (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (24,"후자",8,10,"default",NOW(), NOW(),false);

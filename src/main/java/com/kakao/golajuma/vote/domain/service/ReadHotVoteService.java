@@ -1,10 +1,11 @@
 package com.kakao.golajuma.vote.domain.service;
 
+import com.kakao.golajuma.vote.domain.exception.RequestParamException;
 import com.kakao.golajuma.vote.infra.entity.OptionEntity;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.HotVoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteListResponse;
-
+import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +24,16 @@ public class ReadHotVoteService {
 	private final HotVoteRepository hotVoteRepository;
 	private final GetVoteService getVoteService;
 
-	public GetVoteListResponse.MainAndFinishPage read(long userId, String active) {
-		// 진행중인 투표(on) or 완료된 투표 요청 판단
-		boolean on = true;
+	public GetVoteListResponse.MainAndFinishPage read(long userId) {
 
 		// 1. vote list 를 가져온다
-		Slice<VoteEntity> voteList = findByRepository(active);
+		Slice<VoteEntity> voteList = findByRepository();
 		System.out.println(voteList);
 		List<VoteDto> votes = new ArrayList<>();
 
 		// 2. 각 vote 별로 vote option 을 찾는다 - slice 방식
 		for (VoteEntity vote : voteList) {
+			boolean on = checkActive(vote);
 			VoteDto voteDto = getVoteService.getVote(vote, userId, on);
 			votes.add(voteDto);
 		}
@@ -58,7 +58,18 @@ public class ReadHotVoteService {
 		return choiceList;
 	}
 
-	public Slice<VoteEntity> findByRepository(String active) {
+	public boolean checkActive(VoteEntity vote) {
+		if (vote.checkActive() == "continue") {
+			return true;
+		}
+		if (vote.checkActive() == "finish") {
+			return false;
+		}
+
+		throw new RequestParamException("잘못된 요청입니다.(active)");
+	}
+
+	public Slice<VoteEntity> findByRepository() {
 		LocalDateTime startTime;
 		LocalDateTime endTime;
 
@@ -66,6 +77,6 @@ public class ReadHotVoteService {
 		endTime = startTime.plusHours(1);
 		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(1, 10);
-		return hotVoteRepository.read(active, endTime, startTime, pageable);
+		return hotVoteRepository.read(endTime, startTime, pageable);
 	}
 }

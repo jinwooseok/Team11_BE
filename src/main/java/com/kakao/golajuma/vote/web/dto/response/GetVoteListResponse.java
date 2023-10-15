@@ -40,9 +40,10 @@ public class GetVoteListResponse implements AbstractResponseDto {
 		}
 
 		public VoteListDto voteToDto(VoteEntity vote) {
+			String active = vote.checkActive();
 			return VoteListDto.builder()
 					.id(vote.getId())
-					.active(vote.getVoteActive())
+					.active(active)
 					.title(vote.getVoteTitle())
 					.build();
 		}
