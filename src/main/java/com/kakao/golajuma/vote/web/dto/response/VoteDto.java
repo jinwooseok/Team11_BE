@@ -55,7 +55,6 @@ public class VoteDto implements AbstractResponseDto {
 		for (Object option : options) {
 			if (option instanceof OptionDto) this.options.add((OptionDto) option);
 			if (option instanceof CountOptionDto) this.options.add((CountOptionDto) option);
-
 		}
 	}
 }
