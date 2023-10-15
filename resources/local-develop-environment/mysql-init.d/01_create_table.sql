@@ -36,7 +36,7 @@ create table option_tb
     option_vote_id bigint       not null
 );
 
-create table user_entity
+create table user
 (
     user_id       bigint auto_increment
         primary key,
@@ -48,7 +48,7 @@ create table user_entity
     user_password varchar(255) not null
 );
 
-create table auth_info_entity
+create table auth_info
 (
     auth_info_id    bigint auto_increment
         primary key,
@@ -57,9 +57,7 @@ create table auth_info_entity
     updated_date    datetime(6)  not null,
     auth_info_token varchar(255) not null,
     auth_info_type  varchar(255) not null,
-    user_id         bigint       null,
-    constraint FKh6sbxhkdcpohqbb8o42r34h1p
-        foreign key (user_id) references user_entity (user_id)
+    user_id         bigint       null
 );
 
 create table vote_tb
