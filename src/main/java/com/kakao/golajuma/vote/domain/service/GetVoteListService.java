@@ -129,5 +129,7 @@ public class GetVoteListService {
 		responseBody.toDto(voteList);
 
 		return responseBody;
+
+
 	}
 }

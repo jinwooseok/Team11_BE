@@ -70,6 +70,8 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 
 	VoteEntity findById(long id);
 
+
+
 	//	// 검색 기능
 	//	@Query("select v from VoteEntity v where v.deleted = false and v.voteTitle like %:keyword%
 	// order by v.createdDate desc ")
