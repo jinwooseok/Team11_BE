@@ -24,7 +24,6 @@ public class OptionValidator
 			addConstraintViolation(context, "옵션 개수는 2개 이상 6개 이하여야 합니다.");
 			return false;
 		}
-
 		return true;
 	}
 
