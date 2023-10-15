@@ -2,9 +2,7 @@ package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.exception.RequestParamException;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteDetailResponse;
-import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
