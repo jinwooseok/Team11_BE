@@ -34,23 +34,16 @@ public class GetVoteService {
 
 		boolean isOwner = vote.isOwner(userId);
 
-		String active;
-		if (on) {
-			active = "continue";
-		} else {
-			active = "finish";
-		}
-
 		List<? super OptionDto> optionList = new ArrayList<>();
 		// 참여했는지 여부 판단
-		List<Boolean> choiceList = checkChoiceOptions(options, userId);
+		List<Boolean> choiceList = checkOptions(options, userId);
 		participate = checkParticipate(choiceList);
 
 		// case 1 : 질문자, isOwner : true, participate : false, 옵션 카운트 표시
 		// case 2 : 응답자, 참여 O, isOwner : false, participate : true, 옵션 카운트 표시
 		// case 3 : 응답자, 참여 X, isOwner : false, participate : false, 옵션 카운트 미표시
 		// 투표가 진행되고 있는 상태에서(on) && 주인이 아니고 && 참여하지 않았을때만 옵션 Count를 보여주지 않음 그냥 OptionDto
-		if (isContinue(on) && noOwner(isOwner) && noParticipate(participate)) {
+		if (noParticipateCase(on, isOwner, participate)) {
 			for (OptionEntity option : options) {
 				OptionDto optionDto = OptionDto.makeOptionDto(option);
 				optionList.add(optionDto);
@@ -66,36 +59,27 @@ public class GetVoteService {
 		}
 		String category = getCategory(vote);
 
-		return VoteDto.makeDto(vote, user, active, isOwner, participate, category, optionList);
+		return VoteDto.makeDto(vote, user, isOwner, participate, category, optionList);
 	}
-
-	private String getCategory(VoteEntity vote) {
+	public String getCategory(VoteEntity vote){
 		return vote.getCategory().getCategory();
 	}
 
-	private boolean isContinue(boolean on) {
-		return on;
+	public static boolean noParticipateCase(boolean on, boolean isOwner, boolean participate) {
+		return on == true && isOwner == false && participate == false;
 	}
 
-	private boolean noOwner(boolean isOwner) {
-		return !isOwner;
-	}
-
-	private boolean noParticipate(boolean participate) {
-		return !participate;
-	}
-
-	private List<Boolean> checkChoiceOptions(List<OptionEntity> options, long userId) {
+	private List<Boolean> checkOptions(List<OptionEntity> options, long userId) {
 		List<Boolean> chocieList = new ArrayList<>();
 		for (OptionEntity option : options) {
-			chocieList.add(checkChoiceOption(userId, option));
+			chocieList.add(checkChoiceOption(option, userId));
 		}
 		return chocieList;
 	}
 
-	private boolean checkChoiceOption(long userId, OptionEntity option) {
-		//		 decision repo 탐색
-		//		return decisionRepository.existByUserIdAndOptionId(userId, option.getId());
+	public boolean checkChoiceOption(OptionEntity option, long userId) {
+//		 decision repo 탐색
+//		return decisionRepository.existByUserIdAndOptionId(userId, option.getId());
 		return true;
 	}
 
