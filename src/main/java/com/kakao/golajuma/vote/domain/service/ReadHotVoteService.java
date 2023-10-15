@@ -24,16 +24,23 @@ public class ReadHotVoteService {
 	private final GetVoteService getVoteService;
 
 	public GetVoteListResponse.MainAndFinishPage read(long userId, String active) {
-		// 진행중인 투표(on) or 완료된 투표 요청 판단
-		boolean on = true;
 
 		// 1. vote list 를 가져온다
-		Slice<VoteEntity> voteList = findByRepository(active);
+		Slice<VoteEntity> voteList = findByRepository();
 		System.out.println(voteList);
 		List<VoteDto> votes = new ArrayList<>();
 
+		// 진행중인 투표(on) or 완료된 투표 요청 판단
+		boolean on;
+
 		// 2. 각 vote 별로 vote option 을 찾는다 - slice 방식
 		for (VoteEntity vote : voteList) {
+			LocalDateTime now = LocalDateTime.now();
+			if (vote.getVoteEndDate().isBefore(now)) {
+				on = false;
+			} else {
+				on = true;
+			}
 			VoteDto voteDto = getVoteService.getVote(vote, userId, on);
 			votes.add(voteDto);
 		}
@@ -58,7 +65,7 @@ public class ReadHotVoteService {
 		return choiceList;
 	}
 
-	public Slice<VoteEntity> findByRepository(String active) {
+	public Slice<VoteEntity> findByRepository() {
 		LocalDateTime startTime;
 		LocalDateTime endTime;
 
@@ -66,6 +73,6 @@ public class ReadHotVoteService {
 		endTime = startTime.plusHours(1);
 		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(1, 10);
-		return hotVoteRepository.read(active, endTime, startTime, pageable);
+		return hotVoteRepository.read(endTime, startTime, pageable);
 	}
 }
