@@ -71,7 +71,6 @@ create table vote_tb
     updated_date     datetime(6)   not null,
     vote_category    varchar(255)  not null,
     user_id          bigint        not null,
-    vote_active      varchar(255)  not null,
     vote_content     varchar(1000) null,
     vote_end_date    datetime(6)   not null,
     vote_title       varchar(256)  not null,
