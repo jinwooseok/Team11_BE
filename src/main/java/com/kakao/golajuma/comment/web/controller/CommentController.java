@@ -27,7 +27,7 @@ public class CommentController {
 	public ApiResponse<ApiResponseBody.SuccessBody<ReadCommentListResponse>> readList(
 			@PathVariable Long voteId, @Login Long userId) {
 		ReadCommentListResponse responseData = commentService.readList(voteId, userId);
-		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.CREATE);
+		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.GET);
 	}
 
 	@PostMapping
@@ -45,13 +45,13 @@ public class CommentController {
 			@Valid @RequestBody UpdateCommentRequest requestDto,
 			@Login Long userId) {
 		UpdateCommentResponse responseData = commentService.update(requestDto, commentId, userId);
-		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.CREATE);
+		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.UPDATE);
 	}
 
 	@DeleteMapping("/{commentId}")
 	public ApiResponse<ApiResponseBody.SuccessBody<Void>> delete(
 			@PathVariable Long commentId, @Login Long userId) {
 		commentService.delete(commentId, userId);
-		return ApiResponseGenerator.success(HttpStatus.OK, MessageCode.CREATE);
+		return ApiResponseGenerator.success(HttpStatus.OK, MessageCode.DELETE);
 	}
 }

@@ -1,12 +1,17 @@
 package com.kakao.golajuma.vote;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kakao.golajuma.auth.domain.token.TokenProvider;
+import com.kakao.golajuma.auth.infra.entity.UserEntity;
+import com.kakao.golajuma.auth.infra.repository.UserRepository;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,23 @@ public class CreateVoteControllerTest {
 
 	@Autowired private ObjectMapper om;
 	@Autowired private MockMvc mvc;
+
+	@Autowired private UserRepository userRepository;
+	@Autowired private TokenProvider tokenProvider;
+	private String jwtToken;
+
+	@BeforeEach
+	public void setup() throws Exception {
+		jwtToken = tokenProvider.createAccessToken(1L);
+		UserEntity user =
+				UserEntity.builder()
+						.id(1L)
+						.nickname("test")
+						.email("test@gmail.com")
+						.password("1234")
+						.build();
+		userRepository.save(user);
+	}
 
 	@DisplayName("투표 생성 정상 작동")
 	@Test
@@ -40,12 +62,21 @@ public class CreateVoteControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
-		resultActions.andExpect(status().isOk());
+						post("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.content(requestBody)
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
 
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.data").hasJsonPath())
+				.andExpect(jsonPath("$.data.id").hasJsonPath())
+				.andExpect(jsonPath("$.message").hasJsonPath());
 	}
 
 	@DisplayName("투표 생성 시 제목 입력 안했을 경우")
@@ -65,12 +96,19 @@ public class CreateVoteControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
-		resultActions.andExpect(status().is4xxClientError());
+						post("/votes")
+								.content(requestBody)
+								.header("Authorization", "Bearer " + jwtToken)
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
 
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.message").hasJsonPath());
 	}
 
 	@DisplayName("투표 생성 시 옵션명이 없는 경우")
@@ -90,12 +128,18 @@ public class CreateVoteControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
-		resultActions.andExpect(status().is4xxClientError());
-
+						post("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.content(requestBody)
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.message").hasJsonPath());
 	}
 
 	@DisplayName("투표 생성 시 옵션이 6개 초과인 경우")
@@ -125,12 +169,18 @@ public class CreateVoteControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
-		resultActions.andExpect(status().is4xxClientError());
-
+						post("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.content(requestBody)
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.message").hasJsonPath());
 	}
 
 	@DisplayName("투표 생성 시 존재하지 않는 카테고리인 경우")
@@ -152,10 +202,13 @@ public class CreateVoteControllerTest {
 		ResultActions resultActions =
 				mvc.perform(
 						post("/votes").content(requestBody).contentType(MediaType.APPLICATION_JSON_VALUE));
-		resultActions.andExpect(status().is4xxClientError());
-
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.message").hasJsonPath());
 	}
 }
