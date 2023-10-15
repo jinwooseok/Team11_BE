@@ -1,31 +1,7 @@
 use golajuma;
-INSERT INTO user_entity (user_id, user_nickname, user_email, user_password, created_date, updated_date, deleted)
+INSERT INTO user (user_id, user_nickname, user_email, user_password, created_date, updated_date, deleted)
 VALUES
-    (1, "진우석","jws@gmail.com","asdf1234", NOW(), NOW(),false),
-    (2, "문지혜","mjh@gmail.com","asdf1234", NOW(), NOW(),false),
-    (3, "박현수","phs@gmail.com","asdf1234", NOW(), NOW(),false),
-    (4, "김수민","ksm@gmail.com","asdf1234", NOW(), NOW(),false),
-    (5, "강성준","kky@gmail.com","asdf1234", NOW(), NOW(),false),
-    (6, "김가연","ksj@gmail.com","asdf1234", NOW(), NOW(),false),
-    (7, "유리", "yuri@gmail.com", "password1", NOW(), NOW(), false),
-    (8, "태호", "taeho@gmail.com", "password2", NOW(), NOW(), false),
-    (9, "지은", "jieun@gmail.com", "password3", NOW(), NOW(), false),
-    (10, "민재", "minjae@gmail.com", "password4", NOW(), NOW(), false),
-    (11, "예린", "yerin@gmail.com", "password5", NOW(), NOW(), false),
-    (12, "성민", "seongmin@gmail.com", "password6", NOW(), NOW(), false),
-    (13, "지훈", "jihun@gmail.com", "password7", NOW(), NOW(), false),
-    (14, "민지", "minji@gmail.com", "password8", NOW(), NOW(), false),
-    (15, "준호", "junho@gmail.com", "password9", NOW(), NOW(), false),
-    (16, "유진", "yujin@gmail.com", "password10", NOW(), NOW(), false),
-    (17, "동현", "donghyun@gmail.com", "password11", NOW(), NOW(), false),
-    (18, "지우", "jiwoo@gmail.com", "password12", NOW(), NOW(), false),
-    (19, "은지", "eunji@gmail.com", "password13", NOW(), NOW(), false),
-    (20, "재원", "jaewon@gmail.com", "password14", NOW(), NOW(), false),
-    (21, "서연", "seoyeon@gmail.com", "password15", NOW(), NOW(), false),
-    (22, "민우", "minwoo@gmail.com", "password16", NOW(), NOW(), false),
-    (23, "가온", "gaon@gmail.com", "password17", NOW(), NOW(), false),
-    (24, "윤호", "yunho@gmail.com", "password18", NOW(), NOW(), false),
-    (25, "서윤", "seoyun@gmail.com", "password19", NOW(), NOW(), false);
+    (1, "진우석","jws@gmail.com","$2a$10$7eEORrZ6", "2023-10-15 14:43:01.696000", "2023-10-15 14:43:01.696000",false);
 
 
 INSERT INTO vote_tb (vote_id, user_id, vote_category, vote_title, vote_content,
