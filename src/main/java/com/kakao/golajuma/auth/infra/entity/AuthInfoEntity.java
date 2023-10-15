@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @SuperBuilder(toBuilder = true)
 @Entity
-@Table(name = AuthInfoEntity.ENTITY_PREFIX + "_tb")
+@Table(name = AuthInfoEntity.ENTITY_PREFIX)
 public class AuthInfoEntity extends BaseEntity {
 
 	public static final String ENTITY_PREFIX = "auth_info";
