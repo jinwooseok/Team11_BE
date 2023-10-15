@@ -19,7 +19,7 @@ public class CreateVoteService {
 	private final OptionRepository optionJPARepository;
 
 	@Transactional
-	public CreateVoteResponse createVote(CreateVoteRequest request, long userId) {
+	public CreateVoteResponse createVote(CreateVoteRequest request, Long userId) {
 		VoteEntity vote = VoteEntity.createEntity(request, userId);
 		voteJPARepository.save(vote);
 		long voteId = vote.getId();

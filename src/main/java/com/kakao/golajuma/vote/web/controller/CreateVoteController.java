@@ -21,7 +21,7 @@ public class CreateVoteController {
 	// 투표 생성
 	@PostMapping("/votes")
 	public ApiResponse<SuccessBody<CreateVoteResponse>> createVote(
-			@RequestBody @Valid CreateVoteRequest voteDTO, @Login long userId) {
+			@RequestBody @Valid CreateVoteRequest voteDTO, @Login Long userId) {
 		CreateVoteResponse responseDto = createVoteService.createVote(voteDTO, userId);
 		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.CREATE);
 	}
