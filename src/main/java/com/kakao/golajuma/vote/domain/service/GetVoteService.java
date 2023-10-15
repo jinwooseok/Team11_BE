@@ -60,6 +60,7 @@ public class GetVoteService {
 		String category = getCategory(vote);
 
 		return VoteDto.makeDto(vote, user, isOwner, participate, category, optionList);
+
 	}
 	public String getCategory(VoteEntity vote){
 		return vote.getCategory().getCategory();
