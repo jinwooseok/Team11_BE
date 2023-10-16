@@ -49,7 +49,7 @@ public class GetVoteListControllerTest {
 				mvc.perform(
 						get("/votes")
 								.header("Authorization", "Bearer " + jwtToken)
-//								.param("idx", "5")
+								//								.param("page", "1")
 								.param("sort", "current")
 								.param("active", "continue")
 								.param("category", "total"));

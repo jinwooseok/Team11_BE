@@ -22,7 +22,7 @@ public class GetVoteDetailService {
 		// 투표와 옵션리스트 가져오기
 		VoteEntity vote = voteJPARepository.findById(voteId);
 
-		if(vote == null){
+		if (vote == null) {
 			throw new NullException("투표가 존재하지 않습니다.");
 		}
 
