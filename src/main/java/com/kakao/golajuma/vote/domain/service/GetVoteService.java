@@ -24,7 +24,7 @@ public class GetVoteService {
 	private final DecisionRepository decisionRepository;
 
 	public VoteDto getVote(VoteEntity vote, long userId, boolean on) {
-
+		// 투표의 옵션을 찾는다
 		List<OptionEntity> options = optionJPARepository.findAllByVoteId(vote.getId());
 		// 작성자 찾기
 		long writerId = vote.getUserId();
@@ -34,12 +34,7 @@ public class GetVoteService {
 
 		boolean isOwner = vote.isOwner(userId);
 
-		String active;
-		if (on) {
-			active = "continue";
-		} else {
-			active = "finish";
-		}
+		String active = vote.checkActive();
 
 		List<? super OptionDto> optionList = new ArrayList<>();
 		// 참여했는지 여부 판단

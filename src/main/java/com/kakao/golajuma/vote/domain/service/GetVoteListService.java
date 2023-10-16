@@ -48,7 +48,6 @@ public class GetVoteListService {
 		}
 
 		List<VoteDto> votes = new ArrayList<>();
-		// 2. 각 vote 별로 vote option 을 찾는다 - slice 방식
 		for (VoteEntity vote : voteList) {
 			VoteDto voteDto = getVoteService.getVote(vote, userId, on);
 			votes.add(voteDto);
@@ -59,7 +58,7 @@ public class GetVoteListService {
 		return new GetVoteListResponse.MainAndFinishPage(votes, isLast);
 	}
 
-	public boolean checkActive(String active) {
+	private boolean checkActive(String active) {
 		if (active.equals("continue")) {
 			return true;
 		}
@@ -69,37 +68,40 @@ public class GetVoteListService {
 		throw new RequestParamException("잘못된 요청입니다.(active)");
 	}
 
-	public Category checkCategory(String category) {
+	private Category checkCategory(String category) {
 		return Category.findCategory(category);
 	}
 
-	public Slice<VoteEntity> findContinueVotes(String sort, Category category) {
+	private Slice<VoteEntity> findContinueVotes(String sort, Category category) {
 		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(page, size);
 
 		LocalDateTime now = LocalDateTime.now();
 
 		if (sort.equals("current")) {
-			return voteRepository.findAllContinueVotesOrderByCreatedDate(now, category, pageable);
+			return voteRepository.findAllContinueVotesByCategoryOrderByCreatedDate(
+					now, category, pageable);
 		}
 		if (sort.equals("popular")) {
-			return voteRepository.findAllContinueVotesOrderByVoteTotalCount(now, category, pageable);
+			return voteRepository.findAllContinueVotesByCategoryOrderByVoteTotalCount(
+					now, category, pageable);
 		}
 
 		throw new RequestParamException("잘못된 요청입니다.(sort)");
 	}
 
-	public Slice<VoteEntity> findFinishVotes(String sort, Category category) {
+	private Slice<VoteEntity> findFinishVotes(String sort, Category category) {
 		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(page, size);
 
 		LocalDateTime now = LocalDateTime.now();
 
 		if (sort.equals("current")) {
-			return voteRepository.findAllFinishVotesOrderByCreatedDate(now, category, pageable);
+			return voteRepository.findAllFinishVotesByCategoryOrderByCreatedDate(now, category, pageable);
 		}
 		if (sort.equals("popular")) {
-			return voteRepository.findAllFinishVotesOrderByVoteTotalCount(now, category, pageable);
+			return voteRepository.findAllFinishVotesByCategoryOrderByVoteTotalCount(
+					now, category, pageable);
 		}
 
 		throw new RequestParamException("잘못된 요청입니다.(sort)");

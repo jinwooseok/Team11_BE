@@ -1,7 +1,6 @@
 package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.exception.NullException;
-import com.kakao.golajuma.vote.domain.exception.RequestParamException;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteDetailResponse;
@@ -38,10 +37,6 @@ public class GetVoteDetailService {
 		if (vote.checkActive() == "continue") {
 			return true;
 		}
-		if (vote.checkActive() == "finish") {
-			return false;
-		}
-
-		throw new RequestParamException("잘못된 요청입니다.(active)");
+		return false;
 	}
 }
