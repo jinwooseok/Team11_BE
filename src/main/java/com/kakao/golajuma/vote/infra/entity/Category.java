@@ -5,8 +5,13 @@ import java.util.Arrays;
 
 public enum Category {
 	TOTAL("total"),
-	CLOTHES("clothes"),
-	FOOD("food");
+	BUY("buy"),
+	WHERE("where"),
+	WHAT("what"),
+	FOOD("food"),
+	MOVIE("movie"),
+	LISTEN("listen"),
+	ETC("etc");
 
 	private final String category;
 
