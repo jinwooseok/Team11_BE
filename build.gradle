@@ -73,3 +73,6 @@ test {
         exceptionFormat "full"
     }
 }
+jar {
+    enabled = false
+}
