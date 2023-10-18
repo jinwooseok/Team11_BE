@@ -4,6 +4,8 @@ WORKDIR /Team11_BE
 
 COPY . .
 
+RUN ls /Team11_BE
+
 RUN mkdir -p /logs
 
 ENV	PROFILE default
