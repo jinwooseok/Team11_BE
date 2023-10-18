@@ -1,4 +1,4 @@
-FROM openjdk:17-oracle
+FROM openjdk:17-oracle as build
 
 WORKDIR /Team11_BE
 
@@ -7,6 +7,15 @@ COPY . .
 RUN ls /Team11_BE
 
 RUN mkdir -p /logs
+
+RUN echo "systemProp.http.proxyHost=krmp-proxy.9rum.cc\nsystemProp.http.proxyPort=3128\nsystemProp.https.proxyHost=krmp-proxy.9rum.cc\nsystemProp.https.proxyPort=3128" >> /Team11_BE/gradle/wrapper/gradle-wrapper.properties
+
+
+RUN ./gradlew clean build -x test
+
+FROM openjdk:17-oracle
+
+COPY --from=build /Team11_BE/build/libs/goalajuma-*.jar .
 
 ENV	PROFILE default
 
