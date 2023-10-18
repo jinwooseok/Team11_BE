@@ -1,4 +1,5 @@
 FROM openjdk:17-oracle
+WORKDIR /Team11_BE
 RUN mkdir -p /logs
 
 ENV	PROFILE default
