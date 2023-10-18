@@ -35,7 +35,7 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 					+ " and v.voteEndDate > :now"
 					+ " ORDER BY v.voteTotalCount desc ")
 	Slice<VoteEntity> findAllContinueVotesOrderByVoteTotalCount(
-			@Param("now") LocalDateTime now, @Param("category") Category category, Pageable pageable);
+			@Param("now") LocalDateTime now, Pageable pageable);
 
 	@Query(
 			"select v from VoteEntity v"
@@ -52,7 +52,7 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 					+ " and v.voteEndDate < :now"
 					+ " ORDER BY v.createdDate desc ")
 	Slice<VoteEntity> findAllFinishVotesOrderByCreatedDate(
-			@Param("now") LocalDateTime now, @Param("category") Category category, Pageable pageable);
+			@Param("now") LocalDateTime now, Pageable pageable);
 
 	@Query(
 			"select v from VoteEntity v"
@@ -70,7 +70,7 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 					+ " and v.category = :category"
 					+ " ORDER BY v.voteTotalCount desc ")
 	Slice<VoteEntity> findAllFinishVotesOrderByVoteTotalCount(
-			@Param("now") LocalDateTime now, @Param("category") Category category, Pageable pageable);
+			@Param("now") LocalDateTime now, Pageable pageable);
 
 	@Query(
 			"select v from VoteEntity v"
