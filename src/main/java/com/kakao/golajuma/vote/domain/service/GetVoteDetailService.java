@@ -1,6 +1,7 @@
 package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.exception.NullException;
+import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteDetailResponse;
@@ -34,7 +35,7 @@ public class GetVoteDetailService {
 	}
 
 	public boolean checkActive(VoteEntity vote) {
-		if (vote.checkActive() == "continue") {
+		if (vote.checkActive() == Active.CONTINUE) {
 			return true;
 		}
 		return false;

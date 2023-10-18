@@ -1,6 +1,7 @@
 package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.exception.RequestParamException;
+import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
@@ -62,7 +63,7 @@ public class SearchVoteListService {
 	}
 
 	private boolean checkActive(VoteEntity vote) {
-		if (vote.checkActive() == "continue") {
+		if (vote.checkActive() == Active.CONTINUE) {
 			return true;
 		}
 		return false;

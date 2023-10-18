@@ -2,6 +2,7 @@ package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.OptionEntity;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.DecisionRepository;
@@ -34,7 +35,7 @@ public class GetVoteService {
 
 		boolean isOwner = vote.isOwner(userId);
 
-		String active = vote.checkActive();
+		Active active = vote.checkActive();
 
 		List<? super OptionDto> optionList = new ArrayList<>();
 		// 참여했는지 여부 판단

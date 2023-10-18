@@ -64,12 +64,12 @@ public class VoteEntity extends BaseEntity {
 		this.voteType = voteType;
 	}
 
-	public String checkActive() {
+	public Active checkActive() {
 		LocalDateTime now = LocalDateTime.now();
 		if (voteEndDate.isBefore(now)) {
-			return "finish";
+			return Active.COMPLETE;
 		}
-		return "continue";
+		return Active.CONTINUE;
 	}
 
 	public static VoteEntity createEntity(CreateVoteRequest request, long userId) {
