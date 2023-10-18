@@ -9,7 +9,7 @@ RUN mkdir -p /logs
 RUN echo "systemProp.http.proxyHost=krmp-proxy.9rum.cc\nsystemProp.http.proxyPort=3128\nsystemProp.https.proxyHost=krmp-proxy.9rum.cc\nsystemProp.https.proxyPort=3128" >> /Team11_BE/gradle/wrapper/gradle-wrapper.properties
 
 
-RUN ./gradlew clean build -x test
+RUN ./gradlew clean build
 
 FROM openjdk:17-oracle
 
