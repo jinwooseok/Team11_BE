@@ -10,7 +10,7 @@ ARG JAVA_OPTS
 ARG RELEASE_VERSION
 ENV DD_VERSION=${RELEASE_VERSION}
 
-COPY /Team11_BE/build/libs/goalajuma-0.0.1-*.jar /Team11_BE/target
+COPY /Team11_BE/build/libs/goalajuma-*.jar /Team11_BE/target
 
 ARG JAR_FILE="/Team11_BE/target/goalajuma-*.jar";
 
