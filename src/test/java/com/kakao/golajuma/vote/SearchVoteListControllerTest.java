@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class GetVoteListControllerTest {
+public class SearchVoteListControllerTest {
 
 	@Autowired private ObjectMapper om;
 	@Autowired private MockMvc mvc;
@@ -40,19 +40,23 @@ public class GetVoteListControllerTest {
 		userRepository.save(user);
 	}
 
-	@DisplayName("메인페이지 투표 조회 정상 요청")
+	@DisplayName("투표 리스트 검색 정상 응답")
 	@Test
-	public void getVoteList_test() throws Exception {
+	public void searchVoteList_test() throws Exception {
+
+		String sort = "current";
+		String category = "total";
+		String keyword = "낼모레";
 
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						get("/votes")
+						get("/votes/search")
 								.header("Authorization", "Bearer " + jwtToken)
-								//								.param("page", "1")
-								.param("sort", "current")
-								.param("active", "continue")
-								.param("category", "total"));
+								.param("page", "0")
+								.param("keyword", keyword)
+								.param("sort", sort)
+								.param("category", category));
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
@@ -63,50 +67,5 @@ public class GetVoteListControllerTest {
 				.andExpect(jsonPath("$.data").hasJsonPath())
 				.andExpect(jsonPath("$.data.votes").isArray())
 				.andExpect(jsonPath("$.message").hasJsonPath());
-	}
-
-	@DisplayName("완료된 페이지 조회 정상 요청")
-	@Test
-	public void getVoteList_finishPage_test() throws Exception {
-
-		// when
-		ResultActions resultActions =
-				mvc.perform(
-						get("/votes")
-								.header("Authorization", "Bearer " + jwtToken)
-								.param("sort", "current")
-								.param("active", "finish")
-								.param("category", "total"));
-		// eye
-		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-		System.out.println("테스트 : " + responseBody);
-
-		// then
-		// then
-		resultActions.andExpect(status().isOk());
-	}
-
-	@DisplayName("마이페이지 내가한 질문 리스트 조회 정상 요청")
-	@Test
-	public void getVoteListInMyPageByAsk_test() throws Exception {
-
-		// when
-		ResultActions resultActions =
-				mvc.perform(get("/users/votes/ask").header("Authorization", "Bearer " + jwtToken));
-
-		resultActions.andExpect(status().isOk());
-
-		// eye
-		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-		System.out.println("테스트 : " + responseBody);
-
-		// then
-		resultActions
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.data").hasJsonPath())
-				.andExpect(jsonPath("$.data.votes").isArray())
-				.andExpect(jsonPath("$.data.votes[0].id").hasJsonPath())
-				.andExpect(jsonPath("$.data.votes[0].title").hasJsonPath())
-				.andExpect(jsonPath("$.data.votes[0].active").hasJsonPath());
 	}
 }
