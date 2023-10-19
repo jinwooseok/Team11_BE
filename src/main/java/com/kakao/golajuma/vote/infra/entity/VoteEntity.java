@@ -72,6 +72,13 @@ public class VoteEntity extends BaseEntity {
 		return Active.CONTINUE;
 	}
 
+	public boolean isOn() {
+		if (checkActive() == Active.CONTINUE) {
+			return true;
+		}
+		return false;
+	}
+
 	public static VoteEntity createEntity(CreateVoteRequest request, long userId) {
 		VoteEntity vote =
 				VoteEntity.builder()
