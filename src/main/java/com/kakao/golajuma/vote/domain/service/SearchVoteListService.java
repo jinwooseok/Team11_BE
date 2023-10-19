@@ -1,7 +1,6 @@
 package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.exception.RequestParamException;
-import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
@@ -35,8 +34,7 @@ public class SearchVoteListService {
 
 		List<VoteDto> votes = new ArrayList<>();
 		for (VoteEntity vote : voteList) {
-			boolean on = checkActive(vote);
-			VoteDto voteDto = getVoteService.getVote(vote, userId, on);
+			VoteDto voteDto = getVoteService.getVote(vote, userId);
 			votes.add(voteDto);
 		}
 		// 마지막 페이지인지 검사
@@ -60,12 +58,5 @@ public class SearchVoteListService {
 
 	private Category checkCategory(String category) {
 		return Category.findCategory(category);
-	}
-
-	private boolean checkActive(VoteEntity vote) {
-		if (vote.checkActive() == Active.CONTINUE) {
-			return true;
-		}
-		return false;
 	}
 }
