@@ -1,4 +1,5 @@
-use mariadb;
+create database goalajuma;
+use goalajuma;
 create table user
 (
     user_id       bigint auto_increment
