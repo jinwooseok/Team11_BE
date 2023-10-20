@@ -1,8 +1,4 @@
 namespace: default
 resources:
   - deployment.yaml
-  - mysql-deployment.yaml
-  - mysql-claim()-persistentvolumeclaim.yaml
-  - mysql-service.yaml
-  - backend-service.yaml
   - ingress.yaml
