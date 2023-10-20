@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: init-db
     files:
-      - ../resources/local-develop-environment/mysql-init.d/00_init.sql
-      - ../resources/local-develop-environment/mysql-init.d/01_create_table.sql
-      - ../resources/local-develop-environment/mysql-init.d/02_insert_data.sql
+      - mysql-init.d/00_init.sql
+      - mysql-init.d/01_create_table.sql
+      - mysql-init.d/02_insert_data.sql
