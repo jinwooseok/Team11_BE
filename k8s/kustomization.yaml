@@ -4,6 +4,9 @@ resources:
   - mariadb.yaml
   - deployment.yaml
 configMapGenerator:
+  - name: nginx
+    files:
+      - configs/default.conf
   - name: init-db
     files:
       - mysql-init.d/00_init.sql
