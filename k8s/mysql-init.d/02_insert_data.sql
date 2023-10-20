@@ -1,4 +1,4 @@
-use goalajuma;
+use krampoline;
 INSERT INTO user (user_id, user_nickname, user_email, user_password, created_date, updated_date, deleted)
 VALUES
     (1, "진우석","jws@gmail.com","asdf1234", NOW(), NOW(),false),

@@ -1,5 +1,4 @@
-create database goalajuma;
-use goalajuma;
+use krampoline;
 create table user
 (
     user_id       bigint auto_increment
