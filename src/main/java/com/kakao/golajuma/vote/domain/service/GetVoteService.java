@@ -24,7 +24,7 @@ public class GetVoteService {
 	private final UserRepository userRepository;
 	private final DecisionRepository decisionRepository;
 
-	public VoteDto getVote(VoteEntity vote, long userId) {
+	public VoteDto getVote(VoteEntity vote, Long userId) {
 		// 투표의 옵션을 찾는다
 		List<OptionEntity> options = optionJPARepository.findAllByVoteId(vote.getId());
 		// 작성자 찾기
@@ -33,7 +33,6 @@ public class GetVoteService {
 
 		boolean participate;
 
-		boolean on = vote.isOn();
 		boolean isOwner = vote.isOwner(userId);
 
 		Active active = vote.checkActive();
@@ -47,7 +46,7 @@ public class GetVoteService {
 		// case 2 : 응답자, 참여 O, isOwner : false, participate : true, 옵션 카운트 표시
 		// case 3 : 응답자, 참여 X, isOwner : false, participate : false, 옵션 카운트 미표시
 		// 투표가 진행되고 있는 상태에서(on) && 주인이 아니고 && 참여하지 않았을때만 옵션 Count를 보여주지 않음 그냥 OptionDto
-		if (on && !isOwner && !participate) {
+		if (vote.isOn() && !isOwner && !participate) {
 			for (OptionEntity option : options) {
 				OptionDto optionDto = OptionDto.makeOptionDto(option);
 				optionList.add(optionDto);
