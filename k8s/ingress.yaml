@@ -16,4 +16,4 @@ spec:
               serviceName: krampoline
               servicePort: 80
             # 여러분의 app path 를 넣어주세요.
-            path: /k8a9078c42df3a(/|$)(.*)
+            path: /kdf0bbc9ebdd6a(/|$)(.*)
