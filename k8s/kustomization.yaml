@@ -1,6 +1,6 @@
 namespace: default
 resources:
-  - nginx.yaml
+  - ingress.yaml
   - mariadb.yaml
   - deployment.yaml
 configMapGenerator:
