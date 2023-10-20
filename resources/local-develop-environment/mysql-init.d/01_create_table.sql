@@ -1,4 +1,4 @@
-use golajuma;
+use goalajuma;
 create table user
 (
     user_id       bigint auto_increment
@@ -65,13 +65,13 @@ create table comment
 
 create table vote_option
 (
-     option_id bigint auto_increment
-         primary key,
-     created_date datetime(6) not null,
-     deleted bit not null,
-     updated_date datetime(6) not null,
-     option_count bigint,
-     option_image varchar(255),
-     option_name varchar(255) not null,
-     option_vote_id bigint not null
+    option_id bigint auto_increment
+        primary key,
+    created_date datetime(6) not null,
+    deleted bit not null,
+    updated_date datetime(6) not null,
+    option_count bigint,
+    option_image varchar(255),
+    option_name varchar(255) not null,
+    option_vote_id bigint not null
 );

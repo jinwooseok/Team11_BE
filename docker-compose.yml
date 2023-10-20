@@ -7,9 +7,10 @@ services:
       - MYSQL_DATABASE=goalajuma
       - MYSQL_ROOT_HOST=%
       - MYSQL_ROOT_PASSWORD=root
-    command: [ "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci", "--lower_case_table_names=1", "--max_connections=2048", "--wait_timeout=3600" ]
+    command:
+      ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci", "--skip-character-set-client-handshake", "--lower_case_table_names=1", "--max_connections=2048", "--wait_timeout=3600" ]
     ports:
-      - "13307:3306"
+      - "13306:3306"
     volumes: #볼륨 지정
       - ./resources/local-develop-environment/mysql-init.d:/docker-entrypoint-initdb.d
     networks: #사용할 네트워크 지정
