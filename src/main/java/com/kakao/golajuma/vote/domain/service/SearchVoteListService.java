@@ -8,6 +8,7 @@ import com.kakao.golajuma.vote.web.dto.response.SearchVoteListResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,10 +34,11 @@ public class SearchVoteListService {
 		Slice<VoteEntity> voteList = findByRepository(keyword, sort, checkCategory(category));
 
 		List<VoteDto> votes = new ArrayList<>();
-		for (VoteEntity vote : voteList) {
-			VoteDto voteDto = getVoteService.getVote(vote, userId);
-			votes.add(voteDto);
-		}
+
+		voteList.stream()
+				.map(voteEntity -> getVoteService.getVote(voteEntity, userId))
+				.collect(Collectors.toList());
+
 		// 마지막 페이지인지 검사
 		boolean isLast = voteList.isLast();
 
