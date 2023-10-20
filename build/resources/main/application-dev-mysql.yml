@@ -1,17 +1,14 @@
+server:
+  port: 8080
 spring:
   config:
     activate:
       on-profile: dev-mysql
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    properties:
-      hibernate:
-        format_sql: true
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    url: jdbc:mariadb://mariadb:3306/krampoline?allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: root
 
 logging:
   level:
