@@ -1,7 +1,6 @@
 package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.exception.RequestParamException;
-import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
@@ -9,6 +8,7 @@ import com.kakao.golajuma.vote.web.dto.response.SearchVoteListResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,11 +34,11 @@ public class SearchVoteListService {
 		Slice<VoteEntity> voteList = findByRepository(keyword, sort, checkCategory(category));
 
 		List<VoteDto> votes = new ArrayList<>();
-		for (VoteEntity vote : voteList) {
-			boolean on = checkActive(vote);
-			VoteDto voteDto = getVoteService.getVote(vote, userId, on);
-			votes.add(voteDto);
-		}
+
+		voteList.stream()
+				.map(voteEntity -> getVoteService.getVote(voteEntity, userId))
+				.collect(Collectors.toList());
+
 		// 마지막 페이지인지 검사
 		boolean isLast = voteList.isLast();
 
@@ -60,12 +60,5 @@ public class SearchVoteListService {
 
 	private Category checkCategory(String category) {
 		return Category.findCategory(category);
-	}
-
-	private boolean checkActive(VoteEntity vote) {
-		if (vote.checkActive() == Active.CONTINUE) {
-			return true;
-		}
-		return false;
 	}
 }

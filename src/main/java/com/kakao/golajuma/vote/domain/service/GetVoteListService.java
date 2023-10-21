@@ -36,12 +36,12 @@ public class GetVoteListService {
 		this.page = page;
 
 		// 진행중인 투표(on) or 완료된 투표 요청 판단
-		boolean on = checkActive(active);
+		boolean continueRequest = checkActive(active);
 
 		// 1. vote list 를 가져온다
 		Slice<VoteEntity> voteList;
 
-		if (on) {
+		if (continueRequest) {
 			voteList = findContinueVotes(sort, checkCategory(category));
 		} else {
 			voteList = findFinishVotes(sort, checkCategory(category));
@@ -49,7 +49,7 @@ public class GetVoteListService {
 
 		List<VoteDto> votes = new ArrayList<>();
 		for (VoteEntity vote : voteList) {
-			VoteDto voteDto = getVoteService.getVote(vote, userId, on);
+			VoteDto voteDto = getVoteService.getVote(vote, userId);
 			votes.add(voteDto);
 		}
 		// 마지막 페이지인지 검사

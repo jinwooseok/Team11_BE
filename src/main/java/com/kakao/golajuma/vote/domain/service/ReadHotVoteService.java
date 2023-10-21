@@ -34,8 +34,7 @@ public class ReadHotVoteService {
 
 		// 2. 각 vote 별로 vote option 을 찾는다 - slice 방식
 		for (VoteEntity vote : voteList) {
-			boolean on = checkActive(vote);
-			VoteDto voteDto = getVoteService.getVote(vote, userId, on);
+			VoteDto voteDto = getVoteService.getVote(vote, userId);
 			votes.add(voteDto);
 		}
 
