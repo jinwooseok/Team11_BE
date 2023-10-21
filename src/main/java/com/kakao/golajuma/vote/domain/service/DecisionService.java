@@ -35,8 +35,7 @@ public class DecisionService {
 	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에러가 발생한다.
 	 */
 	public DecisionResponse createDecision(final Long userId, final Long optionId) {
-		boolean isExistDecision =
-				decisionRepository.findByUserIdAndOptionId(userId, optionId).isPresent();
+		boolean isExistDecision = decisionRepository.existsByUserIdAndOptionId(userId, optionId);
 		if (isExistDecision) {
 			throw new ExistsDecisionException("이미 해당 옵션에 대해 투표를 했습니다.");
 		}
