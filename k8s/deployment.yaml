@@ -19,7 +19,28 @@ spec:
             - name: TZ
               value: Asia/Seoul
             - name: DATABASE_URL
-              value: jdbc:mariadb://mariadb:3306/krampoline
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: url
+
+            - name: MARIADB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: username
+
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: password
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: secret_key
+
           resources:
             requests:
               memory: 1Gi

@@ -19,21 +19,25 @@ spec:
           env:
             - name: TZ
               value: Asia/Seoul
+
             - name: MARIADB_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: my-secret
                   key: username
-             # Secret의 "username" 필드를 환경 변수 MY_USERNAME으로 설정합니다.
+
             - name: MARIADB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: my-secret
                   key: password
+
             - name: MARIADB_DATABASE
               value: krampoline
+
             - name: MARIADB_DISABLE_UPGRADE_BACKUP
               value: '1'
+
           volumeMounts:
             - mountPath: /docker-entrypoint-initdb.d
               name: init-db
