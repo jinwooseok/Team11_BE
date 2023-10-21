@@ -24,6 +24,7 @@ public class DecisionService {
 	private final DecisionRepository decisionRepository;
 	private final OptionRepository optionRepository;
 	private final VoteRepository voteRepository;
+	private final DecisionResponseConverter responseConverter;
 
 	/**
 	 * 옵션에 대한 투표를 한다.
@@ -109,7 +110,6 @@ public class DecisionService {
 
 	private DecisionResponse toResponse(final VoteEntity voteEntity, final Long selectOptionId) {
 		List<OptionEntity> optionsByVote = optionRepository.findAllByVoteId(voteEntity.getId());
-		return DecisionResponseConverter.from(
-				selectOptionId, optionsByVote, voteEntity.getVoteTotalCount());
+		return responseConverter.from(selectOptionId, optionsByVote, voteEntity.getVoteTotalCount());
 	}
 }

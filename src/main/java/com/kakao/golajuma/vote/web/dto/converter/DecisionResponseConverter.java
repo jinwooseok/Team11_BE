@@ -4,9 +4,9 @@ import com.kakao.golajuma.vote.infra.entity.OptionEntity;
 import com.kakao.golajuma.vote.web.dto.response.DecisionResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
+@Component
 @RequiredArgsConstructor
 public class DecisionResponseConverter {
 	private OptionResultConverter optionResultConverter;
