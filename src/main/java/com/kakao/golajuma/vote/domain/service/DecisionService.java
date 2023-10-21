@@ -47,7 +47,7 @@ public class DecisionService {
 
 		VoteEntity voteEntity =
 				voteRepository
-						.findVoteEntityByOption(optionId)
+						.findVoteByOption(optionId)
 						.orElseThrow(() -> new NotFoundException("존재하지 않는 투표 입니다."));
 
 		if (voteEntity.isComplete()) {
@@ -84,7 +84,7 @@ public class DecisionService {
 
 		VoteEntity voteEntity =
 				voteRepository
-						.findVoteEntityByOption(optionId)
+						.findVoteByOption(optionId)
 						.orElseThrow(() -> new NotFoundException("존재하지 않는 투표 입니다."));
 
 		if (voteEntity.isComplete()) {
