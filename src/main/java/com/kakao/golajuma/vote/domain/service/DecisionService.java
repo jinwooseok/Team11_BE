@@ -56,7 +56,7 @@ public class DecisionService {
 		DecisionEntity entity = entityConverter.from(userId, optionId);
 		decisionRepository.save(entity);
 
-		updateCount(voteEntity, optionEntity);
+		increaseCount(voteEntity, optionEntity);
 
 		return toResponse(voteEntity, optionId);
 	}
@@ -97,7 +97,7 @@ public class DecisionService {
 		return toResponse(voteEntity, optionId);
 	}
 
-	private void updateCount(final VoteEntity voteEntity, final OptionEntity optionEntity) {
+	private void increaseCount(final VoteEntity voteEntity, final OptionEntity optionEntity) {
 		voteEntity.updateCount();
 		optionEntity.updateCount();
 	}
