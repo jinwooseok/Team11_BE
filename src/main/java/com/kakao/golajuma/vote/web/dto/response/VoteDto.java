@@ -63,8 +63,8 @@ public class VoteDto implements AbstractResponseDto {
 
 	public void addOption(List<? super OptionDto> options) {
 		for (Object option : options) {
-			if (option instanceof OptionDto) this.options.add((OptionDto) option);
 			if (option instanceof CountOptionDto) this.options.add((CountOptionDto) option);
+			else this.options.add((OptionDto) option);
 		}
 	}
 }
