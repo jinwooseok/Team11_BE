@@ -1,4 +1,3 @@
-use golajuma;
 INSERT INTO user (user_id, user_nickname, user_email, user_password, created_date, updated_date, deleted)
 VALUES
     (1, "진우석","jws@gmail.com","asdf1234", NOW(), NOW(),false),
@@ -30,7 +29,7 @@ VALUES
 INSERT INTO vote (vote_id, user_id, vote_category, vote_title, vote_content,
                   vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
 VALUES (1, 1,"TOTAL", "축제 때 어떤 옷 입고갈까?", "낼모레 축제인데 츄리닝은 오바지?",
-        "2023-10-20","기본",NOW(), NOW(),false, 20);
+        NOW() + INTERVAL 3 DAY,"기본",NOW(), NOW(),false, 20);
 
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (1, "캐쥬얼한 조끼니트",5,1,"default",NOW(), NOW(),false);
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (2, "힙합!",10,1,"default",NOW(), NOW(),false);
@@ -70,7 +69,7 @@ INSERT INTO decision (created_date, deleted, updated_date, decision_user_id, dec
 INSERT INTO vote (vote_id, user_id, vote_category, vote_title, vote_content,
                   vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
 VALUES (2, 2,"MOVIE", "넷플릭스 뭐 볼지 추천 좀 ㅠㅠ", "재밌는게 너무 많앙",
-        "2023-10-20","기본",NOW() + INTERVAL 1 MINUTE, NOW() + INTERVAL 1 MINUTE,false,8);
+        NOW() + INTERVAL 3 DAY,"기본",NOW() + INTERVAL 1 MINUTE, NOW() + INTERVAL 1 MINUTE,false,8);
 
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (4,"무서운이야기",5,2,"default",NOW() + INTERVAL 1 MINUTE, NOW() + INTERVAL 1 MINUTE,false);
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (5,"오징어게임3",3,2,"default",NOW() + INTERVAL 1 MINUTE, NOW() + INTERVAL 1 MINUTE,false);
@@ -93,7 +92,7 @@ INSERT INTO decision (created_date, deleted, updated_date, decision_user_id, dec
 INSERT INTO vote (vote_id, user_id, vote_category, vote_title, vote_content,
                   vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
 VALUES (3, 2,"TOTAL", "학교가기싫다", "ㅇㅈ?",
-        "2023-10-20","기본",NOW() + INTERVAL 2 MINUTE, NOW() + INTERVAL 2 MINUTE,false,10);
+        NOW() + INTERVAL 3 DAY,"기본",NOW() + INTERVAL 2 MINUTE, NOW() + INTERVAL 2 MINUTE,false,10);
 
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (6,"갈까?",0,3,"default",NOW() + INTERVAL 2 MINUTE, NOW() + INTERVAL 2 MINUTE,false);
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (7,"말까?",10,3,"default",NOW() + INTERVAL 2 MINUTE, NOW() + INTERVAL 2 MINUTE,false);
@@ -119,7 +118,7 @@ INSERT INTO comment (comment_id, comment_vote_id, comment_user_id, comment_conte
 INSERT INTO vote (vote_id, user_id, vote_category, vote_title, vote_content,
                   vote_end_date, vote_type, created_date, updated_date, deleted,vote_total_count)
 VALUES (4, 3,"FOOD", "여자친구랑 데이트 뭐 먹을까요?", "넷 중에 하나로 갈 예정임",
-        "2023-10-20","기본",NOW() + INTERVAL 3 MINUTE, NOW() + INTERVAL 3 MINUTE,false, 12);
+        NOW() + INTERVAL 3 DAY,"기본",NOW() + INTERVAL 3 MINUTE, NOW() + INTERVAL 3 MINUTE,false, 12);
 
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (8,"짜이나궁",1,4,"default",NOW() + INTERVAL 3 MINUTE, NOW() + INTERVAL 3 MINUTE,false);
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (9,"라쿵푸마라탕",2,4,"default",NOW() + INTERVAL 3 MINUTE, NOW() + INTERVAL 3 MINUTE,false);
@@ -171,7 +170,7 @@ INSERT INTO comment (comment_id, comment_vote_id, comment_user_id, comment_conte
 INSERT INTO vote (vote_id, user_id, vote_category, vote_title, vote_content,
                   vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
 VALUES (6, 3,"TOTAL", "대학원엘 갈지 취업을 해서 경험을 먼저 쌓을지가 고민입니다", "취업하기가 무섭다 애들아..",
-        "2023-10-20","기본",NOW() + INTERVAL 1 HOUR, NOW() + INTERVAL 1 HOUR,false, 10);
+        NOW() + INTERVAL 3 DAY,"기본",NOW() + INTERVAL 1 HOUR, NOW() + INTERVAL 1 HOUR,false, 10);
 
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (14,"대학원",0,6,"default",NOW() + INTERVAL 1 HOUR, NOW() + INTERVAL 1 HOUR,false);
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (15,"취업",10,6,"default",NOW() + INTERVAL 1 HOUR, NOW() + INTERVAL 1 HOUR,false);
@@ -224,7 +223,7 @@ INSERT INTO vote (vote_id, user_id, vote_category, vote_title, vote_content,
                   vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
 VALUES (8, 1,"TOTAL", "제가 팔랑귀인지 고민이에요", "그 종종 다른 사람들이 이 수업 좋다좋다 하길래 다 하는데..지금 그래서 이번학기에 경제, 컴공, 심리 강의 다
 듣게 됐거든..이거 팔랑귀야?",
-        "2023-10-20","기본",NOW() + INTERVAL 2 HOUR, NOW() + INTERVAL 2 HOUR,false, 0);
+        NOW() + INTERVAL 3 DAY,"기본",NOW() + INTERVAL 2 HOUR, NOW() + INTERVAL 2 HOUR,false, 0);
 
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (19,"맞다",0,8,"default",NOW() + INTERVAL 2 HOUR, NOW() + INTERVAL 2 HOUR,false);
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (20,"그럴 수 있다",0,8,"default",NOW() + INTERVAL 2 HOUR, NOW() + INTERVAL 2 HOUR,false);
@@ -260,9 +259,8 @@ INSERT INTO comment (comment_id, comment_vote_id, comment_user_id, comment_conte
 
 INSERT INTO vote (vote_id, user_id, vote_category, vote_title, vote_content,
                   vote_end_date, vote_type, created_date, updated_date, deleted, vote_total_count)
-VALUES (10, 3,"TOTAL", "어떤 이성이 더 좋은 이성인가..", "성격은 진짜 잘 맞는데 내 스탈은 아닌 동생이 있고 이번에 소개팅나갔는데 얼굴은 예쁘신데 난 조용한걸
-별로 안좋아해서..",
-        "2023-10-20" ,"기본",NOW() + INTERVAL 2 HOUR + INTERVAL 7 MINUTE, NOW() + INTERVAL 2 HOUR + INTERVAL 7 MINUTE,false,11);
+VALUES (10, 10,"TOTAL", "어떤 분이 나한테 잘 맞을지 모르겠어", "성격은 진짜 잘 맞는데 내 스탈은 아닌 동생이 있고 이번에 소개팅나갔는데 얼굴은 예쁘신데 난 조용한걸 별로 안좋아해서..",
+        NOW() + INTERVAL 3 DAY,"기본",NOW() + INTERVAL 2 HOUR + INTERVAL 7 MINUTE, NOW() + INTERVAL 2 HOUR + INTERVAL 7 MINUTE,false,11);
 
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (23,"전자",3,10,"default",NOW() + INTERVAL 2 HOUR + INTERVAL 7 MINUTE, NOW() + INTERVAL 2 HOUR + INTERVAL 7 MINUTE,false);
 INSERT INTO vote_option (option_id , option_name, option_count, option_vote_id, option_image, created_date, updated_date, deleted) VALUES (24,"후자",8,10,"default",NOW() + INTERVAL 2 HOUR + INTERVAL 7 MINUTE, NOW() + INTERVAL 2 HOUR + INTERVAL 7 MINUTE,false);
