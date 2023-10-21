@@ -89,4 +89,19 @@ public class VoteEntity extends BaseEntity {
 	public boolean isOwner(long userId) {
 		return userId == this.getUserId();
 	}
+
+	public boolean isComplete() {
+		if (checkActive().equals(Active.COMPLETE)) {
+			return true;
+		}
+		return false;
+	}
+
+	public void updateCount() {
+		this.voteTotalCount += 1;
+	}
+
+	public void decreaseCount() {
+		this.voteTotalCount -= 1;
+	}
 }

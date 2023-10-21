@@ -49,4 +49,12 @@ public class OptionEntity extends BaseEntity {
 				.optionImage(request.getImage())
 				.build();
 	}
+
+	public void updateCount() {
+		this.optionCount += 1;
+	}
+
+	public void decreaseCount() {
+		this.optionCount = -1;
+	}
 }
