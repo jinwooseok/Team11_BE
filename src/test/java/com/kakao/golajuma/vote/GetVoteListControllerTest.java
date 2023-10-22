@@ -75,7 +75,7 @@ public class GetVoteListControllerTest {
 						get("/votes")
 								.header("Authorization", "Bearer " + jwtToken)
 								.param("sort", "current")
-								.param("active", "finish")
+								.param("active", "complete")
 								.param("category", "total"));
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
