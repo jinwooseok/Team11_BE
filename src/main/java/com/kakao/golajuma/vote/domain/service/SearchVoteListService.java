@@ -5,8 +5,8 @@ import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.SearchVoteListResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,16 +31,10 @@ public class SearchVoteListService {
 		// 1. vote list 를 가져온다
 		Slice<VoteEntity> voteList = findVotes(keyword, category, sort);
 
-		List<VoteDto> votes = new ArrayList<>();
-
-		//		voteList.stream()
-		//				.map(voteEntity -> getVoteService.getVote(voteEntity, userId))
-		//				.collect(Collectors.toList());
-		// 위 방식으로 하면 응답 dto로 변환이 되지않는 문제 발생
-		for (VoteEntity vote : voteList) {
-			VoteDto voteDto = getVoteService.getVote(vote, userId);
-			votes.add(voteDto);
-		}
+		List<VoteDto> votes =
+				voteList.stream()
+						.map(voteEntity -> getVoteService.getVote(voteEntity, userId))
+						.collect(Collectors.toList());
 
 		// 마지막 페이지인지 검사
 		boolean isLast = voteList.isLast();
