@@ -46,7 +46,7 @@ public class SearchVoteListControllerTest {
 
 		String sort = "current";
 		String category = "total";
-		String keyword = "낼모레";
+		String keyword = "군대";
 
 		// when
 		ResultActions resultActions =

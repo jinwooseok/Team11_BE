@@ -8,6 +8,7 @@ import com.kakao.golajuma.common.support.respnose.MessageCode;
 import com.kakao.golajuma.vote.domain.service.CloseVoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class CloseVoteController {
 	private final CloseVoteService closeVoteService;
 
 	// 투표 마감
-	@PostMapping("/vote/{voteId}/close")
+	@PatchMapping("/vote/{voteId}/close")
 	public ApiResponse<ApiResponseBody.SuccessBody<Void>> closeVote(
 			@PathVariable Long voteId, @Login Long userId) {
 		closeVoteService.closeVote(voteId, userId);
