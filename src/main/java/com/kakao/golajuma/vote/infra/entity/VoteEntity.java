@@ -91,4 +91,8 @@ public class VoteEntity extends BaseEntity {
 	public void decreaseCount() {
 		this.voteTotalCount -= 1;
 	}
+
+	public void close() {
+		this.voteEndDate = LocalDateTime.now();
+	}
 }

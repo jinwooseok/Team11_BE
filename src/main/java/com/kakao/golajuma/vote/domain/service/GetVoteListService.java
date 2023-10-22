@@ -3,6 +3,7 @@ package com.kakao.golajuma.vote.domain.service;
 import com.kakao.golajuma.vote.domain.exception.RequestParamException;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
+import com.kakao.golajuma.vote.infra.repository.DecisionRepository;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteListResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
@@ -23,6 +24,7 @@ public class GetVoteListService {
 
 	private final VoteRepository voteRepository;
 	private final GetVoteService getVoteService;
+	private final DecisionRepository decisionRepository;
 
 	static int page = 0;
 	static int size = 5;
@@ -112,7 +114,7 @@ public class GetVoteListService {
 		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
 
 		// userId가 투표한 투표 리스트를 decision 레포에서 찾아야함
-		//        List<VoteEntity> voteList = decisionJPARepository.findAllUserId(userId);
+		//		        List<VoteEntity> voteList = decisionRepository.findAllUserId(userId);
 		List<VoteEntity> voteList = new ArrayList<>();
 		responseBody.toDto(voteList);
 
