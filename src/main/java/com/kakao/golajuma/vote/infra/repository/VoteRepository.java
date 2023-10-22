@@ -93,10 +93,26 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 			"select v from VoteEntity v"
 					+ " where v.deleted = false"
 					+ " and v.voteTitle like %:keyword%"
-					+ " and v.category = :category"
 					+ " order by v.createdDate desc ")
 	Slice<VoteEntity> searchVotesOrderByCreatedDate(
+			@Param("keyword") String keyword, Pageable pageable);
+
+	@Query(
+			"select v from VoteEntity v"
+					+ " where v.deleted = false"
+					+ " and v.voteTitle like %:keyword%"
+					+ " and v.category = :category"
+					+ " order by v.createdDate desc ")
+	Slice<VoteEntity> searchVotesByCategoryOrderByCreatedDate(
 			@Param("keyword") String keyword, @Param("category") Category category, Pageable pageable);
+
+	@Query(
+			"select v from VoteEntity v"
+					+ " where v.deleted = false"
+					+ " and v.voteTitle like %:keyword%"
+					+ " order by v.voteTotalCount desc ")
+	Slice<VoteEntity> searchVotesOrderByVoteTotalCount(
+			@Param("keyword") String keyword, Pageable pageable);
 
 	@Query(
 			"select v from VoteEntity v"
@@ -104,7 +120,7 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 					+ " and v.voteTitle like %:keyword%"
 					+ " and v.category = :category"
 					+ " order by v.voteTotalCount desc ")
-	Slice<VoteEntity> searchVotesOrderByVoteTotalCount(
+	Slice<VoteEntity> searchVotesByCategoryOrderByVoteTotalCount(
 			@Param("keyword") String keyword, @Param("category") Category category, Pageable pageable);
 
 	@Query(
