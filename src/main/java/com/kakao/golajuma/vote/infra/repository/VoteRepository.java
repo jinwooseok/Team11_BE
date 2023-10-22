@@ -106,4 +106,10 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 					+ " order by v.voteTotalCount desc ")
 	Slice<VoteEntity> searchVotesOrderByVoteTotalCount(
 			@Param("keyword") String keyword, @Param("category") Category category, Pageable pageable);
+
+	@Query(
+			"select v from VoteEntity v"
+					+ " join OptionEntity o on o.voteId = v.id"
+					+ " where o.id = :optionId")
+	Optional<VoteEntity> findVoteByOption(Long optionId);
 }
