@@ -4,6 +4,7 @@ import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -85,7 +86,7 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 			"select v from VoteEntity v where v.deleted = false and v.userId = :userId order by v.createdDate desc ")
 	List<VoteEntity> findAllByUserId(@Param("userId") long userId);
 
-	VoteEntity findById(long id);
+	Optional<VoteEntity> findById(long id);
 
 	// 검색 기능
 	@Query(
@@ -105,4 +106,10 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 					+ " order by v.voteTotalCount desc ")
 	Slice<VoteEntity> searchVotesOrderByVoteTotalCount(
 			@Param("keyword") String keyword, @Param("category") Category category, Pageable pageable);
+
+	@Query(
+			"select v from VoteEntity v"
+					+ " join OptionEntity o on o.voteId = v.id"
+					+ " where o.id = :optionId")
+	Optional<VoteEntity> findVoteByOption(Long optionId);
 }

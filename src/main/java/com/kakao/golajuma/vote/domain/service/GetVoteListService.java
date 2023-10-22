@@ -3,6 +3,7 @@ package com.kakao.golajuma.vote.domain.service;
 import com.kakao.golajuma.vote.domain.exception.RequestParamException;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
+import com.kakao.golajuma.vote.infra.repository.DecisionRepository;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteListResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
@@ -23,6 +24,7 @@ public class GetVoteListService {
 
 	private final VoteRepository voteRepository;
 	private final GetVoteService getVoteService;
+	private final DecisionRepository decisionRepository;
 
 	static int page = 0;
 	static int size = 5;
@@ -36,12 +38,12 @@ public class GetVoteListService {
 		this.page = page;
 
 		// 진행중인 투표(on) or 완료된 투표 요청 판단
-		boolean on = checkActive(active);
+		boolean continueRequest = checkActive(active);
 
 		// 1. vote list 를 가져온다
 		Slice<VoteEntity> voteList;
 
-		if (on) {
+		if (continueRequest) {
 			voteList = findContinueVotes(sort, checkCategory(category));
 		} else {
 			voteList = findFinishVotes(sort, checkCategory(category));
@@ -49,7 +51,7 @@ public class GetVoteListService {
 
 		List<VoteDto> votes = new ArrayList<>();
 		for (VoteEntity vote : voteList) {
-			VoteDto voteDto = getVoteService.getVote(vote, userId, on);
+			VoteDto voteDto = getVoteService.getVote(vote, userId);
 			votes.add(voteDto);
 		}
 		// 마지막 페이지인지 검사
@@ -112,7 +114,7 @@ public class GetVoteListService {
 		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
 
 		// userId가 투표한 투표 리스트를 decision 레포에서 찾아야함
-		//        List<VoteEntity> voteList = decisionJPARepository.findAllUserId(userId);
+		//		        List<VoteEntity> voteList = decisionRepository.findAllUserId(userId);
 		List<VoteEntity> voteList = new ArrayList<>();
 		responseBody.toDto(voteList);
 

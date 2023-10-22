@@ -8,7 +8,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Getter
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
@@ -30,13 +30,6 @@ public class CommentEntity extends BaseEntity {
 
 	@Column(name = ENTITY_PREFIX + "_content", length = 255, nullable = false)
 	private String content;
-
-	@Builder
-	public CommentEntity(long voteId, long userId, String content) {
-		this.voteId = voteId;
-		this.userId = userId;
-		this.content = content;
-	}
 
 	public void updateContent(String content) {
 		this.content = content;
