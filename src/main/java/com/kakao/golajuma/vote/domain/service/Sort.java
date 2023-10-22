@@ -1,8 +1,6 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.domain.exception.NullException;
 import com.kakao.golajuma.vote.domain.exception.SortException;
-
 import java.util.Arrays;
 
 public enum Sort {
