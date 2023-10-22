@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class VoteController {
+public class CloseVoteController {
 	private final CloseVoteService closeVoteService;
 
 	// 투표 마감
