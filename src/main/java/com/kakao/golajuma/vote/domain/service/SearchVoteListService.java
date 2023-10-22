@@ -1,6 +1,5 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.domain.exception.RequestParamException;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
@@ -8,7 +7,6 @@ import com.kakao.golajuma.vote.web.dto.response.SearchVoteListResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,13 +29,18 @@ public class SearchVoteListService {
 		this.page = page;
 
 		// 1. vote list 를 가져온다
-		Slice<VoteEntity> voteList = findByRepository(keyword, sort, checkCategory(category));
+		Slice<VoteEntity> voteList = findVotes(keyword, category, sort);
 
 		List<VoteDto> votes = new ArrayList<>();
 
-		voteList.stream()
-				.map(voteEntity -> getVoteService.getVote(voteEntity, userId))
-				.collect(Collectors.toList());
+		//		voteList.stream()
+		//				.map(voteEntity -> getVoteService.getVote(voteEntity, userId))
+		//				.collect(Collectors.toList());
+		// 위 방식으로 하면 응답 dto로 변환이 되지않는 문제 발생
+		for (VoteEntity vote : voteList) {
+			VoteDto voteDto = getVoteService.getVote(vote, userId);
+			votes.add(voteDto);
+		}
 
 		// 마지막 페이지인지 검사
 		boolean isLast = voteList.isLast();
@@ -45,20 +48,29 @@ public class SearchVoteListService {
 		return new SearchVoteListResponse(votes, isLast);
 	}
 
-	private Slice<VoteEntity> findByRepository(String keyword, String sort, Category category) {
-		Pageable pageable = PageRequest.of(page, size);
-
-		if (sort.equals("current")) {
-			return voteRepository.searchVotesOrderByCreatedDate(keyword, category, pageable);
+	private Slice<VoteEntity> findVotes(String keyword, String category, String sort) {
+		// 카테고리 요청 확인
+		if (Category.isTotalRequest(category)) {
+			return OrderBySort(keyword, sort);
 		}
-		if (sort.equals("popular")) {
-			return voteRepository.searchVotesOrderByVoteTotalCount(keyword, category, pageable);
-		}
-
-		throw new RequestParamException("잘못된 요청입니다.(sort)");
+		return ByCategoryOrderBySort(keyword, Category.findCategory(category), sort);
 	}
 
-	private Category checkCategory(String category) {
-		return Category.findCategory(category);
+	private Slice<VoteEntity> OrderBySort(String keyword, String sort) {
+		Pageable pageable = PageRequest.of(page, size);
+
+		if (Sort.isCurrentRequest(sort)) {
+			return voteRepository.searchVotesOrderByCreatedDate(keyword, pageable);
+		}
+		return voteRepository.searchVotesOrderByVoteTotalCount(keyword, pageable);
+	}
+
+	private Slice<VoteEntity> ByCategoryOrderBySort(String keyword, Category category, String sort) {
+		Pageable pageable = PageRequest.of(page, size);
+
+		if (Sort.isCurrentRequest(sort)) {
+			return voteRepository.searchVotesByCategoryOrderByCreatedDate(keyword, category, pageable);
+		}
+		return voteRepository.searchVotesByCategoryOrderByVoteTotalCount(keyword, category, pageable);
 	}
 }
