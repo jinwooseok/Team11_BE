@@ -20,7 +20,7 @@ public class CloseVoteController {
 	// 투표 마감
 	@PostMapping("/vote/{voteId}/close")
 	public ApiResponse<ApiResponseBody.SuccessBody<Void>> closeVote(
-			@PathVariable int voteId, @Login Long userId) {
+			@PathVariable Long voteId, @Login Long userId) {
 		closeVoteService.closeVote(voteId, userId);
 		return ApiResponseGenerator.success(HttpStatus.OK, MessageCode.UPDATE);
 	}
