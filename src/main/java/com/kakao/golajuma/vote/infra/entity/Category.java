@@ -29,4 +29,8 @@ public enum Category {
 				.findAny()
 				.orElseThrow(() -> new CategoryException("해당 카테고리는 존재하지 않습니다."));
 	}
+
+	public static boolean isTotalRequest(String category) {
+		return findCategory(category) == Category.TOTAL;
+	}
 }
