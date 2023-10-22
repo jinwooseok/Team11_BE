@@ -66,7 +66,7 @@ public class GetVoteListService {
 
 	private Slice<VoteEntity> findCompleteVotes(String category, String sort) {
 		// 카테고리 요청 확인
-		if (getCategory(category) == Category.TOTAL) {
+		if (Category.isTotalRequest(category)) {
 			return completeOrderBySort(sort);
 		}
 		return completeByCategoryOrderBySort(getCategory(category), sort);
@@ -98,7 +98,7 @@ public class GetVoteListService {
 
 	private Slice<VoteEntity> findContinueVotes(String category, String sort) {
 		// 카테고리 요청 확인
-		if (getCategory(category) == Category.TOTAL) {
+		if (Category.isTotalRequest(category)) {
 			return continueOrderBySort(sort);
 		}
 		return continueByCategoryOrderBySort(getCategory(category), sort);
