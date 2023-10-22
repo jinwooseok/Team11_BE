@@ -37,17 +37,13 @@ public class GetVoteListService {
 		*/
 		this.page = page;
 
-		// 진행중인 투표(on) or 완료된 투표 요청 판단
-		boolean continueRequest = checkActive(active);
-
 		// 1. vote list 를 가져온다
-		Slice<VoteEntity> voteList;
-
-		if (continueRequest) {
-			voteList = findContinueVotes(sort, checkCategory(category));
-		} else {
-			voteList = findFinishVotes(sort, checkCategory(category));
-		}
+		// 투표 리스트 가져 오는 방법
+		// 정렬 기준
+		// 1. 메인페이지 or 완료된 페이지 active
+		// 2. 전체 카테고리 or 세부 카테고리
+		// 3. 최신순 or 인기순
+		Slice<VoteEntity> voteList = getVoteListByRequest(active, category, sort);
 
 		List<VoteDto> votes = new ArrayList<>();
 		for (VoteEntity vote : voteList) {
@@ -60,7 +56,82 @@ public class GetVoteListService {
 		return new GetVoteListResponse.MainAndFinishPage(votes, isLast);
 	}
 
-	private boolean checkActive(String active) {
+	private Slice<VoteEntity> getVoteListByRequest(String active, String category, String sort) {
+		if (isContinueRequest(active)) {
+			return findContinueVotes(category, sort);
+		}
+		return findCompleteVotes(category, sort);
+	}
+
+	private Slice<VoteEntity> findCompleteVotes(String category, String sort) {
+		if (getCategory(category) == Category.TOTAL) {
+			return completeOrderBySort(sort);
+		}
+		return completeByCategoryOrderBySort(getCategory(category), sort);
+	}
+
+	private Slice<VoteEntity> completeOrderBySort(String sort) {
+		// 어디서부터 몇개씩 가져올건지
+		Pageable pageable = PageRequest.of(page, size);
+		LocalDateTime now = LocalDateTime.now();
+
+		if (isCurrent(sort)) {
+			return voteRepository.findAllFinishVotesOrderByCreatedDate(now, pageable);
+		}
+		return voteRepository.findAllFinishVotesOrderByVoteTotalCount(now, pageable);
+	}
+
+	private Slice<VoteEntity> completeByCategoryOrderBySort(Category category, String sort) {
+		// 어디서부터 몇개씩 가져올건지
+		Pageable pageable = PageRequest.of(page, size);
+
+		LocalDateTime now = LocalDateTime.now();
+
+		if (isCurrent(sort)) {
+			return voteRepository.findAllFinishVotesByCategoryOrderByCreatedDate(now, category, pageable);
+		}
+		return voteRepository.findAllFinishVotesByCategoryOrderByVoteTotalCount(
+				now, category, pageable);
+	}
+
+	private Slice<VoteEntity> findContinueVotes(String category, String sort) {
+		if (getCategory(category) == Category.TOTAL) {
+			return continueOrderBySort(sort);
+		}
+		return continueByCategoryOrderBySort(getCategory(category), sort);
+	}
+
+	private Slice<VoteEntity> continueOrderBySort(String sort) {
+		// 어디서부터 몇개씩 가져올건지
+		Pageable pageable = PageRequest.of(page, size);
+
+		LocalDateTime now = LocalDateTime.now();
+
+		if (isCurrent(sort)) {
+			return voteRepository.findAllContinueVotesOrderByCreatedDate(now, pageable);
+		}
+		return voteRepository.findAllContinueVotesOrderByVoteTotalCount(now, pageable);
+	}
+
+	private Slice<VoteEntity> continueByCategoryOrderBySort(Category category, String sort) {
+		// 어디서부터 몇개씩 가져올건지
+		Pageable pageable = PageRequest.of(page, size);
+
+		LocalDateTime now = LocalDateTime.now();
+
+		if (isCurrent(sort)) {
+			return voteRepository.findAllContinueVotesByCategoryOrderByCreatedDate(
+					now, category, pageable);
+		}
+		return voteRepository.findAllContinueVotesByCategoryOrderByVoteTotalCount(
+				now, category, pageable);
+	}
+
+	private boolean isCurrent(String sort) {
+		return Sort.findSort(sort) == Sort.CURRENT;
+	}
+
+	private boolean isContinueRequest(String active) {
 		if (active.equals("continue")) {
 			return true;
 		}
@@ -70,43 +141,8 @@ public class GetVoteListService {
 		throw new RequestParamException("잘못된 요청입니다.(active)");
 	}
 
-	private Category checkCategory(String category) {
+	private Category getCategory(String category) {
 		return Category.findCategory(category);
-	}
-
-	private Slice<VoteEntity> findContinueVotes(String sort, Category category) {
-		// 어디서부터 몇개씩 가져올건지
-		Pageable pageable = PageRequest.of(page, size);
-
-		LocalDateTime now = LocalDateTime.now();
-
-		if (sort.equals("current")) {
-			return voteRepository.findAllContinueVotesByCategoryOrderByCreatedDate(
-					now, category, pageable);
-		}
-		if (sort.equals("popular")) {
-			return voteRepository.findAllContinueVotesByCategoryOrderByVoteTotalCount(
-					now, category, pageable);
-		}
-
-		throw new RequestParamException("잘못된 요청입니다.(sort)");
-	}
-
-	private Slice<VoteEntity> findFinishVotes(String sort, Category category) {
-		// 어디서부터 몇개씩 가져올건지
-		Pageable pageable = PageRequest.of(page, size);
-
-		LocalDateTime now = LocalDateTime.now();
-
-		if (sort.equals("current")) {
-			return voteRepository.findAllFinishVotesByCategoryOrderByCreatedDate(now, category, pageable);
-		}
-		if (sort.equals("popular")) {
-			return voteRepository.findAllFinishVotesByCategoryOrderByVoteTotalCount(
-					now, category, pageable);
-		}
-
-		throw new RequestParamException("잘못된 요청입니다.(sort)");
 	}
 
 	public GetVoteListResponse.MyPage getVoteListInMyPageByParticipate(long userId) {
