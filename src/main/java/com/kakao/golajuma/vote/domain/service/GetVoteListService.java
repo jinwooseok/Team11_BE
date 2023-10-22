@@ -1,6 +1,5 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.domain.exception.RequestParamException;
 import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
@@ -58,13 +57,15 @@ public class GetVoteListService {
 	}
 
 	private Slice<VoteEntity> getVoteListByRequest(String active, String category, String sort) {
-		if (isContinueRequest(active)) {
+		// 메인페이지 요청인지 완료된 페이지 요청인지 검사
+		if (Active.isContinueRequest(active)) {
 			return findContinueVotes(category, sort);
 		}
 		return findCompleteVotes(category, sort);
 	}
 
 	private Slice<VoteEntity> findCompleteVotes(String category, String sort) {
+		// 카테고리 요청 확인
 		if (getCategory(category) == Category.TOTAL) {
 			return completeOrderBySort(sort);
 		}
@@ -72,23 +73,23 @@ public class GetVoteListService {
 	}
 
 	private Slice<VoteEntity> completeOrderBySort(String sort) {
-		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(page, size);
 		LocalDateTime now = LocalDateTime.now();
 
-		if (isCurrent(sort)) {
+		// 정렬 요청 확인
+		if (Sort.isCurrentRequest(sort)) {
 			return voteRepository.findAllFinishVotesOrderByCreatedDate(now, pageable);
 		}
 		return voteRepository.findAllFinishVotesOrderByVoteTotalCount(now, pageable);
 	}
 
 	private Slice<VoteEntity> completeByCategoryOrderBySort(Category category, String sort) {
-		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(page, size);
 
 		LocalDateTime now = LocalDateTime.now();
 
-		if (isCurrent(sort)) {
+		// 정렬 요청 확인
+		if (Sort.isCurrentRequest(sort)) {
 			return voteRepository.findAllFinishVotesByCategoryOrderByCreatedDate(now, category, pageable);
 		}
 		return voteRepository.findAllFinishVotesByCategoryOrderByVoteTotalCount(
@@ -96,6 +97,7 @@ public class GetVoteListService {
 	}
 
 	private Slice<VoteEntity> findContinueVotes(String category, String sort) {
+		// 카테고리 요청 확인
 		if (getCategory(category) == Category.TOTAL) {
 			return continueOrderBySort(sort);
 		}
@@ -103,24 +105,22 @@ public class GetVoteListService {
 	}
 
 	private Slice<VoteEntity> continueOrderBySort(String sort) {
-		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(page, size);
-
 		LocalDateTime now = LocalDateTime.now();
 
-		if (isCurrent(sort)) {
+		// 정렬 요청 확인
+		if (Sort.isCurrentRequest(sort)) {
 			return voteRepository.findAllContinueVotesOrderByCreatedDate(now, pageable);
 		}
 		return voteRepository.findAllContinueVotesOrderByVoteTotalCount(now, pageable);
 	}
 
 	private Slice<VoteEntity> continueByCategoryOrderBySort(Category category, String sort) {
-		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(page, size);
-
 		LocalDateTime now = LocalDateTime.now();
 
-		if (isCurrent(sort)) {
+		// 정렬 요청 확인
+		if (Sort.isCurrentRequest(sort)) {
 			return voteRepository.findAllContinueVotesByCategoryOrderByCreatedDate(
 					now, category, pageable);
 		}
@@ -128,25 +128,11 @@ public class GetVoteListService {
 				now, category, pageable);
 	}
 
-	private boolean isCurrent(String sort) {
-		return Sort.findSort(sort) == Sort.CURRENT;
-	}
-
-	private boolean isContinueRequest(String active) {
-		if (Active.findActive(active) == Active.CONTINUE) {
-			return true;
-		}
-		if (Active.findActive(active) == Active.COMPLETE) {
-			return false;
-		}
-		throw new RequestParamException("잘못된 요청입니다.(active)");
-	}
-
 	private Category getCategory(String category) {
 		return Category.findCategory(category);
 	}
 
-	public GetVoteListResponse.MyPage getVoteListInMyPageByParticipate(long userId) {
+	public GetVoteListResponse.MyPage getVoteListInMyPageByParticipate(Long userId) {
 		// 임의 유저값 가져옴 나중에 유효성 처리 해야함
 		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
 
@@ -158,8 +144,7 @@ public class GetVoteListService {
 		return responseBody;
 	}
 
-	public GetVoteListResponse.MyPage getVoteListInMyPageByAsk(long userId) {
-		// 임의 유저값 가져옴 나중에 유효성 처리 해야함
+	public GetVoteListResponse.MyPage getVoteListInMyPageByAsk(Long userId) {
 		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
 
 		// userId가 올린 투표를 가져옴
