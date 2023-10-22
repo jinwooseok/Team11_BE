@@ -1,6 +1,7 @@
 package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.exception.RequestParamException;
+import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.DecisionRepository;
@@ -132,10 +133,10 @@ public class GetVoteListService {
 	}
 
 	private boolean isContinueRequest(String active) {
-		if (active.equals("continue")) {
+		if (Active.findActive(active) == Active.CONTINUE) {
 			return true;
 		}
-		if (active.equals("finish")) {
+		if (Active.findActive(active) == Active.COMPLETE) {
 			return false;
 		}
 		throw new RequestParamException("잘못된 요청입니다.(active)");
