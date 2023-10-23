@@ -44,32 +44,19 @@ public class VoteEntity extends BaseEntity {
 	@Column(name = ENTITY_PREFIX + "_type")
 	private String voteType;
 
-	@Builder
-	public VoteEntity(
-			long id,
-			long userId,
-			long voteTotalCount,
-			Category category,
-			String voteTitle,
-			String voteContent,
-			LocalDateTime voteEndDate,
-			String voteType) {
-		this.id = id;
-		this.userId = userId;
-		this.voteTotalCount = voteTotalCount;
-		this.category = category;
-		this.voteTitle = voteTitle;
-		this.voteContent = voteContent;
-		this.voteEndDate = voteEndDate;
-		this.voteType = voteType;
-	}
-
 	public Active checkActive() {
 		LocalDateTime now = LocalDateTime.now();
 		if (voteEndDate.isBefore(now)) {
 			return Active.COMPLETE;
 		}
 		return Active.CONTINUE;
+	}
+
+	public boolean isOn() {
+		if (checkActive() == Active.CONTINUE) {
+			return true;
+		}
+		return false;
 	}
 
 	public static VoteEntity createEntity(CreateVoteRequest request, long userId) {
@@ -88,5 +75,24 @@ public class VoteEntity extends BaseEntity {
 
 	public boolean isOwner(long userId) {
 		return userId == this.getUserId();
+	}
+
+	public boolean isComplete() {
+		if (checkActive().equals(Active.COMPLETE)) {
+			return true;
+		}
+		return false;
+	}
+
+	public void updateCount() {
+		this.voteTotalCount += 1;
+	}
+
+	public void decreaseCount() {
+		this.voteTotalCount -= 1;
+	}
+
+	public void close() {
+		this.voteEndDate = LocalDateTime.now();
 	}
 }

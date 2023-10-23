@@ -6,10 +6,10 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:mariadb://mariadb:3306/krampoline?allowPublicKeyRetrieval=true&useSSL=false
+    url: ${DATABASE_URL}
     driver-class-name: org.mariadb.jdbc.Driver
-    username: root
-    password: root
+    username: ${MARIADB_USER_NAME}
+    password: ${MARIADB_ROOT_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
