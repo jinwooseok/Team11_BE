@@ -24,7 +24,7 @@ public enum Active {
 				.orElseThrow(() -> new NullException("해당 active는 존재하지 않습니다."));
 	}
 
-	public static boolean isContinueRequest(String active) {
-		return findActive(active) == Active.CONTINUE;
+	public static boolean isContinueRequest(Active active) {
+		return active == Active.CONTINUE;
 	}
 }
