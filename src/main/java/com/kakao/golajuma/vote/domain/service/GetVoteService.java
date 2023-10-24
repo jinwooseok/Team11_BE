@@ -78,9 +78,8 @@ public class GetVoteService {
 	}
 
 	private boolean checkChoiceOption(long userId, OptionEntity option) {
-		//		 decision repo 탐색
-		//		return decisionRepository.existByUserIdAndOptionId(userId, option.getId());
-		return true;
+		// decision repo 탐색
+		return decisionRepository.existsByUserIdAndOptionId(userId, option.getId());
 	}
 
 	private boolean checkParticipate(List<Boolean> choiceList) {
