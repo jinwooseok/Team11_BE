@@ -129,12 +129,10 @@ public class GetVoteListService {
 	}
 
 	public GetVoteListResponse.MyPage getVoteListInMyPageByParticipate(Long userId) {
-		// 임의 유저값 가져옴 나중에 유효성 처리 해야함
 		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
 
 		// userId가 투표한 투표 리스트를 decision 레포에서 찾아야함
-		//		        List<VoteEntity> voteList = decisionRepository.findAllUserId(userId);
-		List<VoteEntity> voteList = new ArrayList<>();
+		List<VoteEntity> voteList = voteRepository.findAllParticipateListByUserId(userId);
 		responseBody.toDto(voteList);
 
 		return responseBody;
