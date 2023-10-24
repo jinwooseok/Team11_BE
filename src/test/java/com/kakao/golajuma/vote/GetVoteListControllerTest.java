@@ -109,4 +109,29 @@ public class GetVoteListControllerTest {
 				.andExpect(jsonPath("$.data.votes[0].title").hasJsonPath())
 				.andExpect(jsonPath("$.data.votes[0].active").hasJsonPath());
 	}
+
+	@DisplayName("마이페이지 내가한 참여한 질문 리스트 조회 정상 요청")
+	@Test
+	public void getVoteListInMyPageByParticipate_test() throws Exception {
+
+		// when
+		ResultActions resultActions =
+				mvc.perform(get("/users/votes/participate").header("Authorization", "Bearer " + jwtToken));
+
+		resultActions.andExpect(status().isOk());
+
+		// eye
+		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.data").hasJsonPath())
+				.andExpect(jsonPath("$.data.votes").isArray())
+		//				.andExpect(jsonPath("$.data.votes[0].id").hasJsonPath())
+		//				.andExpect(jsonPath("$.data.votes[0].title").hasJsonPath())
+		//				.andExpect(jsonPath("$.data.votes[0].active").hasJsonPath())
+		;
+	}
 }
