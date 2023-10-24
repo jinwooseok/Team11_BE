@@ -19,7 +19,7 @@ public enum Active {
 
 	public static Active findActive(String active) {
 		return Arrays.stream(Active.values())
-				.filter(Category -> Category.getActive().equals(active))
+				.filter(Active -> Active.getActive().equals(active))
 				.findAny()
 				.orElseThrow(() -> new NullException("해당 active는 존재하지 않습니다."));
 	}
