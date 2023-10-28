@@ -131,7 +131,6 @@ public class GetVoteListControllerTest {
 				.andExpect(jsonPath("$.data.votes").isArray())
 				.andExpect(jsonPath("$.data.votes[0].id").hasJsonPath())
 				.andExpect(jsonPath("$.data.votes[0].title").hasJsonPath())
-				.andExpect(jsonPath("$.data.votes[0].active").hasJsonPath())
-		;
+				.andExpect(jsonPath("$.data.votes[0].active").hasJsonPath());
 	}
 }

@@ -1,5 +1,6 @@
 package com.kakao.golajuma.vote;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
@@ -16,7 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class GetHotVoteListTest {
+public class GetHotVoteListControllerTest {
 
 	@Autowired private MockMvc mvc;
 
@@ -41,7 +42,11 @@ public class GetHotVoteListTest {
 						MockMvcRequestBuilders.get("/votes/hot").header("Authorization", "Bearer " + jwtToken));
 
 		resultActions.andExpect(status().is2xxSuccessful());
-		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-		System.out.println("테스트 : " + responseBody);
+
+		resultActions
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.data").hasJsonPath())
+				.andExpect(jsonPath("$.data.votes").isArray())
+				.andExpect(jsonPath("$.message").hasJsonPath());
 	}
 }
