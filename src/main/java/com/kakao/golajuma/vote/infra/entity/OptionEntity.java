@@ -35,11 +35,20 @@ public class OptionEntity extends BaseEntity {
 	@ColumnDefault("0")
 	private long optionCount;
 
-	public static OptionEntity createEntity(CreateVoteRequest.OptionDTO request, long voteId) {
+	public static OptionEntity createEntity(CreateVoteRequest.OptionDto request, long voteId) {
 		return OptionEntity.builder()
 				.voteId(voteId)
 				.optionName(request.getName())
-				.optionImage(request.getImage())
+				.optionImage("null")
+				.build();
+	}
+
+	public static OptionEntity createEntityWithImage(
+			CreateVoteRequest.OptionDto request, String imagePath, long voteId) {
+		return OptionEntity.builder()
+				.voteId(voteId)
+				.optionName(request.getName())
+				.optionImage(imagePath)
 				.build();
 	}
 
