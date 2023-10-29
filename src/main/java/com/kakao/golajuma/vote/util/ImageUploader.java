@@ -17,10 +17,13 @@ public class ImageUploader {
 	private static final String SYSTEM_PATH = System.getProperty("user.dir");
 	private static final String UPLOAD_PATH =
 			"/out/production/classes/com/kakao/golajuma/vote/infra/images/";
+	private static final String PNG = ".png";
+	private static final String JPEG = ".JPEG";
 
 	public String uploadImageByBase64(CreateVoteRequest.OptionDto request) {
 		String base64 = request.getImage();
 		String fileName = request.getName();
+
 		// 파일이 업로드되지 않았거나 사이즈가 큰 경우를 체크합니다.
 		// 사이즈는 일반 바이트에서 1.33을 곱하면 BASE64 사이즈가 대략 나옵니다.
 		if (base64 == null || base64.equals("")) {
@@ -36,6 +39,15 @@ public class ImageUploader {
 			String uploadPath = SYSTEM_PATH + UPLOAD_PATH;
 			String storedPath = uploadPath + changedName;
 			File file = new File(storedPath);
+
+			if (base64.startsWith("data:image/png;base64,")) {
+				base64 = base64.substring("data:image/png;base64,".length());
+				changedName += PNG;
+			}
+			if (base64.startsWith("data:image/jpeg;base64,")) {
+				base64 = base64.substring("data:image/png;base64,".length());
+				changedName += JPEG;
+			}
 
 			// BASE64를 일반 파일로 변환하고 저장합니다.
 			Base64.Decoder decoder = Base64.getDecoder();
