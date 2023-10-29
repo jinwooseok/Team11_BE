@@ -39,7 +39,7 @@ public class OptionEntity extends BaseEntity {
 		return OptionEntity.builder()
 				.voteId(voteId)
 				.optionName(request.getName())
-				.optionImage("null")
+				.optionImage(null)
 				.build();
 	}
 
