@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class DecisionResponseConverter {
-	private OptionResultConverter optionResultConverter;
+	private final OptionResultConverter optionResultConverter;
 
 	public DecisionResponse from(Long selectedId, List<OptionEntity> optionsByVote, Long totalCount) {
 		return DecisionResponse.builder()
