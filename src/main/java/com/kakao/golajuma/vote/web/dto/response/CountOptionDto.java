@@ -21,8 +21,7 @@ public class CountOptionDto extends OptionDto {
 
 	public static CountOptionDto makeCountOptionDto(
 			OptionEntity option, boolean choice, long totalCount) {
-		final ImageUploader imageUploader = new ImageUploader();
-		String image = imageUploader.getImage(option.getOptionImage());
+		String image = ImageUploader.getImage(option.getOptionImage());
 		if (totalCount == 0) totalCount = 1;
 		int ratio = Math.round(option.getOptionCount() * 100 / totalCount);
 		return CountOptionDto.builder()
