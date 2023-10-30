@@ -1,6 +1,7 @@
 package com.kakao.golajuma.vote.web.dto.response;
 
 import com.kakao.golajuma.vote.infra.entity.OptionEntity;
+import com.kakao.golajuma.vote.util.ImageUploader;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
@@ -20,12 +21,14 @@ public class CountOptionDto extends OptionDto {
 
 	public static CountOptionDto makeCountOptionDto(
 			OptionEntity option, boolean choice, long totalCount) {
+		final ImageUploader imageUploader = new ImageUploader();
+		String image = imageUploader.getImage(option.getOptionImage());
 		if (totalCount == 0) totalCount = 1;
 		int ratio = Math.round(option.getOptionCount() * 100 / totalCount);
 		return CountOptionDto.builder()
 				.id(option.getId())
 				.optionName(option.getOptionName())
-				.image(option.getOptionImage())
+				.image(image)
 				.choice(choice)
 				.optionCount(option.getOptionCount())
 				.optionRatio(ratio)
