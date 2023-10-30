@@ -44,7 +44,11 @@ public class ImageUploader {
 				changedName += PNG;
 			}
 			if (base64.startsWith("data:image/jpeg;base64,")) {
-				base64 = base64.substring("data:image/png;base64,".length());
+				base64 = base64.substring("data:image/jpeg;base64,".length());
+				changedName += JPEG;
+			}
+			if (base64.startsWith("data:image/gif;base64,")) {
+				base64 = base64.substring("data:image/gif;base64,".length());
 				changedName += JPEG;
 			}
 
@@ -63,24 +67,38 @@ public class ImageUploader {
 		}
 	}
 
-	public String getImage(String imagePath) {
+	public static String getImage(String imagePath) {
 		if (imagePath == null || imagePath.equals("")) {
 			return null;
 		}
 		return encodingImage(imagePath);
 	}
 
-	public String encodingImage(String imagePath) {
+	private static String encodingImage(String imagePath) {
 		File imageFile = new File(imagePath);
 		try {
 			BufferedImage image = ImageIO.read(imageFile);
-
+			// 이미지 파일의 확장자를 추출
+			String extension = imagePath.substring(imagePath.lastIndexOf('.') + 1);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ImageIO.write(image, "png", baos);
+			ImageIO.write(image, getExtension(extension), baos);
 			String base64Image = Base64.getEncoder().encodeToString(baos.toByteArray());
 			return base64Image;
 		} catch (Exception e) {
 			throw new ImageException("이미지를 찾을 수 없습니다.");
 		}
+	}
+
+	private static String getExtension(String extension) {
+		if (extension.equals("png")) {
+			return "png";
+		}
+		if ("jpg".equalsIgnoreCase(extension) || "jpeg".equalsIgnoreCase(extension)) {
+			return "jpg";
+		}
+		if ("gif".equalsIgnoreCase(extension)) {
+			return "gif";
+		}
+		throw new ImageException("지원되지 않는 이미지 형식입니다.");
 	}
 }
