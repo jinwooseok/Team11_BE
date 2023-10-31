@@ -19,8 +19,7 @@ public class OptionDto {
 	}
 
 	public static OptionDto makeOptionDto(OptionEntity option) {
-//		String image = ImageUploader.getImage(option.getOptionImage());
-		String image = option.getOptionImage();
+		String image = ImageUploader.getImage(option.getOptionImage());
 		return OptionDto.builder()
 				.id(option.getId())
 				.optionName(option.getOptionName())
