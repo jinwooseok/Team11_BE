@@ -1,6 +1,7 @@
 package com.kakao.golajuma.vote.web.dto.response;
 
 import com.kakao.golajuma.vote.infra.entity.OptionEntity;
+import com.kakao.golajuma.vote.util.ImageUploader;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
@@ -18,8 +19,7 @@ public class OptionDto {
 	}
 
 	public static OptionDto makeOptionDto(OptionEntity option) {
-		//		String image = ImageUploader.getImage(option.getOptionImage());
-		String image = option.getOptionImage();
+		String image = ImageUploader.getImage(option.getOptionImage());
 		return OptionDto.builder()
 				.id(option.getId())
 				.optionName(option.getOptionName())

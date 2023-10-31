@@ -83,10 +83,25 @@ public class ImageUploader {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ImageIO.write(image, getExtension(extension), baos);
 			String base64Image = Base64.getEncoder().encodeToString(baos.toByteArray());
+
+			base64Image = ImageType(extension) + base64Image;
 			return base64Image;
 		} catch (Exception e) {
 			throw new ImageException("이미지를 찾을 수 없습니다.");
 		}
+	}
+
+	private static String ImageType(String extension) {
+		if (extension.equals("png")) {
+			return "data:image/png;base64,";
+		}
+		if ("jpg".equalsIgnoreCase(extension) || "jpeg".equalsIgnoreCase(extension)) {
+			return "data:image/jpeg;base64,";
+		}
+		if ("gif".equalsIgnoreCase(extension)) {
+			return "data:image/gif;base64,";
+		}
+		throw new ImageException("지원되지 않는 이미지 형식입니다.");
 	}
 
 	private static String getExtension(String extension) {
