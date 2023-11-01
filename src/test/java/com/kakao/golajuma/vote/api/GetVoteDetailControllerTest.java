@@ -1,4 +1,4 @@
-package com.kakao.golajuma.vote;
+package com.kakao.golajuma.vote.api;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

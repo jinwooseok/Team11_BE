@@ -1,4 +1,4 @@
-package com.kakao.golajuma.vote;
+package com.kakao.golajuma.vote.api;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.vote.ImageDto;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import java.util.ArrayList;
 import java.util.List;
