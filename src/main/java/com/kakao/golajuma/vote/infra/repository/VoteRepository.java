@@ -68,7 +68,6 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 			"select v from VoteEntity v"
 					+ " where v.deleted = false"
 					+ " and v.voteEndDate < :now"
-					+ " and v.category = :category"
 					+ " ORDER BY v.voteTotalCount desc ")
 	Slice<VoteEntity> findAllFinishVotesOrderByVoteTotalCount(
 			@Param("now") LocalDateTime now, Pageable pageable);
