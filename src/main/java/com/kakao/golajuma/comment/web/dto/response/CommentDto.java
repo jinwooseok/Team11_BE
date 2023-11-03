@@ -9,19 +9,18 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReadCommentDto implements AbstractResponseDto {
+public class CommentDto implements AbstractResponseDto {
 	private Long id;
 	private Boolean isOwner;
 	private String username;
 	private String content;
 	private LocalDateTime createTime;
 
-	public ReadCommentDto(CommentEntity entity, Boolean isOwner, String username) {
+	public CommentDto(CommentEntity entity, Boolean isOwner, String username) {
 		this.id = entity.getId();
 		this.isOwner = isOwner;
 		this.username = username;
 		this.content = entity.getContent();
 		this.createTime = entity.getUpdatedDate();
-		// 다른 필드 복사
 	}
 }
