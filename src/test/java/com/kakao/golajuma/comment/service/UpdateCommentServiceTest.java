@@ -65,7 +65,7 @@ public class UpdateCommentServiceTest {
 	class update_comment_fail_case {
 		@Test
 		@DisplayName("없는 댓글을 요청했기 때문에 실패한다.")
-		void not_exist_comment_delete_test() {
+		void not_exist_comment_update_test() {
 			// given
 			Long commentId = 99999999L;
 			Long userId = 1L;
@@ -81,7 +81,7 @@ public class UpdateCommentServiceTest {
 
 		@Test
 		@DisplayName("본인이 작성하지 않은 댓글 업데이트를 요청했기 때문에 실패한다.")
-		void no_owner_delete_test() {
+		void no_owner_update_test() {
 			// given
 			Long commentId = 1L;
 			Long userId = 1L;

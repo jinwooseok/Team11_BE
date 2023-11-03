@@ -20,6 +20,15 @@ public class CreateCommentService {
 
 	private final UserRepository userRepository;
 
+	/**
+	 * 댓글을 생성한다.
+	 *
+	 * @param requestDto 생성할 댓글을 포함하고 있음
+	 * @param voteId 투표 식별자
+	 * @param userId 유저 식별자
+	 * @return 생성한 댓글의 정보
+	 * @throws NullPointerException 존재하지 않은 유저가 생성을 요청했을 때
+	 */
 	public CreateCommentResponse execute(CreateCommentRequest requestDto, Long voteId, Long userId) {
 		// 저장
 		CommentEntity commentEntity = requestDto.toEntity(voteId, userId);

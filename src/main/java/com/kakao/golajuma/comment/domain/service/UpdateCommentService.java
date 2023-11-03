@@ -20,7 +20,16 @@ public class UpdateCommentService {
 	private final CommentRepository commentRepository;
 
 	private final UserRepository userRepository;
-
+	/**
+	 * 댓글을 삭제한다.
+	 *
+	 * @param requestDto 바꾸고 싶은 내용을 담고있는 객체
+	 * @param commentId 댓글 식별자
+	 * @param userId 유저 식별자
+	 * @return 업데이트한 댓글의 정보
+	 * @throws NullPointerException 삭제하고 싶은 댓글이 이미 존재하지 않을 때
+	 * @throws NoOwnershipException 해당 댓글id의 주인이 아닐 때
+	 */
 	@Transactional
 	public UpdateCommentResponse execute(
 			UpdateCommentRequest requestDto, Long commentId, Long userId) {
@@ -48,7 +57,7 @@ public class UpdateCommentService {
 		UserEntity userEntity =
 				userRepository
 						.findById(userId)
-						.orElseThrow(() -> new java.lang.NullPointerException("존재하지 않는 유저입니다."));
+						.orElseThrow(() -> new NullPointerException("존재하지 않는 유저입니다."));
 		return userEntity.getNickname();
 	}
 }

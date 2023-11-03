@@ -14,7 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class DeleteCommentService {
 
 	private final CommentRepository commentRepository;
-
+	/**
+	 * 댓글을 삭제한다.
+	 *
+	 * @param commentId 댓글 식별자
+	 * @param userId 유저 식별자
+	 * @throws NullPointerException 삭제하고 싶은 댓글이 이미 존재하지 않을 때
+	 * @throws NoOwnershipException 해당 댓글id의 주인이 아닐 때
+	 */
 	@Transactional
 	public void execute(Long commentId, Long userId) {
 		// 1. 존재하는 댓글인지 확인
