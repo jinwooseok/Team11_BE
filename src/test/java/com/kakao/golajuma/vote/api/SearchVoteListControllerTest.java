@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
@@ -21,7 +20,6 @@ import org.springframework.test.web.servlet.ResultActions;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class SearchVoteListControllerTest {
 
-	@Autowired private ObjectMapper om;
 	@Autowired private MockMvc mvc;
 	@Autowired private UserRepository userRepository;
 	@Autowired private TokenProvider tokenProvider;

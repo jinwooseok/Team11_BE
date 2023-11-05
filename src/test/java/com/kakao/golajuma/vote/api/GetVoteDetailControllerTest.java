@@ -45,7 +45,7 @@ public class GetVoteDetailControllerTest {
 	@Test
 	public void getVoteDetail_test() throws Exception {
 		// given
-		long voteId = 1;
+		Long voteId = 1L;
 		// when
 		ResultActions resultActions =
 				mvc.perform(get("/vote/" + voteId).header("Authorization", "Bearer " + jwtToken));
@@ -76,5 +76,23 @@ public class GetVoteDetailControllerTest {
 				.andExpect(jsonPath("$.data.vote.options[0].optionCount").hasJsonPath())
 				.andExpect(jsonPath("$.data.vote.options[0].optionRatio").hasJsonPath())
 				.andExpect(jsonPath("$.message").hasJsonPath());
+	}
+
+	@DisplayName("존재하지 않는 투표 조회하는 경우")
+	@Test
+	public void getVoteDetail_error1() throws Exception {
+		// given
+		Long voteId = -1L;
+		// when
+		ResultActions resultActions =
+				mvc.perform(get("/vote/" + voteId).header("Authorization", "Bearer " + jwtToken));
+		// eye
+		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.data").hasJsonPath());
 	}
 }
