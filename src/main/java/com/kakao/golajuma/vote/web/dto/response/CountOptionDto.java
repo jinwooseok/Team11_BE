@@ -23,7 +23,7 @@ public class CountOptionDto extends OptionDto {
 	}
 
 	public static CountOptionDto makeCountOptionDto(
-			OptionEntity option, boolean choice, long totalCount) {
+			OptionEntity option, boolean choice, int totalCount) {
 		String image = ImageUploader.getImage(option.getOptionImage());
 		if (totalCount == 0) {
 			totalCount = 1;
