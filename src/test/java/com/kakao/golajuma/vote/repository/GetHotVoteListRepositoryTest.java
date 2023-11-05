@@ -39,19 +39,15 @@ public class GetHotVoteListRepositoryTest {
 				DecisionEntity.builder()
 						.userId(1L)
 						.optionId(1L)
-						.createdDate(LocalDateTime.now().minusHours(1))
-						.updatedDate(LocalDateTime.now().minusHours(1))
+						.createdDate(LocalDateTime.now())
+						.updatedDate(LocalDateTime.now())
 						.deleted(false)
 						.build();
-		System.out.println(LocalDateTime.now().minusHours(1));
 		decisionRepository.save(decisionEntity);
 		// 1시간 전의 시간 데이터
-		LocalDateTime startTime =
-				LocalDateTime.now().minusHours(1).withMinute(0).withSecond(0).withNano(0);
+		LocalDateTime startTime = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
 		LocalDateTime endTime = startTime.plusHours(1);
 
-		System.out.println(startTime);
-		System.out.println(endTime);
 		// when
 		// 1시간 전 투표를 받았던 투표들을 가져옴.
 		Slice<VoteEntity> voteEntitySlice =
