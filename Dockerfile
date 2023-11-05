@@ -14,6 +14,6 @@ ARG JAR_FILE="build/libs/goalajuma-*.jar"
 
 COPY . .
 
-RUN chmod -R 777 resources/local-develop-environment/mysql-init.d/
 RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && echo Asia/Seoul > /etc/timezone
-ENTRYPOINT java -XX:MaxGCPauseMillis=100 -XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dspring.profiles.active=dev -jar build/libs/goalajuma-0.0.1-SNAPSHOT.jar
+
+ENTRYPOINT java -XX:MaxGCPauseMillis=100 -XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dspring.profiles.active=dev -jar -Duser.timezone="Asia/Seoul" build/libs/goalajuma-0.0.1-SNAPSHOT.jar
