@@ -21,16 +21,11 @@ spec:
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx/conf.d
-            - name: nginx-timezone
-              mountPath: /etc/localtime
 
       volumes:
         - name: nginx-config
           configMap:
             name: nginx
-        - name: timezone-config
-          hostPath:
-            path: /usr/share/zoneinfo/Asia/Seoul
 
 ---
 apiVersion: v1
