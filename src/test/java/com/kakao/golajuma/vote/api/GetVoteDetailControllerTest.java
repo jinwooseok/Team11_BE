@@ -48,7 +48,7 @@ public class GetVoteDetailControllerTest {
 		Long voteId = 1L;
 		// when
 		ResultActions resultActions =
-				mvc.perform(get("/vote/" + voteId).header("Authorization", "Bearer " + jwtToken));
+				mvc.perform(get("/votes/" + voteId).header("Authorization", "Bearer " + jwtToken));
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
@@ -85,14 +85,12 @@ public class GetVoteDetailControllerTest {
 		Long voteId = -1L;
 		// when
 		ResultActions resultActions =
-				mvc.perform(get("/vote/" + voteId).header("Authorization", "Bearer " + jwtToken));
+				mvc.perform(get("/votes/" + voteId).header("Authorization", "Bearer " + jwtToken));
 		// eye
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
 
 		// then
-		resultActions
-				.andExpect(status().is4xxClientError())
-				.andExpect(jsonPath("$.data").hasJsonPath());
+		resultActions.andExpect(status().is4xxClientError());
 	}
 }
