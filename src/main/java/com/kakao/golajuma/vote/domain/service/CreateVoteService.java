@@ -23,7 +23,7 @@ public class CreateVoteService {
 	public CreateVoteResponse createVote(CreateVoteRequest request, Long userId) {
 		VoteEntity vote = VoteEntity.createEntity(request, userId);
 		voteRepository.save(vote);
-		long voteId = vote.getId();
+		Long voteId = vote.getId();
 		for (CreateVoteRequest.OptionDto optionDto : request.getOptions()) {
 			OptionEntity option = createOption(optionDto, voteId);
 			optionRepository.save(option);
@@ -31,7 +31,7 @@ public class CreateVoteService {
 		return new CreateVoteResponse(voteId);
 	}
 
-	private OptionEntity createOption(CreateVoteRequest.OptionDto optionDto, long voteId) {
+	private OptionEntity createOption(CreateVoteRequest.OptionDto optionDto, Long voteId) {
 		if (optionDto.getImage() != null) {
 			String imagePath = imageUploader.uploadImageByBase64(optionDto);
 			return OptionEntity.createEntityWithImage(optionDto, imagePath, voteId);

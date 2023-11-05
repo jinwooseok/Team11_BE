@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OptionResultConverter {
 
-	public List<OptionResult> from(List<OptionEntity> optionsByVote, Long totalCount) {
+	public List<OptionResult> from(List<OptionEntity> optionsByVote, int totalCount) {
 		return optionsByVote.stream()
 				.map(
 						entity ->
