@@ -36,7 +36,8 @@ public class ReadUserProfileControllerTest {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						MockMvcRequestBuilders.get("/mypage").header("Authorization", "Bearer " + jwtToken));
+						MockMvcRequestBuilders.get("/users/profile")
+								.header("Authorization", "Bearer " + jwtToken));
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 
 		resultActions
