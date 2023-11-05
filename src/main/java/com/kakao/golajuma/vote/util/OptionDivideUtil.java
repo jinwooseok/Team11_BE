@@ -5,16 +5,16 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class OptionDivideUtil {
 
-	private static final Long NOT_DIVIDE = 0L;
+	private static final int NOT_DIVIDE = 0;
 	private static final double ZERO = 0;
 
-	public static double getRatio(Long optionCount, Long totalCount) {
-		if (totalCount.equals(NOT_DIVIDE)) {
+	public static double getRatio(int optionCount, int totalCount) {
+		if (totalCount == NOT_DIVIDE) {
 			return ZERO;
 		}
 
-		double option = optionCount.doubleValue();
-		double total = totalCount.doubleValue();
+		double option = (double) optionCount;
+		double total = (double) totalCount;
 
 		return Math.round(((option / total * 100) * 10) / 10);
 	}

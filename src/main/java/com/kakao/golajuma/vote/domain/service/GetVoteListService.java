@@ -30,7 +30,7 @@ public class GetVoteListService {
 	static int size = 5;
 
 	public GetVoteListResponse.MainAndFinishPage getVoteList(
-			long userId, int page, Sort sort, Active active, Category category) {
+			Long userId, int page, Sort sort, Active active, Category category) {
 		/*
 		투표 중 active = continue 이고, createdDate가 최신순으로 정렬하여 가져와서 보여준다
 		사용자의 id를 가져와서 참여한 투표와 참여하지 않은 투표를 다른 데이터 형식으로 반환한다.
