@@ -2,13 +2,10 @@ package com.kakao.golajuma.vote.domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.kakao.golajuma.vote.domain.exception.NullException;
-import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,6 +20,6 @@ public class CloseVoteServiceTest {
 		Long voteId = -1L;
 
 		// when & then
-		assertThrows(NullException.class, () -> closeVoteService.closeVote(voteId, userId));
+		assertThrows(NullPointerException.class, () -> closeVoteService.closeVote(voteId, userId));
 	}
 }
