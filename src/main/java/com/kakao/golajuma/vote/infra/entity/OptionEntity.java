@@ -57,6 +57,6 @@ public class OptionEntity extends BaseEntity {
 	}
 
 	public void decreaseCount() {
-		this.optionCount = -1;
+		this.optionCount -= 1;
 	}
 }
