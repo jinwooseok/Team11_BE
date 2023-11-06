@@ -14,6 +14,7 @@ import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.converter.DecisionResponseConverter;
 import com.kakao.golajuma.vote.web.dto.response.DecisionResponse;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,9 +40,14 @@ public class DecisionService {
 	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에러가 발생한다.
 	 */
 	public DecisionResponse createDecision(final Long userId, final Long optionId) {
-		existDecision(userId, optionId);
-		OptionEntity optionEntity = findOption(optionId);
+		boolean isExist = existDecisionByVote(userId, optionId);
+
+		if (isExist) {
+			throw new NotFoundDecisionException("해당 vote에 이미 투표했습니다.");
+		}
+
 		VoteEntity voteEntity = findVote(optionId);
+		OptionEntity optionEntity = findOption(optionId);
 
 		validateVoteStatus(voteEntity);
 
@@ -62,6 +68,7 @@ public class DecisionService {
 	 */
 	public DecisionResponse deleteVote(final Long userId, final Long optionId) {
 		DecisionEntity decisionEntity = findDecision(userId, optionId);
+
 		OptionEntity optionEntity = findOption(optionId);
 		VoteEntity voteEntity = findVote(optionId);
 
@@ -69,6 +76,27 @@ public class DecisionService {
 
 		decisionRepository.delete(decisionEntity);
 		decreaseCounts(voteEntity, optionEntity);
+
+		return generateResponse(voteEntity);
+	}
+
+	public DecisionResponse updateVote(final Long userId, final Long optionId) {
+		VoteEntity voteEntity = findVote(optionId);
+		validateVoteStatus(voteEntity);
+
+		boolean isExist = existDecisionByVote(userId, optionId);
+		if (!isExist) {
+			throw new NotFoundDecisionException("해당 vote에 대한 투표가 없습니다.");
+		}
+		DecisionEntity existDecision = findExistDecisionByVote(userId, optionId);
+
+		decisionRepository.delete(existDecision);
+
+		OptionEntity optionEntity = findOption(existDecision.getOptionId());
+		decreaseCounts(voteEntity, optionEntity);
+
+		saveDecision(userId, optionId);
+		updateCounts(voteEntity, optionEntity);
 
 		return generateResponse(voteEntity, optionId);
 	}
@@ -79,17 +107,33 @@ public class DecisionService {
 				.orElseThrow(() -> new NotFoundDecisionException("해당 옵션에 투표한 적이 없습니다."));
 	}
 
-	private void existDecision(final Long userId, final Long optionId) {
-		boolean isExistDecision = decisionRepository.existsByUserIdAndOptionId(userId, optionId);
-		if (isExistDecision) {
-			throw new ExistsDecisionException("이미 해당 옵션에 대해 투표를 했습니다.");
-		}
-	}
-
 	private OptionEntity findOption(final Long optionId) {
 		return optionRepository
 				.findById(optionId)
 				.orElseThrow(() -> new NotFoundException("존재하지 않는 옵션 입니다."));
+	}
+
+	private boolean existDecisionByVote(Long userId, Long optionId) {
+		VoteEntity vote = findVote(optionId);
+
+		List<OptionEntity> options = optionRepository.findAllByVoteId(vote.getId());
+
+		return options.stream()
+				.map(option -> decisionRepository.findByUserIdAndOptionId(userId, option.getId()))
+				.anyMatch(Optional::isPresent);
+	}
+
+	private DecisionEntity findExistDecisionByVote(Long userId, Long optionId) {
+		VoteEntity vote = findVote(optionId);
+
+		List<OptionEntity> options = optionRepository.findAllByVoteId(vote.getId());
+
+		return options.stream()
+				.map(option -> decisionRepository.findByUserIdAndOptionId(userId, option.getId()))
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.findAny()
+				.orElseThrow(() -> new NotFoundDecisionException("해당 vote에 투표한 적이 없습니다."));
 	}
 
 	private VoteEntity findVote(final Long optionId) {
@@ -122,5 +166,10 @@ public class DecisionService {
 	private DecisionResponse generateResponse(final VoteEntity voteEntity, final Long selectId) {
 		List<OptionEntity> optionsByVote = optionRepository.findAllByVoteId(voteEntity.getId());
 		return responseConverter.from(selectId, optionsByVote, voteEntity.getVoteTotalCount());
+	}
+
+	private DecisionResponse generateResponse(final VoteEntity voteEntity) {
+		List<OptionEntity> optionsByVote = optionRepository.findAllByVoteId(voteEntity.getId());
+		return responseConverter.from(optionsByVote, voteEntity.getVoteTotalCount());
 	}
 }
