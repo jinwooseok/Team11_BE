@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +34,12 @@ public class DecisionController {
 			@PathVariable Long optionId, @Login Long userId) {
 		DecisionResponse response = decisionService.deleteVote(userId, optionId);
 		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.DELETE);
+	}
+
+	@PutMapping("/options/{optionId}")
+	public ApiResponse<SuccessBody<DecisionResponse>> updateVote(
+			@PathVariable Long optionId, @Login Long userId) {
+		DecisionResponse response = decisionService.updateVote(userId, optionId);
+		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.UPDATE);
 	}
 }
