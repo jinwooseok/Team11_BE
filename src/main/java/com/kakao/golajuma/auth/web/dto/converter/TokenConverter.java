@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TokenConverter {
 
-	public TokenResponse from(String accessToken, Date expiredTime, String refreshToken) {
+	public TokenResponse from(
+			String accessToken, Date accessExpiredTime, String refreshToken, Date refreshExpiredTime) {
 		return TokenResponse.builder()
 				.accessToken(accessToken)
-				.expiredTime(expiredTime)
+				.accessExpiredTime(accessExpiredTime)
 				.refreshToken(refreshToken)
+				.refreshExpiredTime(refreshExpiredTime)
 				.build();
 	}
 }
