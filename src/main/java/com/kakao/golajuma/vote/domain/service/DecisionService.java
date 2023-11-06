@@ -35,17 +35,23 @@ public class DecisionService {
 	 *
 	 * @param userId 유저 식별자
 	 * @param optionId 옵션 식별자
-	 * @throws ExistsDecisionException 해당 옵션에 대해 이미 투표를 진행했을 시 에러가 발생한다.
-	 * @throws NotFoundDecisionException 존재하지 않는 vote에 투표 했을 시 에러가 발생한다.
-	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에러가 발생한다.
+	 * @throws ExistsDecisionException 해당 옵션에 대해 이미 투표를 진행했을 시 에외 처리
+	 * @throws NotFoundDecisionException 존재하지 않는 vote에 투표 했을 시 에외 처리
+	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에외 처리
+	 * @throws ExistsDecisionException 해당 vote에 이미 투표했을 경우 에외 처리
 	 */
 	public DecisionResponse createDecision(final Long userId, final Long optionId) {
 		boolean isExist = existDecisionByVote(userId, optionId);
-
 		if (isExist) {
-			throw new NotFoundDecisionException("해당 vote에 이미 투표했습니다.");
+			throw new ExistsDecisionException("해당 vote에 이미 투표했습니다.");
 		}
 
+		saveDecision(userId, optionId);
+
+		return generateResponse(findVote(optionId), optionId);
+	}
+
+	private void saveDecision(final Long userId, final Long optionId) {
 		VoteEntity voteEntity = findVote(optionId);
 		OptionEntity optionEntity = findOption(optionId);
 
@@ -54,7 +60,8 @@ public class DecisionService {
 		saveDecision(userId, optionId);
 		updateCounts(voteEntity, optionEntity);
 
-		return generateResponse(voteEntity, optionId);
+		DecisionEntity entity = entityConverter.from(userId, optionId);
+		decisionRepository.save(entity);
 	}
 
 	/**
@@ -62,13 +69,19 @@ public class DecisionService {
 	 *
 	 * @param userId 유저 식별자
 	 * @param optionId 옵션 식별자
-	 * @throws NotFoundDecisionException 해당 옵션에 투표를 한 기록이 없을 시 에러가 발생한다.
-	 * @throws NotFoundDecisionException 존재하지 않는 vote에 투표 했을 시 에러가 발생한다.
-	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에러가 발생한다.
+	 * @throws NotFoundDecisionException 해당 옵션에 투표를 한 기록이 없을 시 예외 처리
+	 * @throws NotFoundDecisionException 존재하지 않는 vote에 투표 했을 시 예외 처리
+	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에외 처리
 	 */
 	public DecisionResponse deleteVote(final Long userId, final Long optionId) {
 		DecisionEntity decisionEntity = findDecision(userId, optionId);
 
+		deleteDecision(decisionEntity, optionId);
+
+		return generateResponse(findVote(optionId));
+	}
+
+	private void deleteDecision(final DecisionEntity decisionEntity, final Long optionId) {
 		OptionEntity optionEntity = findOption(optionId);
 		VoteEntity voteEntity = findVote(optionId);
 
@@ -76,29 +89,29 @@ public class DecisionService {
 
 		decisionRepository.delete(decisionEntity);
 		decreaseCounts(voteEntity, optionEntity);
-
-		return generateResponse(voteEntity);
 	}
 
+	/**
+	 * 옵션에 대한 투표를 업데이트 한다.
+	 *
+	 * @param userId 유저 식별자
+	 * @param optionId 옵션 식별자
+	 * @throws NotFoundDecisionException 해당 옵션에 투표를 한 기록이 없을 시 에러가 발생한다.
+	 * @throws NotFoundDecisionException 존재하지 않는 vote에 투표 했을 시 에러가 발생한다.
+	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에러가 발생한다.
+	 */
 	public DecisionResponse updateVote(final Long userId, final Long optionId) {
-		VoteEntity voteEntity = findVote(optionId);
-		validateVoteStatus(voteEntity);
-
 		boolean isExist = existDecisionByVote(userId, optionId);
 		if (!isExist) {
 			throw new NotFoundDecisionException("해당 vote에 대한 투표가 없습니다.");
 		}
+
 		DecisionEntity existDecision = findExistDecisionByVote(userId, optionId);
 
-		decisionRepository.delete(existDecision);
-
-		OptionEntity optionEntity = findOption(existDecision.getOptionId());
-		decreaseCounts(voteEntity, optionEntity);
-
+		deleteDecision(existDecision, optionId);
 		saveDecision(userId, optionId);
-		updateCounts(voteEntity, optionEntity);
 
-		return generateResponse(voteEntity, optionId);
+		return generateResponse(findVote(optionId), optionId);
 	}
 
 	private DecisionEntity findDecision(final Long userId, final Long optionId) {
@@ -146,11 +159,6 @@ public class DecisionService {
 		if (voteEntity.isComplete()) {
 			throw new CompletionVoteException("종료된 투표에 대해선 참여할 수 없습니다.");
 		}
-	}
-
-	private void saveDecision(final Long userId, final Long optionId) {
-		DecisionEntity entity = entityConverter.from(userId, optionId);
-		decisionRepository.save(entity);
 	}
 
 	private void updateCounts(final VoteEntity voteEntity, final OptionEntity optionEntity) {
