@@ -36,7 +36,7 @@ create table vote
     vote_content     varchar(1000) null,
     vote_end_date    datetime(6)   not null,
     vote_title       varchar(256)  not null,
-    vote_total_count bigint        not null,
+    vote_total_count integer       not null,
     vote_type        varchar(255)  null
 );
 
@@ -70,7 +70,7 @@ create table vote_option
     created_date datetime(6) not null,
     deleted bit not null,
     updated_date datetime(6) not null,
-    option_count bigint,
+    option_count integer,
     option_image varchar(255),
     option_name varchar(255) not null,
     option_vote_id bigint not null
