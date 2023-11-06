@@ -3,7 +3,6 @@ package com.kakao.golajuma.vote.domain.service;
 import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.DecisionRepository;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteListResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
@@ -24,7 +23,6 @@ public class GetVoteListService {
 
 	private final VoteRepository voteRepository;
 	private final GetVoteService getVoteService;
-	private final DecisionRepository decisionRepository;
 
 	static int page = 0;
 	static int size = 5;
