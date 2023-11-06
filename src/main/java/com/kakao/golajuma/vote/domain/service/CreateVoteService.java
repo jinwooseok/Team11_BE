@@ -22,8 +22,7 @@ public class CreateVoteService {
 	@Transactional
 	public CreateVoteResponse createVote(CreateVoteRequest request, Long userId) {
 		VoteEntity vote = VoteEntity.createEntity(request, userId);
-		voteRepository.save(vote);
-		Long voteId = vote.getId();
+		Long voteId = voteRepository.save(vote).getId();
 		for (CreateVoteRequest.OptionDto optionDto : request.getOptions()) {
 			OptionEntity option = createOption(optionDto, voteId);
 			optionRepository.save(option);
