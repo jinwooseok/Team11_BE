@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="mypage 요청이 실패 시 예외를 반환한다." tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-06T15:13:02" hostname="DESKTOP-3GO7G9K" time="0.213">
+  <properties/>
+  <testcase name="존재하지 않는 유저의 데이터를 요청하는 경우" classname="com.kakao.golajuma.auth.domain.service.ReadUserProfileServiceTest$fail_read_user_profile" time="0.213"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

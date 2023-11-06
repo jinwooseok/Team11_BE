@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kakao.golajuma.auth.domain.token.TokenResolverTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-06T15:13:02" hostname="DESKTOP-3GO7G9K" time="0.017">
+  <properties/>
+  <testcase name="리프레시 토큰이 만료되면 예외를 터트린다." classname="com.kakao.golajuma.auth.domain.token.TokenResolverTest" time="0.007"/>
+  <testcase name="엑세스 토큰이 만료되면 예외를 터트린다." classname="com.kakao.golajuma.auth.domain.token.TokenResolverTest" time="0.004"/>
+  <testcase name="토큰이 만료되지 않았을 경우 유저 정보를 가져온다" classname="com.kakao.golajuma.auth.domain.token.TokenResolverTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

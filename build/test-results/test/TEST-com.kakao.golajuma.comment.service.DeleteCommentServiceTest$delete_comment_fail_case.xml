@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="유저는 댓글을 삭제하는 것에 실패한다." tests="2" skipped="0" failures="0" errors="0" timestamp="2023-11-06T15:13:05" hostname="DESKTOP-3GO7G9K" time="0.004">
+  <properties/>
+  <testcase name="없는 댓글을 요청했기 때문에 실패한다." classname="com.kakao.golajuma.comment.service.DeleteCommentServiceTest$delete_comment_fail_case" time="0.001"/>
+  <testcase name="본인이 작성하지 않은 댓글 삭제를 요청했기 때문에 실패한다." classname="com.kakao.golajuma.comment.service.DeleteCommentServiceTest$delete_comment_fail_case" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
