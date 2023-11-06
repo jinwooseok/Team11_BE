@@ -8,5 +8,5 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class UpdateUserNickNameRequest {
-	@NotBlank private String nickname;
+	@NotBlank private String nickName;
 }

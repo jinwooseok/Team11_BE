@@ -19,7 +19,7 @@ public class UpdateUserNickNameService {
 	public UpdateNickNameResponse execute(UpdateUserNickNameRequest requestDto, Long userId) {
 		UserEntity userEntity =
 				userRepository.findById(userId).orElseThrow(() -> new NotFoundException("존재하지 않은 유저입니다."));
-		String newNickName = requestDto.getNickname();
+		String newNickName = requestDto.getNickName();
 		userEntity.updateNickName(newNickName);
 		return new UpdateNickNameResponse(newNickName);
 	}
