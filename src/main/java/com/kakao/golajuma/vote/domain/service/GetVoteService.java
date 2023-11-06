@@ -20,13 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class GetVoteService {
-	private final OptionRepository optionJPARepository;
+	private final OptionRepository optionRepository;
 	private final UserRepository userRepository;
 	private final DecisionRepository decisionRepository;
 
 	public VoteDto getVote(VoteEntity vote, Long userId) {
 		// 투표의 옵션을 찾는다
-		List<OptionEntity> options = optionJPARepository.findAllByVoteId(vote.getId());
+		List<OptionEntity> options = optionRepository.findAllByVoteId(vote.getId());
 		// 작성자 찾기
 		Long writerId = vote.getUserId();
 		UserEntity user = userRepository.findById(writerId).get();
