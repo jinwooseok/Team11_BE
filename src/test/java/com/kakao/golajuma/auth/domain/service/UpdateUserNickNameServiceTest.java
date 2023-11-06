@@ -31,7 +31,8 @@ public class UpdateUserNickNameServiceTest {
 			// given
 			Long userId = 1L;
 
-			UpdateUserNickNameRequest requestDto = new UpdateUserNickNameRequest("newNickName");
+			UpdateUserNickNameRequest requestDto =
+					UpdateUserNickNameRequest.builder().nickName("newNickName").build();
 
 			UserEntity userEntity = UserEntity.builder().id(1L).nickname("oldNickName").build();
 
