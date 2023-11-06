@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class ValidEmailUseCaseTest {
+class ValidEmailServiceTest {
 	@Mock private UserRepository userRepository;
 
 	@InjectMocks private ValidEmailService validEmailService;

@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class ValidNicknameUseCaseTest {
+class ValidNicknameServiceTest {
 	@Mock private UserRepository userRepository;
 
 	@InjectMocks private ValidNicknameService validNicknameService;
