@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - GetHotVoteListRepositoryTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>GetHotVoteListRepositoryTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.kakao.golajuma.vote.repository.html">com.kakao.golajuma.vote.repository</a> &gt; GetHotVoteListRepositoryTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.032s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">hotVote_findByTimeLimitAndDecisionCount_test()</td>
+<td class="success">0.032s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2023-11-07 00:13:06.194  INFO 13256 --- [    Test worker] b.t.a.o.j.DataJpaTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.kakao.golajuma.vote.repository.GetHotVoteListRepositoryTest], using SpringBootContextLoader
+2023-11-07 00:13:06.196  INFO 13256 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.kakao.golajuma.vote.repository.GetHotVoteListRepositoryTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-11-07 00:13:06.196  INFO 13256 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.kakao.golajuma.vote.repository.GetHotVoteListRepositoryTest]: GetHotVoteListRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-07 00:13:06.211  INFO 13256 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.kakao.golajuma.GolajumaApplication for test class com.kakao.golajuma.vote.repository.GetHotVoteListRepositoryTest
+2023-11-07 00:13:06.211  INFO 13256 --- [    Test worker] b.t.a.o.j.DataJpaTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-11-07 00:13:06.213  INFO 13256 --- [    Test worker] b.t.a.o.j.DataJpaTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5ace2ce3, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@39c821c6, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@6cd9cafb, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3da20c42, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@16209621, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6e9e4332, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4c32d208, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@61df07d0, org.springframework.test.context.event.EventPublishingTestExecutionListener@735c0454, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@6f475ede, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@353f73ac, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2c47135c, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@3faadc24, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@6acec4a1, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@24a26847]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.5)
+
+2023-11-07 00:13:06.272  INFO 13256 --- [    Test worker] c.k.g.v.r.GetHotVoteListRepositoryTest   : Starting GetHotVoteListRepositoryTest using Java 11.0.16 on DESKTOP-3GO7G9K with PID 13256 (started by WOOO_SEOK in C:\Users\WOOO_SEOK\Desktop\projectfolder\kakao\main)
+2023-11-07 00:13:06.272  INFO 13256 --- [    Test worker] c.k.g.v.r.GetHotVoteListRepositoryTest   : The following 3 profiles are active: &quot;local&quot;, &quot;local-mysql&quot;, &quot;local-token&quot;
+2023-11-07 00:13:06.517  INFO 13256 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-07 00:13:06.706  INFO 13256 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 188 ms. Found 7 JPA repository interfaces.
+2023-11-07 00:13:06.872  INFO 13256 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-07 00:13:06.887  INFO 13256 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2023-11-07 00:13:06.908  INFO 13256 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2023-11-07 00:13:06.908  INFO 13256 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-11-07 00:13:06.996  INFO 13256 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-07 00:13:06.996  INFO 13256 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-07 00:13:07.282  INFO 13256 --- [    Test worker] c.k.g.v.r.GetHotVoteListRepositoryTest   : Started GetHotVoteListRepositoryTest in 1.067 seconds (JVM running for 18.231)
+2023-11-07 00:13:07.289  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@70de1e65 testClass = GetHotVoteListRepositoryTest, testInstance = com.kakao.golajuma.vote.repository.GetHotVoteListRepositoryTest@7f657888, testMethod = hotVote_findByTimeLimitAndDecisionCount_test@GetHotVoteListRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2ec3d746 testClass = GetHotVoteListRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@7bca3747 key = [org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration, org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration, org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration, org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration, org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration, org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration, org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration, org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration, org.springframework.boot.test.autoconfigure.jdbc.TestDatabaseAutoConfiguration, org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManagerAutoConfiguration, com.fasterxml.jackson.databind.ObjectMapper]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@1c0697c9]; rollback [true]
+2023-11-07 00:13:07.298 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        decision
+        (created_date, deleted, updated_date, decision_option_id, decision_user_id) 
+    values
+        (?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        decision
+        (created_date, deleted, updated_date, decision_option_id, decision_user_id) 
+    values
+        (?, ?, ?, ?, ?)
+2023-11-07 00:13:07.302 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        voteentity0_.vote_id as vote_id1_4_,
+        voteentity0_.created_date as created_2_4_,
+        voteentity0_.deleted as deleted3_4_,
+        voteentity0_.updated_date as updated_4_4_,
+        voteentity0_.vote_category as vote_cat5_4_,
+        voteentity0_.user_id as user_id6_4_,
+        voteentity0_.vote_content as vote_con7_4_,
+        voteentity0_.vote_end_date as vote_end8_4_,
+        voteentity0_.vote_title as vote_tit9_4_,
+        voteentity0_.vote_total_count as vote_to10_4_,
+        voteentity0_.vote_type as vote_ty11_4_ 
+    from
+        vote voteentity0_ 
+    inner join
+        vote_option optionenti1_ 
+            on (
+                optionenti1_.option_vote_id=voteentity0_.vote_id
+            ) 
+    inner join
+        decision decisionen2_ 
+            on (
+                optionenti1_.option_id=decisionen2_.decision_option_id
+            ) 
+    where
+        decisionen2_.updated_date&gt;=? 
+        and decisionen2_.updated_date&lt;? 
+        and voteentity0_.deleted=0 
+    group by
+        voteentity0_.vote_id 
+    order by
+        count(decisionen2_.decision_id) DESC
+Hibernate: 
+    select
+        voteentity0_.vote_id as vote_id1_4_,
+        voteentity0_.created_date as created_2_4_,
+        voteentity0_.deleted as deleted3_4_,
+        voteentity0_.updated_date as updated_4_4_,
+        voteentity0_.vote_category as vote_cat5_4_,
+        voteentity0_.user_id as user_id6_4_,
+        voteentity0_.vote_content as vote_con7_4_,
+        voteentity0_.vote_end_date as vote_end8_4_,
+        voteentity0_.vote_title as vote_tit9_4_,
+        voteentity0_.vote_total_count as vote_to10_4_,
+        voteentity0_.vote_type as vote_ty11_4_ 
+    from
+        vote voteentity0_ 
+    inner join
+        vote_option optionenti1_ 
+            on (
+                optionenti1_.option_vote_id=voteentity0_.vote_id
+            ) 
+    inner join
+        decision decisionen2_ 
+            on (
+                optionenti1_.option_id=decisionen2_.decision_option_id
+            ) 
+    where
+        decisionen2_.updated_date&gt;=? 
+        and decisionen2_.updated_date&lt;? 
+        and voteentity0_.deleted=0 
+    group by
+        voteentity0_.vote_id 
+    order by
+        count(decisionen2_.decision_id) DESC
+2023-11-07 00:13:07.317  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@70de1e65 testClass = GetHotVoteListRepositoryTest, testInstance = com.kakao.golajuma.vote.repository.GetHotVoteListRepositoryTest@7f657888, testMethod = hotVote_findByTimeLimitAndDecisionCount_test@GetHotVoteListRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2ec3d746 testClass = GetHotVoteListRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@7bca3747 key = [org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration, org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration, org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration, org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration, org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration, org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration, org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration, org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration, org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration, org.springframework.boot.test.autoconfigure.jdbc.TestDatabaseAutoConfiguration, org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManagerAutoConfiguration, com.fasterxml.jackson.databind.ObjectMapper]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.2.1</a> at 2023. 11. 7. 오전 12:13:07</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - CommentRepositoryTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>CommentRepositoryTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.kakao.golajuma.comment.repository.html">com.kakao.golajuma.comment.repository</a> &gt; CommentRepositoryTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">4</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.147s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">댓글을 id에 따라 호출합니다.</td>
+<td class="success">comment_findById_test()</td>
+<td class="success">0.057s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">댓글을 유저의 id에 따라 호출합니다.</td>
+<td class="success">comment_findByUserId_test()</td>
+<td class="success">0.026s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">댓글을 투표의 id에 따라 호출합니다.</td>
+<td class="success">comment_findByVoteId_test()</td>
+<td class="success">0.045s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">댓글을 저장합니다.</td>
+<td class="success">comment_save_test()</td>
+<td class="success">0.019s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2023-11-07 00:13:03.780  INFO 13256 --- [    Test worker] b.t.a.o.j.DataJpaTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.kakao.golajuma.comment.repository.CommentRepositoryTest], using SpringBootContextLoader
+2023-11-07 00:13:03.782  INFO 13256 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.kakao.golajuma.comment.repository.CommentRepositoryTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-11-07 00:13:03.782  INFO 13256 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.kakao.golajuma.comment.repository.CommentRepositoryTest]: CommentRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-07 00:13:03.800  INFO 13256 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.kakao.golajuma.GolajumaApplication for test class com.kakao.golajuma.comment.repository.CommentRepositoryTest
+2023-11-07 00:13:03.801  INFO 13256 --- [    Test worker] b.t.a.o.j.DataJpaTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-11-07 00:13:03.801  INFO 13256 --- [    Test worker] b.t.a.o.j.DataJpaTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4e387da1, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@55145dc5, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7dcfe455, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@2e6066e1, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2338c3f9, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5435582e, org.springframework.test.context.transaction.TransactionalTestExecutionListener@56daf3b1, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ba0c0e5, org.springframework.test.context.event.EventPublishingTestExecutionListener@1ee2e363, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@60e83cb9, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@612e1c6e, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@1cf45f46, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@15045e40, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@34a8a5ad, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2574123a]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.5)
+
+2023-11-07 00:13:03.866  INFO 13256 --- [    Test worker] c.k.g.c.r.CommentRepositoryTest          : Starting CommentRepositoryTest using Java 11.0.16 on DESKTOP-3GO7G9K with PID 13256 (started by WOOO_SEOK in C:\Users\WOOO_SEOK\Desktop\projectfolder\kakao\main)
+2023-11-07 00:13:03.867  INFO 13256 --- [    Test worker] c.k.g.c.r.CommentRepositoryTest          : The following 3 profiles are active: &quot;local&quot;, &quot;local-mysql&quot;, &quot;local-token&quot;
+2023-11-07 00:13:04.120  INFO 13256 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-07 00:13:04.281  INFO 13256 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 160 ms. Found 7 JPA repository interfaces.
+2023-11-07 00:13:04.469  INFO 13256 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-07 00:13:04.488  INFO 13256 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2023-11-07 00:13:04.505  INFO 13256 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2023-11-07 00:13:04.506  INFO 13256 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-11-07 00:13:04.608  INFO 13256 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-07 00:13:04.608  INFO 13256 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-07 00:13:04.899  INFO 13256 --- [    Test worker] c.k.g.c.r.CommentRepositoryTest          : Started CommentRepositoryTest in 1.095 seconds (JVM running for 15.847)
+2023-11-07 00:13:04.910  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@4e9ab294 testClass = CommentRepositoryTest, testInstance = com.kakao.golajuma.comment.repository.CommentRepositoryTest@72a522f1, testMethod = comment_findById_test@CommentRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2365facb testClass = CommentRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@65b9ebee key = [@org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa(), @org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager(), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest(bootstrapMode=DEFAULT, useDefaultFilters=true, excludeFilters={}, excludeAutoConfiguration={}, showSql=true, includeFilters={}, properties={}), @org.springframework.transaction.annotation.Transactional(propagation=REQUIRED, rollbackForClassName={}, readOnly=false, isolation=DEFAULT, timeoutString=&quot;&quot;, transactionManager=&quot;&quot;, label={}, noRollbackForClassName={}, noRollbackFor={}, value=&quot;&quot;, timeout=-1, rollbackFor={}), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper.class), @org.springframework.data.jpa.repository.config.EnableJpaAuditing(auditorAwareRef=&quot;&quot;, setDates=true, dateTimeProviderRef=&quot;&quot;, modifyOnCreate=true), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=NONE, connection=NONE), @org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters(value={org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTypeExcludeFilter.class}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.database&quot;, skip=NO), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.context.annotation.Import(value={org.springframework.data.jpa.repository.config.JpaAuditingRegistrar.class}), @org.springframework.boot.test.autoconfigure.core.AutoConfigureCache(cacheProvider=NONE), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=ANY, connection=NONE), @org.springframework.context.annotation.Import(value={com.fasterxml.jackson.databind.ObjectMapper.class}), @org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration(enabled=false)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@28023029]; rollback [true]
+2023-11-07 00:13:04.926 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+2023-11-07 00:13:04.930 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+2023-11-07 00:13:04.939 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+Hibernate: 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+2023-11-07 00:13:04.941 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+Hibernate: 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+2023-11-07 00:13:04.943 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_,
+        commentent0_.created_date as created_2_1_,
+        commentent0_.deleted as deleted3_1_,
+        commentent0_.updated_date as updated_4_1_,
+        commentent0_.comment_content as comment_5_1_,
+        commentent0_.comment_user_id as comment_6_1_,
+        commentent0_.comment_vote_id as comment_7_1_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=? 
+        and commentent0_.deleted=0
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_,
+        commentent0_.created_date as created_2_1_,
+        commentent0_.deleted as deleted3_1_,
+        commentent0_.updated_date as updated_4_1_,
+        commentent0_.comment_content as comment_5_1_,
+        commentent0_.comment_user_id as comment_6_1_,
+        commentent0_.comment_vote_id as comment_7_1_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=? 
+        and commentent0_.deleted=0
+2023-11-07 00:13:04.958  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@4e9ab294 testClass = CommentRepositoryTest, testInstance = com.kakao.golajuma.comment.repository.CommentRepositoryTest@72a522f1, testMethod = comment_findById_test@CommentRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2365facb testClass = CommentRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@65b9ebee key = [@org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa(), @org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager(), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest(bootstrapMode=DEFAULT, useDefaultFilters=true, excludeFilters={}, excludeAutoConfiguration={}, showSql=true, includeFilters={}, properties={}), @org.springframework.transaction.annotation.Transactional(propagation=REQUIRED, rollbackForClassName={}, readOnly=false, isolation=DEFAULT, timeoutString=&quot;&quot;, transactionManager=&quot;&quot;, label={}, noRollbackForClassName={}, noRollbackFor={}, value=&quot;&quot;, timeout=-1, rollbackFor={}), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper.class), @org.springframework.data.jpa.repository.config.EnableJpaAuditing(auditorAwareRef=&quot;&quot;, setDates=true, dateTimeProviderRef=&quot;&quot;, modifyOnCreate=true), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=NONE, connection=NONE), @org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters(value={org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTypeExcludeFilter.class}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.database&quot;, skip=NO), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.context.annotation.Import(value={org.springframework.data.jpa.repository.config.JpaAuditingRegistrar.class}), @org.springframework.boot.test.autoconfigure.core.AutoConfigureCache(cacheProvider=NONE), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=ANY, connection=NONE), @org.springframework.context.annotation.Import(value={com.fasterxml.jackson.databind.ObjectMapper.class}), @org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration(enabled=false)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+2023-11-07 00:13:04.962  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@4e9ab294 testClass = CommentRepositoryTest, testInstance = com.kakao.golajuma.comment.repository.CommentRepositoryTest@611c9d31, testMethod = comment_save_test@CommentRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2365facb testClass = CommentRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@65b9ebee key = [@org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa(), @org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager(), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest(bootstrapMode=DEFAULT, useDefaultFilters=true, excludeFilters={}, excludeAutoConfiguration={}, showSql=true, includeFilters={}, properties={}), @org.springframework.transaction.annotation.Transactional(propagation=REQUIRED, rollbackForClassName={}, readOnly=false, isolation=DEFAULT, timeoutString=&quot;&quot;, transactionManager=&quot;&quot;, label={}, noRollbackForClassName={}, noRollbackFor={}, value=&quot;&quot;, timeout=-1, rollbackFor={}), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper.class), @org.springframework.data.jpa.repository.config.EnableJpaAuditing(auditorAwareRef=&quot;&quot;, setDates=true, dateTimeProviderRef=&quot;&quot;, modifyOnCreate=true), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=NONE, connection=NONE), @org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters(value={org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTypeExcludeFilter.class}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.database&quot;, skip=NO), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.context.annotation.Import(value={org.springframework.data.jpa.repository.config.JpaAuditingRegistrar.class}), @org.springframework.boot.test.autoconfigure.core.AutoConfigureCache(cacheProvider=NONE), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=ANY, connection=NONE), @org.springframework.context.annotation.Import(value={com.fasterxml.jackson.databind.ObjectMapper.class}), @org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration(enabled=false)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@28023029]; rollback [true]
+2023-11-07 00:13:04.964 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+2023-11-07 00:13:04.968 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+2023-11-07 00:13:04.971 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    insert 
+    into
+        comment
+        (created_date, deleted, updated_date, comment_content, comment_user_id, comment_vote_id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        comment
+        (created_date, deleted, updated_date, comment_content, comment_user_id, comment_vote_id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+2023-11-07 00:13:04.979  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@4e9ab294 testClass = CommentRepositoryTest, testInstance = com.kakao.golajuma.comment.repository.CommentRepositoryTest@611c9d31, testMethod = comment_save_test@CommentRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2365facb testClass = CommentRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@65b9ebee key = [@org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa(), @org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager(), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest(bootstrapMode=DEFAULT, useDefaultFilters=true, excludeFilters={}, excludeAutoConfiguration={}, showSql=true, includeFilters={}, properties={}), @org.springframework.transaction.annotation.Transactional(propagation=REQUIRED, rollbackForClassName={}, readOnly=false, isolation=DEFAULT, timeoutString=&quot;&quot;, transactionManager=&quot;&quot;, label={}, noRollbackForClassName={}, noRollbackFor={}, value=&quot;&quot;, timeout=-1, rollbackFor={}), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper.class), @org.springframework.data.jpa.repository.config.EnableJpaAuditing(auditorAwareRef=&quot;&quot;, setDates=true, dateTimeProviderRef=&quot;&quot;, modifyOnCreate=true), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=NONE, connection=NONE), @org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters(value={org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTypeExcludeFilter.class}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.database&quot;, skip=NO), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.context.annotation.Import(value={org.springframework.data.jpa.repository.config.JpaAuditingRegistrar.class}), @org.springframework.boot.test.autoconfigure.core.AutoConfigureCache(cacheProvider=NONE), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=ANY, connection=NONE), @org.springframework.context.annotation.Import(value={com.fasterxml.jackson.databind.ObjectMapper.class}), @org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration(enabled=false)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+2023-11-07 00:13:04.981  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@4e9ab294 testClass = CommentRepositoryTest, testInstance = com.kakao.golajuma.comment.repository.CommentRepositoryTest@603042a5, testMethod = comment_findByUserId_test@CommentRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2365facb testClass = CommentRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@65b9ebee key = [@org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa(), @org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager(), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest(bootstrapMode=DEFAULT, useDefaultFilters=true, excludeFilters={}, excludeAutoConfiguration={}, showSql=true, includeFilters={}, properties={}), @org.springframework.transaction.annotation.Transactional(propagation=REQUIRED, rollbackForClassName={}, readOnly=false, isolation=DEFAULT, timeoutString=&quot;&quot;, transactionManager=&quot;&quot;, label={}, noRollbackForClassName={}, noRollbackFor={}, value=&quot;&quot;, timeout=-1, rollbackFor={}), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper.class), @org.springframework.data.jpa.repository.config.EnableJpaAuditing(auditorAwareRef=&quot;&quot;, setDates=true, dateTimeProviderRef=&quot;&quot;, modifyOnCreate=true), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=NONE, connection=NONE), @org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters(value={org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTypeExcludeFilter.class}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.database&quot;, skip=NO), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.context.annotation.Import(value={org.springframework.data.jpa.repository.config.JpaAuditingRegistrar.class}), @org.springframework.boot.test.autoconfigure.core.AutoConfigureCache(cacheProvider=NONE), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=ANY, connection=NONE), @org.springframework.context.annotation.Import(value={com.fasterxml.jackson.databind.ObjectMapper.class}), @org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration(enabled=false)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@28023029]; rollback [true]
+2023-11-07 00:13:04.984 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+2023-11-07 00:13:04.986 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+2023-11-07 00:13:04.989 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+Hibernate: 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+2023-11-07 00:13:04.992 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+Hibernate: 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+2023-11-07 00:13:04.994 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_,
+        commentent0_.created_date as created_2_1_,
+        commentent0_.deleted as deleted3_1_,
+        commentent0_.updated_date as updated_4_1_,
+        commentent0_.comment_content as comment_5_1_,
+        commentent0_.comment_user_id as comment_6_1_,
+        commentent0_.comment_vote_id as comment_7_1_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_user_id=? 
+        and commentent0_.deleted=0
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_,
+        commentent0_.created_date as created_2_1_,
+        commentent0_.deleted as deleted3_1_,
+        commentent0_.updated_date as updated_4_1_,
+        commentent0_.comment_content as comment_5_1_,
+        commentent0_.comment_user_id as comment_6_1_,
+        commentent0_.comment_vote_id as comment_7_1_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_user_id=? 
+        and commentent0_.deleted=0
+2023-11-07 00:13:05.005  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@4e9ab294 testClass = CommentRepositoryTest, testInstance = com.kakao.golajuma.comment.repository.CommentRepositoryTest@603042a5, testMethod = comment_findByUserId_test@CommentRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2365facb testClass = CommentRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@65b9ebee key = [@org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa(), @org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager(), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest(bootstrapMode=DEFAULT, useDefaultFilters=true, excludeFilters={}, excludeAutoConfiguration={}, showSql=true, includeFilters={}, properties={}), @org.springframework.transaction.annotation.Transactional(propagation=REQUIRED, rollbackForClassName={}, readOnly=false, isolation=DEFAULT, timeoutString=&quot;&quot;, transactionManager=&quot;&quot;, label={}, noRollbackForClassName={}, noRollbackFor={}, value=&quot;&quot;, timeout=-1, rollbackFor={}), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper.class), @org.springframework.data.jpa.repository.config.EnableJpaAuditing(auditorAwareRef=&quot;&quot;, setDates=true, dateTimeProviderRef=&quot;&quot;, modifyOnCreate=true), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=NONE, connection=NONE), @org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters(value={org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTypeExcludeFilter.class}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.database&quot;, skip=NO), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.context.annotation.Import(value={org.springframework.data.jpa.repository.config.JpaAuditingRegistrar.class}), @org.springframework.boot.test.autoconfigure.core.AutoConfigureCache(cacheProvider=NONE), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=ANY, connection=NONE), @org.springframework.context.annotation.Import(value={com.fasterxml.jackson.databind.ObjectMapper.class}), @org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration(enabled=false)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+2023-11-07 00:13:05.008  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@4e9ab294 testClass = CommentRepositoryTest, testInstance = com.kakao.golajuma.comment.repository.CommentRepositoryTest@63ae7031, testMethod = comment_findByVoteId_test@CommentRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2365facb testClass = CommentRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@65b9ebee key = [@org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa(), @org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager(), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest(bootstrapMode=DEFAULT, useDefaultFilters=true, excludeFilters={}, excludeAutoConfiguration={}, showSql=true, includeFilters={}, properties={}), @org.springframework.transaction.annotation.Transactional(propagation=REQUIRED, rollbackForClassName={}, readOnly=false, isolation=DEFAULT, timeoutString=&quot;&quot;, transactionManager=&quot;&quot;, label={}, noRollbackForClassName={}, noRollbackFor={}, value=&quot;&quot;, timeout=-1, rollbackFor={}), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper.class), @org.springframework.data.jpa.repository.config.EnableJpaAuditing(auditorAwareRef=&quot;&quot;, setDates=true, dateTimeProviderRef=&quot;&quot;, modifyOnCreate=true), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=NONE, connection=NONE), @org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters(value={org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTypeExcludeFilter.class}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.database&quot;, skip=NO), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.context.annotation.Import(value={org.springframework.data.jpa.repository.config.JpaAuditingRegistrar.class}), @org.springframework.boot.test.autoconfigure.core.AutoConfigureCache(cacheProvider=NONE), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=ANY, connection=NONE), @org.springframework.context.annotation.Import(value={com.fasterxml.jackson.databind.ObjectMapper.class}), @org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration(enabled=false)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@28023029]; rollback [true]
+2023-11-07 00:13:05.010 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+2023-11-07 00:13:05.013 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_0_,
+        commentent0_.created_date as created_2_1_0_,
+        commentent0_.deleted as deleted3_1_0_,
+        commentent0_.updated_date as updated_4_1_0_,
+        commentent0_.comment_content as comment_5_1_0_,
+        commentent0_.comment_user_id as comment_6_1_0_,
+        commentent0_.comment_vote_id as comment_7_1_0_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_id=?
+2023-11-07 00:13:05.017 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+Hibernate: 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+2023-11-07 00:13:05.019 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+Hibernate: 
+    update
+        comment 
+    set
+        deleted=?,
+        updated_date=?,
+        comment_content=?,
+        comment_user_id=?,
+        comment_vote_id=? 
+    where
+        comment_id=?
+2023-11-07 00:13:05.021 DEBUG 13256 --- [    Test worker] org.hibernate.SQL                        : 
+    select
+        commentent0_.comment_id as comment_1_1_,
+        commentent0_.created_date as created_2_1_,
+        commentent0_.deleted as deleted3_1_,
+        commentent0_.updated_date as updated_4_1_,
+        commentent0_.comment_content as comment_5_1_,
+        commentent0_.comment_user_id as comment_6_1_,
+        commentent0_.comment_vote_id as comment_7_1_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_vote_id=? 
+        and commentent0_.deleted=0
+Hibernate: 
+    select
+        commentent0_.comment_id as comment_1_1_,
+        commentent0_.created_date as created_2_1_,
+        commentent0_.deleted as deleted3_1_,
+        commentent0_.updated_date as updated_4_1_,
+        commentent0_.comment_content as comment_5_1_,
+        commentent0_.comment_user_id as comment_6_1_,
+        commentent0_.comment_vote_id as comment_7_1_ 
+    from
+        comment commentent0_ 
+    where
+        commentent0_.comment_vote_id=? 
+        and commentent0_.deleted=0
+2023-11-07 00:13:05.050  INFO 13256 --- [    Test worker] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@4e9ab294 testClass = CommentRepositoryTest, testInstance = com.kakao.golajuma.comment.repository.CommentRepositoryTest@63ae7031, testMethod = comment_findByVoteId_test@CommentRepositoryTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@2365facb testClass = CommentRepositoryTest, locations = '{}', classes = '{class com.kakao.golajuma.GolajumaApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@7b9661d4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4ae33a11, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@351584c0, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@d8d246a3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@45be7cd5, [ImportsContextCustomizer@65b9ebee key = [@org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa(), @org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager(), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest(bootstrapMode=DEFAULT, useDefaultFilters=true, excludeFilters={}, excludeAutoConfiguration={}, showSql=true, includeFilters={}, properties={}), @org.springframework.transaction.annotation.Transactional(propagation=REQUIRED, rollbackForClassName={}, readOnly=false, isolation=DEFAULT, timeoutString=&quot;&quot;, transactionManager=&quot;&quot;, label={}, noRollbackForClassName={}, noRollbackFor={}, value=&quot;&quot;, timeout=-1, rollbackFor={}), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTestContextBootstrapper.class), @org.springframework.data.jpa.repository.config.EnableJpaAuditing(auditorAwareRef=&quot;&quot;, setDates=true, dateTimeProviderRef=&quot;&quot;, modifyOnCreate=true), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=NONE, connection=NONE), @org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters(value={org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTypeExcludeFilter.class}), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value=&quot;spring.test.database&quot;, skip=NO), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.context.annotation.Import(value={org.springframework.data.jpa.repository.config.JpaAuditingRegistrar.class}), @org.springframework.boot.test.autoconfigure.core.AutoConfigureCache(cacheProvider=NONE), @org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase(replace=ANY, connection=NONE), @org.springframework.context.annotation.Import(value={com.fasterxml.jackson.databind.ObjectMapper.class}), @org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration(enabled=false)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6d366c9b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@7813cb11, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.2.1</a> at 2023. 11. 7. 오전 12:13:07</p>
+</div>
+</div>
+</body>
+</html>
