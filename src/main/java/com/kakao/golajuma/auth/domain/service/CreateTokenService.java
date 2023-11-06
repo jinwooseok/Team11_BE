@@ -29,7 +29,10 @@ public class CreateTokenService {
 		saveToken(userId, refreshToken);
 
 		return tokenConverter.from(
-				accessToken, tokenResolver.getExpiredDate(accessToken), refreshToken);
+				accessToken,
+				tokenResolver.getExpiredDate(accessToken),
+				refreshToken,
+				tokenResolver.getExpiredDate(refreshToken));
 	}
 
 	private void saveToken(Long userId, String token) {
