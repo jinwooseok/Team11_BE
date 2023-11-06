@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class OptionResult {
+
 	private Long id;
 	private int optionCount;
 	private double optionRatio;
+	private boolean choice;
 }
