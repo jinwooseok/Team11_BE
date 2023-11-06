@@ -7,4 +7,4 @@ spring:
       dev:
         - dev-mysql
         - dev-token
-    active: local
+    active: dev

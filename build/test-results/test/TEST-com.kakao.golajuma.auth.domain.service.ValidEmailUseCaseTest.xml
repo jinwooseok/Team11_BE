@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.kakao.golajuma.auth.domain.service.ValidEmailUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-11-06T15:13:02" hostname="DESKTOP-3GO7G9K" time="0.004">
-  <properties/>
-  <testcase name="이메일 중복이 되지 않으면 예외가 발생하지 않는다." classname="com.kakao.golajuma.auth.domain.service.ValidEmailUseCaseTest" time="0.003"/>
-  <testcase name="이메일 중복되면 예외가 발생한다." classname="com.kakao.golajuma.auth.domain.service.ValidEmailUseCaseTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

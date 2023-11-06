@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.kakao.golajuma.comment.service.CreateCommentServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-06T15:13:05" hostname="DESKTOP-3GO7G9K" time="0.023">
-  <properties/>
-  <testcase name="유저가 새로운 댓글을 저장하는데 성공한다." classname="com.kakao.golajuma.comment.service.CreateCommentServiceTest" time="0.023"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
