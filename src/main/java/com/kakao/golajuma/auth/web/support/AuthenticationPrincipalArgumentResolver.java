@@ -19,7 +19,7 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
 		return parameter.hasParameterAnnotation(Login.class)
-				|| parameter.hasParameterAnnotation(LoginRequired.class);
+				|| parameter.hasParameterAnnotation(AnonymousAvailable.class);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
 			NativeWebRequest webRequest,
 			WebDataBinderFactory binderFactory)
 			throws Exception {
-		if (parameter.hasParameterAnnotation(LoginRequired.class)) {
+		if (!parameter.hasMethodAnnotation(AnonymousAvailable.class)) {
 			return getUserInfo(webRequest);
 		}
 
