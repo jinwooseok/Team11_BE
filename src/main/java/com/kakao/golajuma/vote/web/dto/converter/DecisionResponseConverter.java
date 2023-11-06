@@ -13,7 +13,12 @@ public class DecisionResponseConverter {
 
 	public DecisionResponse from(Long selectedId, List<OptionEntity> optionsByVote, int totalCount) {
 		return DecisionResponse.builder()
-				.choice(selectedId)
+				.result(optionResultConverter.from(selectedId, optionsByVote, totalCount))
+				.build();
+	}
+
+	public DecisionResponse from(List<OptionEntity> optionsByVote, int totalCount) {
+		return DecisionResponse.builder()
 				.result(optionResultConverter.from(optionsByVote, totalCount))
 				.build();
 	}
