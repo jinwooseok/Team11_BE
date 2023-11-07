@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mariadb
+  labels:
+    app: mariadb
 spec:
   serviceName: mariadb
   selector:
@@ -19,7 +21,6 @@ spec:
           env:
             - name: TZ
               value: Asia/Seoul
-
             - name: MARIADB_USERNAME
               valueFrom:
                 secretKeyRef:

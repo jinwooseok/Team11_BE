@@ -33,20 +33,7 @@ spec:
             path: /usr/share/zoneinfo/Asia/Seoul
 
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  type: LoadBalancer
-  selector:
-    app: nginx
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
----
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -55,11 +42,8 @@ metadata:
     app.kubernetes.io/managed-by: kargocd
   name: nginx
 spec:
-  rules:
-    - http:
-        paths:
-          - backend:
-              serviceName: nginx-service
-              servicePort: 80
-              path: /
-              pathType: Prefix
+  defaultBackend:
+    service:
+      name: backend
+      port:
+        number: 8080
