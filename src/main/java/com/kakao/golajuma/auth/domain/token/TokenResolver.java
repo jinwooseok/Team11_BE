@@ -1,6 +1,6 @@
 package com.kakao.golajuma.auth.domain.token;
 
-import com.kakao.golajuma.auth.domain.exception.NotValidToken;
+import com.kakao.golajuma.auth.domain.exception.AuthorizationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -26,7 +26,7 @@ public class TokenResolver {
 		try {
 			return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();
 		} catch (ExpiredJwtException e) {
-			throw new NotValidToken("만료된 토큰입니다");
+			throw new AuthorizationException("엑세스 토큰이 만료되었습니다");
 		}
 	}
 
