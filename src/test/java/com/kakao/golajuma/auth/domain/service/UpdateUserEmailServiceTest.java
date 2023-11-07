@@ -31,7 +31,8 @@ public class UpdateUserEmailServiceTest {
 			// given
 			Long userId = 1L;
 
-			UpdateUserEmailRequest requestDto = new UpdateUserEmailRequest("newemail@gmail.com");
+			UpdateUserEmailRequest requestDto =
+					UpdateUserEmailRequest.builder().email("newemail@gmail.com").build();
 
 			UserEntity userEntity = UserEntity.builder().id(1L).email("oldemail@gmail.com").build();
 

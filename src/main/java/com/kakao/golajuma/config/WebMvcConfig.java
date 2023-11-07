@@ -1,7 +1,7 @@
 package com.kakao.golajuma.config;
 
 import com.kakao.golajuma.auth.domain.token.TokenResolver;
-import com.kakao.golajuma.auth.web.controller.AuthInterceptor;
+import com.kakao.golajuma.auth.web.interceptor.AuthInterceptor;
 import com.kakao.golajuma.auth.web.support.AuthenticationPrincipalArgumentResolver;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

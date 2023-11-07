@@ -1,4 +1,4 @@
-package com.kakao.golajuma.auth.web.controller;
+package com.kakao.golajuma.auth.web.interceptor;
 
 import com.kakao.golajuma.auth.domain.token.TokenValidator;
 import com.kakao.golajuma.auth.web.support.AuthorizationExtractor;
