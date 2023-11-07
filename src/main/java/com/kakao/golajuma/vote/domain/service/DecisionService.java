@@ -57,7 +57,6 @@ public class DecisionService {
 
 		validateVoteStatus(voteEntity);
 
-		saveDecision(userId, optionId);
 		updateCounts(voteEntity, optionEntity);
 
 		DecisionEntity entity = entityConverter.from(userId, optionId);
