@@ -14,4 +14,4 @@ ARG JAR_FILE="build/libs/goalajuma-*.jar"
 
 COPY . .
 
-ENTRYPOINT java -XX:MaxGCPauseMillis=100 -XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dspring.profiles.active=dev -jar build/libs/goalajuma-0.0.1-SNAPSHOT.jar
+ENTRYPOINT java -jar build/libs/goalajuma-0.0.1-SNAPSHOT.jar
