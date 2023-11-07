@@ -8,6 +8,6 @@ security:
     token:
       secretKey: ${JWT_SECRET_KEY}
       access:
-        validTime: 15000
+        validTime: 900000
       refresh:
-        validTime: 30000
+        validTime: 1800000
