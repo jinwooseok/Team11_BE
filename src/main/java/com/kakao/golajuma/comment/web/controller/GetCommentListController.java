@@ -1,5 +1,6 @@
 package com.kakao.golajuma.comment.web.controller;
 
+import com.kakao.golajuma.auth.web.support.AnonymousAvailable;
 import com.kakao.golajuma.auth.web.support.Login;
 import com.kakao.golajuma.comment.domain.service.GetCommentListService;
 import com.kakao.golajuma.comment.web.dto.response.GetCommentListResponse;
@@ -21,6 +22,7 @@ public class GetCommentListController {
 
 	private final GetCommentListService getCommentListService;
 
+	@AnonymousAvailable
 	@GetMapping
 	public ApiResponse<ApiResponseBody.SuccessBody<GetCommentListResponse>> readList(
 			@PathVariable Long voteId, @Login Long userId) {
