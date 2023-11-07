@@ -1,6 +1,6 @@
 package com.kakao.golajuma.auth.web.support;
 
-import com.kakao.golajuma.auth.domain.exception.AuthorizationException;
+import com.kakao.golajuma.auth.domain.exception.CookieException;
 import java.util.Arrays;
 import java.util.Optional;
 import javax.servlet.http.Cookie;
@@ -17,8 +17,7 @@ public class CookieExtractor implements TokenExtractor {
 		Optional<Cookie> tokenCookie =
 				Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(REFRESH_KEY)).findAny();
 
-		Cookie refreshCookie =
-				tokenCookie.orElseThrow(() -> new AuthorizationException("토큰이 존재하지 않습니다."));
+		Cookie refreshCookie = tokenCookie.orElseThrow(CookieException::new);
 
 		return getValue(refreshCookie);
 	}
@@ -26,7 +25,7 @@ public class CookieExtractor implements TokenExtractor {
 	private Cookie[] getCookies(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
-			throw new AuthorizationException("토큰이 존재하지 않습니다");
+			throw new CookieException();
 		}
 		return cookies;
 	}
@@ -39,7 +38,7 @@ public class CookieExtractor implements TokenExtractor {
 
 	private void validNullToken(String token) {
 		if (token == null) {
-			throw new AuthorizationException("토큰이 존재하지 않습니다");
+			throw new CookieException();
 		}
 	}
 }

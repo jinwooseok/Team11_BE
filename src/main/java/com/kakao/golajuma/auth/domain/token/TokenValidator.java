@@ -14,7 +14,7 @@ public class TokenValidator {
 		Date expiredDate = tokenResolver.getExpiredDate(token);
 
 		if (expiredDate.before(new Date())) {
-			throw new AuthorizationException("토큰이 만료되었습니다");
+			throw new AuthorizationException("엑세스 토큰이 만료되었습니다");
 		}
 	}
 }
