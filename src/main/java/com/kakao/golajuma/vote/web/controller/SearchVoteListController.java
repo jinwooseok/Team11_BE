@@ -1,5 +1,6 @@
 package com.kakao.golajuma.vote.web.controller;
 
+import com.kakao.golajuma.auth.web.support.AnonymousAvailable;
 import com.kakao.golajuma.auth.web.support.Login;
 import com.kakao.golajuma.common.support.respnose.ApiResponse;
 import com.kakao.golajuma.common.support.respnose.ApiResponseBody;
@@ -22,6 +23,7 @@ public class SearchVoteListController {
 	private final GetVoteListRequestConverter getVoteListRequestConverter;
 
 	// 투표 검색 -> 투표 리스트 조회
+	@AnonymousAvailable
 	@GetMapping("/votes/search")
 	public ApiResponse<ApiResponseBody.SuccessBody<SearchVoteListResponse>> searchVoteList(
 			@Login Long userId,
