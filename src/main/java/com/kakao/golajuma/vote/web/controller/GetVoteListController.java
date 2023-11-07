@@ -1,5 +1,6 @@
 package com.kakao.golajuma.vote.web.controller;
 
+import com.kakao.golajuma.auth.web.support.AnonymousAvailable;
 import com.kakao.golajuma.auth.web.support.Login;
 import com.kakao.golajuma.common.support.respnose.ApiResponse;
 import com.kakao.golajuma.common.support.respnose.ApiResponseBody;
@@ -22,6 +23,7 @@ public class GetVoteListController {
 	private final GetVoteListRequestConverter getVoteListRequestConverter;
 
 	// 투표 조회 - 메인페이지, 완료된 페이지
+	@AnonymousAvailable
 	@GetMapping("/votes")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVoteListResponse.MainAndFinishPage>>
 			getVoteList(

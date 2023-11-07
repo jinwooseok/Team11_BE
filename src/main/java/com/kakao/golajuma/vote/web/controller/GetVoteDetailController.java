@@ -1,5 +1,6 @@
 package com.kakao.golajuma.vote.web.controller;
 
+import com.kakao.golajuma.auth.web.support.AnonymousAvailable;
 import com.kakao.golajuma.auth.web.support.Login;
 import com.kakao.golajuma.common.support.respnose.ApiResponse;
 import com.kakao.golajuma.common.support.respnose.ApiResponseBody;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GetVoteDetailController {
 	private final GetVoteDetailService getVoteDetailService;
 
+	@AnonymousAvailable
 	@GetMapping("/votes/{voteId}")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVoteDetailResponse>> getVoteDetail(
 			@PathVariable Long voteId, @Login Long userId) {
