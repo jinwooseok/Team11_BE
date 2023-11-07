@@ -13,5 +13,5 @@ ENV DD_VERSION=${RELEASE_VERSION}
 ARG JAR_FILE="build/libs/goalajuma-*.jar"
 
 COPY . .
-
-ENTRYPOINT java -jar build/libs/goalajuma-0.0.1-SNAPSHOT.jar
+RUN sudo ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+ENTRYPOINT java -jar -Duser.timezone=Asia/Seoul build/libs/goalajuma-0.0.1-SNAPSHOT.jar
