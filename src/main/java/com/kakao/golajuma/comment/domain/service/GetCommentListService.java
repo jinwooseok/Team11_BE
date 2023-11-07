@@ -39,7 +39,7 @@ public class GetCommentListService {
 				commentEntityList.stream()
 						.map(
 								commentEntity -> {
-									String username = getUsername(userId);
+									String username = getUsername(commentEntity.getUserId());
 									boolean isOwner = commentEntity.isOwner(userId);
 									return new CommentDto(commentEntity, isOwner, username);
 								})

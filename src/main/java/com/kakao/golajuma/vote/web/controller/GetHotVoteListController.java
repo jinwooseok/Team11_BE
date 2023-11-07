@@ -1,5 +1,6 @@
 package com.kakao.golajuma.vote.web.controller;
 
+import com.kakao.golajuma.auth.web.support.AnonymousAvailable;
 import com.kakao.golajuma.auth.web.support.Login;
 import com.kakao.golajuma.common.support.respnose.ApiResponse;
 import com.kakao.golajuma.common.support.respnose.ApiResponseBody;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GetHotVoteListController {
 	private final GetHotVoteListService getHotVoteListService;
-	// 투표 생성
+
+	@AnonymousAvailable
 	@GetMapping("/votes/hot")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVoteListResponse.MainAndFinishPage>>
 			readHotVotes(@Login Long userId, @RequestParam(defaultValue = "0") int page) {
