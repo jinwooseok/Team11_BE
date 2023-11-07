@@ -22,9 +22,9 @@ public class CloseVoteService {
 			throw new CloseException("투표 작성자가 아닙니다.");
 		}
 		// 이미 마감된 경우 예외
-		if (vote.isOn()) {
-			vote.close();
+		if (!vote.isOn()) {
+			throw new CloseException("이미 완료된 투표입니다.");
 		}
-		throw new CloseException("이미 완료된 투표입니다.");
+		vote.close();
 	}
 }
