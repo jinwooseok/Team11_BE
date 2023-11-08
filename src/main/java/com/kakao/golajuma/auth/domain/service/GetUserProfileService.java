@@ -1,5 +1,6 @@
 package com.kakao.golajuma.auth.domain.service;
 
+import com.kakao.golajuma.auth.domain.exception.NotFoundException;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.response.UserProfileResponse;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ReadUserProfileService {
+public class GetUserProfileService {
 
 	private final UserRepository userRepository;
 	private final VoteRepository voteRepository;
@@ -22,31 +23,20 @@ public class ReadUserProfileService {
 		int createVoteCount = countCreatedVote(userId);
 		int participateVoteCount = countParticipatedVote(userId);
 
-		return userProfileConverter(userEntity, createVoteCount, participateVoteCount);
+		return UserProfileResponse.from(userEntity, createVoteCount, participateVoteCount);
 	}
 
-	protected UserEntity validateUserEntity(Long userId) {
+	private UserEntity validateUserEntity(Long userId) {
 		return userRepository
 				.findById(userId)
-				.orElseThrow(() -> new NullPointerException("유저 정보가 존재하지 않습니다."));
+				.orElseThrow(() -> new NotFoundException("존재하지 않은 유저입니다."));
 	}
 
-	protected int countCreatedVote(Long userId) {
+	private int countCreatedVote(Long userId) {
 		return voteRepository.findAllByUserId(userId).size();
 	}
 
-	protected int countParticipatedVote(Long userId) {
+	private int countParticipatedVote(Long userId) {
 		return voteRepository.findAllParticipateListByUserId(userId).size();
-	}
-
-	protected UserProfileResponse userProfileConverter(
-			UserEntity userEntity, int createVoteCount, int participateVoteCount) {
-		return UserProfileResponse.builder()
-				.email(userEntity.getEmail())
-				.nickName(userEntity.getNickname())
-				.image("미구현")
-				.createVoteCount(createVoteCount)
-				.participateVoteCount(participateVoteCount)
-				.build();
 	}
 }
