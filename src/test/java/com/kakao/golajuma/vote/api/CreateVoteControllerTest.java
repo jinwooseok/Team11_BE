@@ -220,6 +220,35 @@ public class CreateVoteControllerTest {
 				.andExpect(jsonPath("$.message").hasJsonPath());
 	}
 
+	@DisplayName("투표 생성 시 옵션이 2개 미만인 경우")
+	@Test
+	public void createVoteTest_LackOptionNum() throws Exception {
+		List<CreateVoteRequest.OptionDto> options = new ArrayList<>();
+		CreateVoteRequest.OptionDto option1 = new CreateVoteRequest.OptionDto("가라");
+		options.add(option1);
+
+		CreateVoteRequest request = new CreateVoteRequest("군대 가야할까요?", "total", "...", 60, options);
+
+		String requestBody = om.writeValueAsString(request);
+		System.out.println("테스트 : " + requestBody);
+
+		// when
+		ResultActions resultActions =
+				mvc.perform(
+						post("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.content(requestBody)
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
+		// eye
+		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.message").hasJsonPath());
+	}
+
 	@DisplayName("투표 생성 시 존재하지 않는 카테고리인 경우")
 	@Test
 	public void createVoteTest_CategoryException() throws Exception {
