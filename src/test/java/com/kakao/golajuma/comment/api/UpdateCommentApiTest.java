@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class UpdateCommentApiTest {
+class UpdateCommentApiTest {
 	@Autowired private ObjectMapper om;
 
 	@Autowired private MockMvc mvc;
@@ -40,7 +40,7 @@ public class UpdateCommentApiTest {
 
 	@DisplayName("유저는 댓글을 업데이트 하는데 성공한다.")
 	@Test
-	public void updateTest() throws Exception {
+	void updateTest() throws Exception {
 		// given
 		CommentEntity commentEntity = commentRepository.findByUserId(1L).stream().findFirst().get();
 		Long voteId = commentEntity.getVoteId();
