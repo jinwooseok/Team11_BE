@@ -28,7 +28,7 @@ class GetHotVoteListControllerTest {
 	private String jwtToken;
 
 	@BeforeEach
-	void setup() throws Exception {
+	void setup() {
 		jwtToken = tokenProvider.createAccessToken(1L);
 	}
 
