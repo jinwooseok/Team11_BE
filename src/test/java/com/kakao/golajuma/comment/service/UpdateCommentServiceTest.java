@@ -23,7 +23,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class UpdateCommentServiceTest {
+class UpdateCommentServiceTest {
 	@InjectMocks private UpdateCommentService updateCommentService;
 
 	@Mock private CommentRepository commentRepository;

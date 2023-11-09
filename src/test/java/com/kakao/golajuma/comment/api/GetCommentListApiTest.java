@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class GetCommentListApiTest {
+class GetCommentListApiTest {
 
 	@Autowired private MockMvc mvc;
 	@Autowired private TokenProvider tokenProvider;
@@ -30,7 +30,7 @@ public class GetCommentListApiTest {
 
 	@DisplayName("유저는 투표에 따른 댓글 리스트를 확인할 수 있다.")
 	@Test
-	public void get_comment_list_success_test() throws Exception {
+	void get_comment_list_success_test() throws Exception {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
