@@ -22,7 +22,7 @@ import org.springframework.data.domain.Slice;
 @Import(ObjectMapper.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class GetHotVoteListRepositoryTest {
+class GetHotVoteListRepositoryTest {
 
 	@Autowired private HotVoteRepository hotVoteRepository;
 
@@ -32,7 +32,7 @@ public class GetHotVoteListRepositoryTest {
 
 	@Test
 	@Transactional
-	public void hotVote_findByTimeLimitAndDecisionCount_test() throws JsonProcessingException {
+	void hotVote_findByTimeLimitAndDecisionCount_test() throws JsonProcessingException {
 		// given
 		// 1시간 전에 투표를 했음
 		DecisionEntity decisionEntity =
