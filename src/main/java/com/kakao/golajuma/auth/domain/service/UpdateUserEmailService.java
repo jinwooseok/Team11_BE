@@ -16,9 +16,13 @@ public class UpdateUserEmailService {
 
 	private final UserRepository userRepository;
 
+	private final ValidEmailService validEmailService;
+
 	public UpdateEmailResponse execute(UpdateUserEmailRequest requestDto, Long userId) {
+		validEmailService.execute(requestDto);
 		UserEntity userEntity =
 				userRepository.findById(userId).orElseThrow(() -> new NotFoundException("존재하지 않은 유저입니다."));
+
 		String newEmail = requestDto.getEmail();
 		userEntity.updateEmail(newEmail);
 		return new UpdateEmailResponse(newEmail);
