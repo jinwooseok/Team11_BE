@@ -1,7 +1,5 @@
 package com.kakao.golajuma.comment.domain.service;
 
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
 import com.kakao.golajuma.comment.domain.exception.NoOwnershipException;
 import com.kakao.golajuma.comment.domain.exception.NullPointerException;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
@@ -19,7 +17,7 @@ public class UpdateCommentService {
 
 	private final CommentRepository commentRepository;
 
-	private final UserRepository userRepository;
+	private final GetUserNameService getUserNameService;
 	/**
 	 * 댓글을 삭제한다.
 	 *
@@ -48,16 +46,8 @@ public class UpdateCommentService {
 
 		commentEntity.updateContent(newContent);
 
-		String username = getUsername(userId);
+		String username = getUserNameService.execute(userId);
 
 		return new UpdateCommentResponse(commentEntity, true, username);
-	}
-
-	private String getUsername(Long userId) {
-		UserEntity userEntity =
-				userRepository
-						.findById(userId)
-						.orElseThrow(() -> new NullPointerException("존재하지 않는 유저입니다."));
-		return userEntity.getNickname();
 	}
 }

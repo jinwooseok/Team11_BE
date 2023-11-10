@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class DeleteCommentService {
@@ -22,7 +22,6 @@ public class DeleteCommentService {
 	 * @throws NullPointerException 삭제하고 싶은 댓글이 이미 존재하지 않을 때
 	 * @throws NoOwnershipException 해당 댓글id의 주인이 아닐 때
 	 */
-	@Transactional
 	public void execute(Long commentId, Long userId) {
 		// 1. 존재하는 댓글인지 확인
 		CommentEntity commentEntity =
