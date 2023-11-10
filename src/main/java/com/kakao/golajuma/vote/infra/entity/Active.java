@@ -1,6 +1,6 @@
 package com.kakao.golajuma.vote.infra.entity;
 
-import com.kakao.golajuma.vote.domain.exception.NullException;
+import com.kakao.golajuma.vote.domain.exception.vote.ActiveException;
 import java.util.Arrays;
 
 public enum Active {
@@ -21,7 +21,7 @@ public enum Active {
 		return Arrays.stream(Active.values())
 				.filter(Active -> Active.getActive().equals(active))
 				.findAny()
-				.orElseThrow(() -> new NullException("해당 active는 존재하지 않습니다."));
+				.orElseThrow(() -> new ActiveException());
 	}
 
 	public static boolean isContinueRequest(Active active) {
