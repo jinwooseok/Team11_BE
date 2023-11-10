@@ -61,7 +61,7 @@ public class VoteEntity extends BaseEntity {
 		return false;
 	}
 
-	public static VoteEntity createEntity(CreateVoteRequest request, Long userId) {
+	public static VoteEntity create(CreateVoteRequest request, Long userId) {
 		VoteEntity vote =
 				VoteEntity.builder()
 						.userId(userId)
