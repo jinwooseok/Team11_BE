@@ -62,7 +62,7 @@ public class GetVoteService {
 		return VoteDto.convert(voteEntity, userEntity, active, isOwner, participate, category, options);
 	}
 
-	private UserEntity findWriter(VoteEntity voteEntity){
+	private UserEntity findWriter(VoteEntity voteEntity) {
 		Long writerId = voteEntity.getUserId();
 		return userRepository.findById(writerId).get();
 	}

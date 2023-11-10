@@ -22,8 +22,7 @@ public class CountOptionDto extends OptionDto {
 		this.optionRatio = ratio;
 	}
 
-	public static CountOptionDto convert(
-			OptionEntity option, boolean choice, int totalCount) {
+	public static CountOptionDto convert(OptionEntity option, boolean choice, int totalCount) {
 		String image = ImageUploader.getImage(option.getOptionImage());
 		if (totalCount <= 0) {
 			totalCount = 1;

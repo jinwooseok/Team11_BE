@@ -21,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -48,6 +49,7 @@ public class CreateVoteControllerTest {
 
 	@DisplayName("투표 생성 정상 작동 - 이미지 포함")
 	@Test
+	@Transactional
 	public void createVoteTestWithImage() throws Exception {
 		List<CreateVoteRequest.OptionDto> options = new ArrayList<>();
 		ImageDto imageDto = new ImageDto();
@@ -84,6 +86,7 @@ public class CreateVoteControllerTest {
 
 	@DisplayName("투표 생성 정상 작동 - 이미지 미포함")
 	@Test
+	@Transactional
 	public void createVoteTestWithoutImage() throws Exception {
 		List<CreateVoteRequest.OptionDto> options = new ArrayList<>();
 		CreateVoteRequest.OptionDto option1 = new CreateVoteRequest.OptionDto("가라");

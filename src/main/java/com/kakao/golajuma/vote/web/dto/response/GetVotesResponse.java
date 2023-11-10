@@ -19,7 +19,8 @@ public class GetVotesResponse implements AbstractResponseDto {
 			this.votes = votes;
 			this.isLast = isLast;
 		}
-		public static MainAndFinishPage convert(List<VoteDto> votes, boolean isLast){
+
+		public static MainAndFinishPage convert(List<VoteDto> votes, boolean isLast) {
 			return new MainAndFinishPage(votes, isLast);
 		}
 	}
@@ -28,7 +29,7 @@ public class GetVotesResponse implements AbstractResponseDto {
 	public static class MyPage {
 		List<VoteListDto> votes;
 
-		public MyPage(List<VoteListDto> votes){
+		public MyPage(List<VoteListDto> votes) {
 			this.votes = votes;
 		}
 
