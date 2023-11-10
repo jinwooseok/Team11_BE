@@ -4,9 +4,11 @@ spring:
       local:
         - local-mysql
         - local-token
+        - local-image
       dev:
         - dev-mysql
         - dev-token
+        - dev-image
     active: dev
 logging:
   level:
@@ -14,3 +16,6 @@ logging:
     level.org.springframework.web.servlet.DispatcherServlet: TRACE
   pattern:
     console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n %rEx{full}"
+
+
+
