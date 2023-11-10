@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
-import com.kakao.golajuma.vote.web.dto.response.SearchVoteListResponse;
+import com.kakao.golajuma.vote.web.dto.response.SearchVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 
 @ExtendWith(MockitoExtension.class)
-class SearchVoteListServiceTest {
+class SearchVotesServiceTest {
 
-	@InjectMocks SearchVoteListService searchVoteListService;
+	@InjectMocks SearchVotesService searchVotesService;
 	@Mock VoteRepository voteRepository;
 	@Mock GetVoteService getVoteService;
 
@@ -53,10 +53,10 @@ class SearchVoteListServiceTest {
 		VoteDto voteDto = new VoteDto(voteEntity, "username", "continue", true, true, "total");
 
 		// when
-		when(getVoteService.getVote(any(), any())).thenReturn(voteDto);
+		when(getVoteService.execute(any(), any())).thenReturn(voteDto);
 	}
 
-	private void normalThen(SearchVoteListResponse result) {
+	private void normalThen(SearchVotesResponse result) {
 		assertEquals(1, result.getVotes().size());
 		assertEquals(true, result.getIsLast());
 	}
@@ -73,8 +73,7 @@ class SearchVoteListServiceTest {
 		// when
 		when(voteRepository.searchVotesOrderByCreatedDate(any(), any())).thenReturn(voteList);
 
-		SearchVoteListResponse result =
-				searchVoteListService.searchVoteList(1L, 0, keyword, sort, category);
+		SearchVotesResponse result = searchVotesService.execute(1L, 0, keyword, sort, category);
 		// then
 		normalThen(result);
 	}
@@ -92,8 +91,7 @@ class SearchVoteListServiceTest {
 		when(voteRepository.searchVotesByCategoryOrderByCreatedDate(any(), any(), any()))
 				.thenReturn(voteList);
 
-		SearchVoteListResponse result =
-				searchVoteListService.searchVoteList(1L, 0, keyword, sort, category);
+		SearchVotesResponse result = searchVotesService.execute(1L, 0, keyword, sort, category);
 		// then
 		normalThen(result);
 	}
@@ -110,8 +108,7 @@ class SearchVoteListServiceTest {
 		// when
 		when(voteRepository.searchVotesOrderByVoteTotalCount(any(), any())).thenReturn(voteList);
 
-		SearchVoteListResponse result =
-				searchVoteListService.searchVoteList(1L, 0, keyword, sort, category);
+		SearchVotesResponse result = searchVotesService.execute(1L, 0, keyword, sort, category);
 		// then
 		normalThen(result);
 	}
@@ -129,8 +126,7 @@ class SearchVoteListServiceTest {
 		when(voteRepository.searchVotesByCategoryOrderByVoteTotalCount(any(), any(), any()))
 				.thenReturn(voteList);
 
-		SearchVoteListResponse result =
-				searchVoteListService.searchVoteList(1L, 0, keyword, sort, category);
+		SearchVotesResponse result = searchVotesService.execute(1L, 0, keyword, sort, category);
 		// then
 		normalThen(result);
 	}

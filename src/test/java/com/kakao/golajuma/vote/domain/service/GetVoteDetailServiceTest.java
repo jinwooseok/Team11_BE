@@ -31,9 +31,9 @@ public class GetVoteDetailServiceTest {
 	public void getVoteDetailTest() {
 		// when
 		when(voteRepository.findById((Long) any())).thenReturn(Optional.of(vote));
-		when(getVoteService.getVote(any(), any())).thenReturn(voteDto);
+		when(getVoteService.execute(any(), any())).thenReturn(voteDto);
 
-		GetVoteDetailResponse result = getVoteDetailService.getVoteDetail(1L, 1L);
+		GetVoteDetailResponse result = getVoteDetailService.execute(1L, 1L);
 
 		// then
 		assertEquals(voteDto, result.getVote());
@@ -46,6 +46,6 @@ public class GetVoteDetailServiceTest {
 		when(voteRepository.findById((Long) any())).thenThrow(new NullException("message"));
 
 		// then
-		assertThrows(NullException.class, () -> getVoteDetailService.getVoteDetail(0L, 1L));
+		assertThrows(NullException.class, () -> getVoteDetailService.execute(0L, 1L));
 	}
 }

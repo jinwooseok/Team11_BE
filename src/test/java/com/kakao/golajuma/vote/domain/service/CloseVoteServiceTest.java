@@ -37,7 +37,7 @@ public class CloseVoteServiceTest {
 		// when
 		when(voteRepository.findById((Long) any())).thenReturn(Optional.of(vote));
 
-		closeVoteService.closeVote(voteId, requestUserId);
+		closeVoteService.execute(voteId, requestUserId);
 		// 분 단위까지만 비교
 		LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
 		LocalDateTime closeDate = vote.getVoteEndDate().truncatedTo(ChronoUnit.MINUTES);
@@ -55,7 +55,7 @@ public class CloseVoteServiceTest {
 		Long requestUserId = 1L;
 
 		// when & then
-		assertThrows(NullException.class, () -> closeVoteService.closeVote(voteId, requestUserId));
+		assertThrows(NullException.class, () -> closeVoteService.execute(voteId, requestUserId));
 	}
 
 	@DisplayName("작성자가 아닌 경우 투표에 대한 마감 실패")
@@ -76,7 +76,7 @@ public class CloseVoteServiceTest {
 		when(voteRepository.findById((Long) any())).thenReturn(Optional.of(vote));
 
 		// then
-		assertThrows(CloseException.class, () -> closeVoteService.closeVote(voteId, requestUserId));
+		assertThrows(CloseException.class, () -> closeVoteService.execute(voteId, requestUserId));
 	}
 
 	@DisplayName("이미 완료된 투표인 경우 마감 실패")
@@ -98,6 +98,6 @@ public class CloseVoteServiceTest {
 		when(voteRepository.findById((Long) any())).thenReturn(Optional.of(vote));
 
 		// then
-		assertThrows(CloseException.class, () -> closeVoteService.closeVote(voteId, requestUserId));
+		assertThrows(CloseException.class, () -> closeVoteService.execute(voteId, requestUserId));
 	}
 }

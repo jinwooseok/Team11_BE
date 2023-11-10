@@ -4,7 +4,7 @@ import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
-import com.kakao.golajuma.vote.web.dto.response.GetVoteListResponse;
+import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
-public class GetVoteListService {
+public class GetVotesService {
 
 	private final VoteRepository voteRepository;
 	private final GetVoteService getVoteService;
@@ -27,7 +27,7 @@ public class GetVoteListService {
 	static int page = 0;
 	static int size = 5;
 
-	public GetVoteListResponse.MainAndFinishPage getVoteList(
+	public GetVotesResponse.MainAndFinishPage execute(
 			Long userId, int page, Sort sort, Active active, Category category) {
 		/*
 		투표 중 active = continue 이고, createdDate가 최신순으로 정렬하여 가져와서 보여준다
@@ -45,13 +45,13 @@ public class GetVoteListService {
 
 		List<VoteDto> votes = new ArrayList<>();
 		for (VoteEntity vote : voteList) {
-			VoteDto voteDto = getVoteService.getVote(vote, userId);
+			VoteDto voteDto = getVoteService.execute(vote, userId);
 			votes.add(voteDto);
 		}
 		// 마지막 페이지인지 검사
 		boolean isLast = voteList.isLast();
 
-		return new GetVoteListResponse.MainAndFinishPage(votes, isLast);
+		return new GetVotesResponse.MainAndFinishPage(votes, isLast);
 	}
 
 	private Slice<VoteEntity> getVoteListByRequest(Active active, Category category, Sort sort) {
@@ -124,25 +124,5 @@ public class GetVoteListService {
 		}
 		return voteRepository.findAllContinueVotesByCategoryOrderByVoteTotalCount(
 				now, category, pageable);
-	}
-
-	public GetVoteListResponse.MyPage getVoteListInMyPageByParticipate(Long userId) {
-		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
-
-		// userId가 투표한 투표 리스트를 decision 레포에서 찾아야함
-		List<VoteEntity> voteList = voteRepository.findAllParticipateListByUserId(userId);
-		responseBody.toDto(voteList);
-
-		return responseBody;
-	}
-
-	public GetVoteListResponse.MyPage getVoteListInMyPageByAsk(Long userId) {
-		GetVoteListResponse.MyPage responseBody = new GetVoteListResponse.MyPage();
-
-		// userId가 올린 투표를 가져옴
-		List<VoteEntity> voteList = voteRepository.findAllByUserId(userId);
-		responseBody.toDto(voteList);
-
-		return responseBody;
 	}
 }

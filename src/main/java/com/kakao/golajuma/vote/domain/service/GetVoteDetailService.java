@@ -17,12 +17,12 @@ public class GetVoteDetailService {
 	private final VoteRepository voteRepository;
 	private final GetVoteService getVoteService;
 
-	public GetVoteDetailResponse getVoteDetail(Long voteId, Long userId) {
+	public GetVoteDetailResponse execute(Long voteId, Long userId) {
 		// 투표와 옵션리스트 가져오기
-		VoteEntity vote =
+		VoteEntity voteEntity =
 				voteRepository.findById(voteId).orElseThrow(() -> new NullException("해당 투표가 존재하지 않습니다."));
 
-		VoteDto voteDto = getVoteService.getVote(vote, userId);
+		VoteDto voteDto = getVoteService.execute(voteEntity, userId);
 
 		return new GetVoteDetailResponse(voteDto);
 	}

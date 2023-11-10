@@ -8,7 +8,7 @@ import com.kakao.golajuma.vote.infra.entity.Active;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
-import com.kakao.golajuma.vote.web.dto.response.GetVoteListResponse;
+import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,9 +23,9 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class GetVoteListServiceTest {
+public class GetVotesServiceTest {
 
-	@InjectMocks GetVoteListService getVoteListService;
+	@InjectMocks GetVotesService getVotesService;
 	@Mock VoteRepository voteRepository;
 	@Mock GetVoteService getVoteService;
 
@@ -38,7 +38,7 @@ public class GetVoteListServiceTest {
 	List<VoteEntity> votes;
 	Slice<VoteEntity> voteList;
 
-	private void mainAndCompletePageSetup() {
+	private void setup() {
 		// VoteEntity 생성
 		voteEntity =
 				VoteEntity.builder()
@@ -55,24 +55,18 @@ public class GetVoteListServiceTest {
 		VoteDto voteDto = new VoteDto(voteEntity, "username", "continue", true, true, "total");
 
 		// when
-		when(getVoteService.getVote(any(), any())).thenReturn(voteDto);
+		when(getVoteService.execute(any(), any())).thenReturn(voteDto);
 	}
 
-	private void mainAndCompletePageNormalThen(GetVoteListResponse.MainAndFinishPage result) {
+	private void mainAndCompletePageNormalThen(GetVotesResponse.MainAndFinishPage result) {
 		assertEquals(true, result.getIsLast());
-		assertEquals(1, result.getVotes().size());
-	}
-
-	private void myPageNormalThen(GetVoteListResponse.MyPage result) {
-		assertEquals("title", result.getVotes().get(0).getTitle());
-		assertEquals("complete", result.getVotes().get(0).getActive());
 		assertEquals(1, result.getVotes().size());
 	}
 
 	@DisplayName("메인페이지 조회 정상 응답 - 최신순, 전체 카테고리")
 	@Test
 	public void mainPageTest_currentAndTotalCategory() {
-		mainAndCompletePageSetup();
+		setup();
 		// given
 		sort = Sort.CURRENT;
 		active = Active.CONTINUE;
@@ -81,8 +75,8 @@ public class GetVoteListServiceTest {
 		// when
 		when(voteRepository.findAllContinueVotesOrderByCreatedDate(any(), any())).thenReturn(voteList);
 
-		GetVoteListResponse.MainAndFinishPage result =
-				getVoteListService.getVoteList(userId, page, sort, active, category);
+		GetVotesResponse.MainAndFinishPage result =
+				getVotesService.execute(userId, page, sort, active, category);
 		// then
 		mainAndCompletePageNormalThen(result);
 	}
@@ -90,7 +84,7 @@ public class GetVoteListServiceTest {
 	@DisplayName("메인페이지 조회 정상 응답 - 최신순, 특정 카테고리")
 	@Test
 	public void mainPageTest_currentAndSpecificCategory() {
-		mainAndCompletePageSetup();
+		setup();
 		// given
 		sort = Sort.CURRENT;
 		active = Active.CONTINUE;
@@ -100,8 +94,8 @@ public class GetVoteListServiceTest {
 		when(voteRepository.findAllContinueVotesByCategoryOrderByCreatedDate(any(), any(), any()))
 				.thenReturn(voteList);
 
-		GetVoteListResponse.MainAndFinishPage result =
-				getVoteListService.getVoteList(userId, page, sort, active, category);
+		GetVotesResponse.MainAndFinishPage result =
+				getVotesService.execute(userId, page, sort, active, category);
 		// then
 		mainAndCompletePageNormalThen(result);
 	}
@@ -109,7 +103,7 @@ public class GetVoteListServiceTest {
 	@DisplayName("메인페이지 조회 정상 응답 - 인기순, 전체 카테고리")
 	@Test
 	public void mainPageTest_popularAndTotalCategory() {
-		mainAndCompletePageSetup();
+		setup();
 		// given
 		sort = Sort.POPULAR;
 		active = Active.CONTINUE;
@@ -119,8 +113,8 @@ public class GetVoteListServiceTest {
 		when(voteRepository.findAllContinueVotesOrderByVoteTotalCount(any(), any()))
 				.thenReturn(voteList);
 
-		GetVoteListResponse.MainAndFinishPage result =
-				getVoteListService.getVoteList(userId, page, sort, active, category);
+		GetVotesResponse.MainAndFinishPage result =
+				getVotesService.execute(userId, page, sort, active, category);
 		// then
 		mainAndCompletePageNormalThen(result);
 	}
@@ -128,7 +122,7 @@ public class GetVoteListServiceTest {
 	@DisplayName("메인페이지 조회 정상 응답 - 인기순, 특정 카테고리")
 	@Test
 	public void mainPageTest_popularAndSpecificCategory() {
-		mainAndCompletePageSetup();
+		setup();
 		// given
 		sort = Sort.POPULAR;
 		active = Active.CONTINUE;
@@ -138,8 +132,8 @@ public class GetVoteListServiceTest {
 		when(voteRepository.findAllContinueVotesByCategoryOrderByVoteTotalCount(any(), any(), any()))
 				.thenReturn(voteList);
 
-		GetVoteListResponse.MainAndFinishPage result =
-				getVoteListService.getVoteList(userId, page, sort, active, category);
+		GetVotesResponse.MainAndFinishPage result =
+				getVotesService.execute(userId, page, sort, active, category);
 		// then
 		mainAndCompletePageNormalThen(result);
 	}
@@ -147,7 +141,7 @@ public class GetVoteListServiceTest {
 	@DisplayName("완료된 페이지 조회 정상 응답 - 최신순, 전체 카테고리")
 	@Test
 	public void completePageTest_currentAndTotalCategory() {
-		mainAndCompletePageSetup();
+		setup();
 		// given
 		sort = Sort.CURRENT;
 		active = Active.COMPLETE;
@@ -156,8 +150,8 @@ public class GetVoteListServiceTest {
 		// when
 		when(voteRepository.findAllFinishVotesOrderByCreatedDate(any(), any())).thenReturn(voteList);
 
-		GetVoteListResponse.MainAndFinishPage result =
-				getVoteListService.getVoteList(userId, page, sort, active, category);
+		GetVotesResponse.MainAndFinishPage result =
+				getVotesService.execute(userId, page, sort, active, category);
 		// then
 		mainAndCompletePageNormalThen(result);
 	}
@@ -165,7 +159,7 @@ public class GetVoteListServiceTest {
 	@DisplayName("완료된 페이지 조회 정상 응답 - 최신순, 특정 카테고리")
 	@Test
 	public void completePageTest_currentAndSpecificCategory() {
-		mainAndCompletePageSetup();
+		setup();
 		// given
 		sort = Sort.CURRENT;
 		active = Active.COMPLETE;
@@ -175,8 +169,8 @@ public class GetVoteListServiceTest {
 		when(voteRepository.findAllFinishVotesByCategoryOrderByCreatedDate(any(), any(), any()))
 				.thenReturn(voteList);
 
-		GetVoteListResponse.MainAndFinishPage result =
-				getVoteListService.getVoteList(userId, page, sort, active, category);
+		GetVotesResponse.MainAndFinishPage result =
+				getVotesService.execute(userId, page, sort, active, category);
 		// then
 		mainAndCompletePageNormalThen(result);
 	}
@@ -184,7 +178,7 @@ public class GetVoteListServiceTest {
 	@DisplayName("완료된 페이지 조회 정상 응답 - 인기순, 전체 카테고리")
 	@Test
 	public void completePageTest_popularAndTotalCategory() {
-		mainAndCompletePageSetup();
+		setup();
 		// given
 		sort = Sort.POPULAR;
 		active = Active.COMPLETE;
@@ -193,8 +187,8 @@ public class GetVoteListServiceTest {
 		// when
 		when(voteRepository.findAllFinishVotesOrderByVoteTotalCount(any(), any())).thenReturn(voteList);
 
-		GetVoteListResponse.MainAndFinishPage result =
-				getVoteListService.getVoteList(userId, page, sort, active, category);
+		GetVotesResponse.MainAndFinishPage result =
+				getVotesService.execute(userId, page, sort, active, category);
 		// then
 		mainAndCompletePageNormalThen(result);
 	}
@@ -202,7 +196,7 @@ public class GetVoteListServiceTest {
 	@DisplayName("완료된 페이지 조회 정상 응답 - 인기순, 특정 카테고리")
 	@Test
 	public void completePageTest_popularAndSpecificCategory() {
-		mainAndCompletePageSetup();
+		setup();
 		// given
 		sort = Sort.POPULAR;
 		active = Active.COMPLETE;
@@ -212,65 +206,9 @@ public class GetVoteListServiceTest {
 		when(voteRepository.findAllFinishVotesByCategoryOrderByVoteTotalCount(any(), any(), any()))
 				.thenReturn(voteList);
 
-		GetVoteListResponse.MainAndFinishPage result =
-				getVoteListService.getVoteList(userId, page, sort, active, category);
+		GetVotesResponse.MainAndFinishPage result =
+				getVotesService.execute(userId, page, sort, active, category);
 		// then
 		mainAndCompletePageNormalThen(result);
-	}
-
-	@DisplayName("마이페이지 참여한 투표 조회 정상 요청")
-	@Test
-	public void myPageParticipateTest() {
-		// given
-		sort = Sort.CURRENT;
-		active = Active.COMPLETE;
-		category = Category.WHAT;
-
-		// VoteEntity 생성
-		voteEntity =
-				VoteEntity.builder()
-						.id(1L)
-						.userId(1L)
-						.voteTitle("title")
-						.voteEndDate(LocalDateTime.now())
-						.category(Category.TOTAL)
-						.build();
-		votes = new ArrayList<>();
-		votes.add(voteEntity);
-
-		// when
-		when(voteRepository.findAllParticipateListByUserId(any())).thenReturn(votes);
-
-		GetVoteListResponse.MyPage result = getVoteListService.getVoteListInMyPageByParticipate(userId);
-		// then
-		myPageNormalThen(result);
-	}
-
-	@DisplayName("마이페이지 게시한 투표 조회 정상 요청")
-	@Test
-	public void myPageAskTest() {
-		// given
-		sort = Sort.CURRENT;
-		active = Active.COMPLETE;
-		category = Category.WHAT;
-
-		// VoteEntity 생성
-		voteEntity =
-				VoteEntity.builder()
-						.id(1L)
-						.userId(1L)
-						.voteTitle("title")
-						.voteEndDate(LocalDateTime.now())
-						.category(Category.TOTAL)
-						.build();
-		votes = new ArrayList<>();
-		votes.add(voteEntity);
-
-		// when
-		when(voteRepository.findAllByUserId(any())).thenReturn(votes);
-
-		GetVoteListResponse.MyPage result = getVoteListService.getVoteListInMyPageByAsk(userId);
-		// then
-		myPageNormalThen(result);
 	}
 }
