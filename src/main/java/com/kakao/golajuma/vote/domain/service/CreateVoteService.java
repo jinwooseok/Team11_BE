@@ -13,14 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class CreateVoteService {
 
 	private final VoteRepository voteRepository;
 	private final OptionRepository optionRepository;
 	private final ImageUploader imageUploader;
 
-	@Transactional
-	public CreateVoteResponse createVote(CreateVoteRequest request, Long userId) {
+	public CreateVoteResponse execute(CreateVoteRequest request, Long userId) {
 		VoteEntity vote = VoteEntity.createEntity(request, userId);
 		Long voteId = voteRepository.save(vote).getId();
 		for (CreateVoteRequest.OptionDto optionDto : request.getOptions()) {

@@ -3,7 +3,7 @@ package com.kakao.golajuma.vote.domain.service;
 import com.kakao.golajuma.vote.infra.entity.Category;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
-import com.kakao.golajuma.vote.web.dto.response.SearchVoteListResponse;
+import com.kakao.golajuma.vote.web.dto.response.SearchVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,14 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
-public class SearchVoteListService {
+public class SearchVotesService {
 
 	private final VoteRepository voteRepository;
 	private final GetVoteService getVoteService;
 	static int page = 0;
 	static int size = 5;
 
-	public SearchVoteListResponse searchVoteList(
+	public SearchVotesResponse execute(
 			Long userId, int page, String keyword, Sort sort, Category category) {
 		this.page = page;
 
@@ -33,13 +33,13 @@ public class SearchVoteListService {
 
 		List<VoteDto> votes =
 				voteList.stream()
-						.map(voteEntity -> getVoteService.getVote(voteEntity, userId))
+						.map(voteEntity -> getVoteService.execute(voteEntity, userId))
 						.collect(Collectors.toList());
 
 		// 마지막 페이지인지 검사
 		boolean isLast = voteList.isLast();
 
-		return new SearchVoteListResponse(votes, isLast);
+		return new SearchVotesResponse(votes, isLast);
 	}
 
 	private Slice<VoteEntity> findVotes(String keyword, Category category, Sort sort) {

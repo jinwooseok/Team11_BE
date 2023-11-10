@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class GetVoteListRequestConverter {
+public class GetVotesRequestConverter {
 
 	public Sort toSort(String sort) {
 		return Sort.findSort(sort);

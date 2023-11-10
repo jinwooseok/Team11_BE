@@ -22,7 +22,7 @@ public class CreateVoteController {
 	@PostMapping("/votes")
 	public ApiResponse<SuccessBody<CreateVoteResponse>> createVote(
 			@RequestBody @Valid CreateVoteRequest requestDto, @Login Long userId) {
-		CreateVoteResponse responseDto = createVoteService.createVote(requestDto, userId);
+		CreateVoteResponse responseDto = createVoteService.execute(requestDto, userId);
 		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.CREATE);
 	}
 }

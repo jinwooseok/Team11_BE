@@ -21,7 +21,7 @@ public class CloseVoteController {
 	@PatchMapping("/votes/{voteId}/close")
 	public ApiResponse<ApiResponseBody.SuccessBody<Void>> closeVote(
 			@PathVariable Long voteId, @Login Long userId) {
-		closeVoteService.closeVote(voteId, userId);
+		closeVoteService.execute(voteId, userId);
 		return ApiResponseGenerator.success(HttpStatus.OK, MessageCode.UPDATE);
 	}
 }
