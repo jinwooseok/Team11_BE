@@ -1,7 +1,6 @@
 package com.kakao.golajuma.auth.web.dto.converter;
 
 import com.kakao.golajuma.auth.web.dto.response.TokenResponse;
-import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class TokenConverter {
 
 	public TokenResponse from(
-			String accessToken, Date accessExpiredTime, String refreshToken, Date refreshExpiredTime) {
+			String accessToken, Long accessExpiredTime, String refreshToken, Long refreshExpiredTime) {
 		return TokenResponse.builder()
 				.accessToken(accessToken)
 				.accessExpiredTime(accessExpiredTime)

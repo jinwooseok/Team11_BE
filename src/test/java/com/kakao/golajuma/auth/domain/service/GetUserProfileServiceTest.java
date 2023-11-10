@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
-import com.kakao.golajuma.auth.domain.exception.NotFoundException;
+import com.kakao.golajuma.auth.domain.exception.NotFoundUserException;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.response.UserProfileResponse;
@@ -68,7 +68,7 @@ class GetUserProfileServiceTest {
 			UserEntity userEntity = UserEntity.builder().build();
 			when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
 			// when & then
-			assertThrows(NotFoundException.class, () -> getUserProfileService.execute(anyLong()));
+			assertThrows(NotFoundUserException.class, () -> getUserProfileService.execute(anyLong()));
 		}
 	}
 }
