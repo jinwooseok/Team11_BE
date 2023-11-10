@@ -55,7 +55,7 @@ public class GetVoteServiceTest {
 		when(decisionRepository.existsByUserIdAndOptionId(any(), any())).thenReturn(true);
 
 		// 테스트할 메서드를 호출합니다.
-		VoteDto result = getVoteService.getVote(voteEntity, 1L);
+		VoteDto result = getVoteService.execute(voteEntity, 1L);
 
 		// 결과를 검증합니다.
 		assertEquals(2, result.getOptions().size()); // 예상되는 옵션 개수에 따라 수정

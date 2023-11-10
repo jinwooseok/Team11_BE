@@ -2,7 +2,7 @@ package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.HotVoteRepository;
-import com.kakao.golajuma.vote.web.dto.response.GetVoteListResponse;
+import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
-public class GetHotVoteListService {
+public class GetHotVotesService {
 	private final GetVoteService getVoteService;
 
 	private final HotVoteRepository hotVoteRepository;
 
-	public GetVoteListResponse.MainAndFinishPage execute(final Long userId, final int page) {
+	public GetVotesResponse.MainAndFinishPage execute(final Long userId, final int page) {
 		int size = 5;
 		int beforeHour = 1;
 		int interval = 1;
@@ -32,15 +32,15 @@ public class GetHotVoteListService {
 		// 어디서부터 몇개씩 가져올건지
 		Pageable pageable = PageRequest.of(page, size);
 		// repository를 통해 찾음
-		Slice<VoteEntity> voteEntitySlice =
+		Slice<VoteEntity> voteEntities =
 				hotVoteRepository.findByTimeLimitAndDecisionCount(
 						lastTime.get(0), lastTime.get(1), pageable);
 		// entity list >> dto list
-		List<VoteDto> voteDtoList = voteDtoConverter(voteEntitySlice, userId);
+		List<VoteDto> voteDtoList = voteDtoConverter(voteEntities, userId);
 		// 마지막 페이지인지 검사
-		boolean isLast = voteEntitySlice.isLast();
+		boolean isLast = voteEntities.isLast();
 		// responseDto로 변환 후 return
-		return new GetVoteListResponse.MainAndFinishPage(voteDtoList, isLast);
+		return new GetVotesResponse.MainAndFinishPage(voteDtoList, isLast);
 	}
 
 	private List<LocalDateTime> findLastTime(int before, int interval) {
@@ -58,7 +58,7 @@ public class GetHotVoteListService {
 
 		voteDtoList =
 				voteEntitySlice.stream()
-						.map(voteEntity -> getVoteService.getVote(voteEntity, userId))
+						.map(voteEntity -> getVoteService.execute(voteEntity, userId))
 						.collect(Collectors.toList());
 		return voteDtoList;
 	}

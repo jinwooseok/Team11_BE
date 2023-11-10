@@ -5,11 +5,11 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class SearchVoteListResponse implements AbstractResponseDto {
+public class SearchVotesResponse implements AbstractResponseDto {
 	List<VoteDto> votes;
 	Boolean isLast;
 
-	public SearchVoteListResponse(List<VoteDto> votes, boolean isLast) {
+	public SearchVotesResponse(List<VoteDto> votes, boolean isLast) {
 		this.votes = votes;
 		this.isLast = isLast;
 	}

@@ -8,7 +8,7 @@ import lombok.*;
 
 @NoArgsConstructor
 @Getter
-public class GetVoteListResponse implements AbstractResponseDto {
+public class GetVotesResponse implements AbstractResponseDto {
 
 	@Getter
 	public static class MainAndFinishPage {

@@ -6,9 +6,9 @@ import com.kakao.golajuma.common.support.respnose.ApiResponse;
 import com.kakao.golajuma.common.support.respnose.ApiResponseBody;
 import com.kakao.golajuma.common.support.respnose.ApiResponseGenerator;
 import com.kakao.golajuma.common.support.respnose.MessageCode;
-import com.kakao.golajuma.vote.domain.service.SearchVoteListService;
-import com.kakao.golajuma.vote.web.controller.converter.GetVoteListRequestConverter;
-import com.kakao.golajuma.vote.web.dto.response.SearchVoteListResponse;
+import com.kakao.golajuma.vote.domain.service.SearchVotesService;
+import com.kakao.golajuma.vote.web.controller.converter.GetVotesRequestConverter;
+import com.kakao.golajuma.vote.web.dto.response.SearchVotesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,27 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class SearchVoteListController {
+public class SearchVotesController {
 
-	private final SearchVoteListService searchVoteListService;
-	private final GetVoteListRequestConverter getVoteListRequestConverter;
+	private final SearchVotesService searchVotesService;
+	private final GetVotesRequestConverter getVotesRequestConverter;
 
 	// 투표 검색 -> 투표 리스트 조회
 	@AnonymousAvailable
 	@GetMapping("/votes/search")
-	public ApiResponse<ApiResponseBody.SuccessBody<SearchVoteListResponse>> searchVoteList(
+	public ApiResponse<ApiResponseBody.SuccessBody<SearchVotesResponse>> searchVoteList(
 			@Login Long userId,
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "") String keyword,
 			@RequestParam(defaultValue = "current") String sort,
 			@RequestParam(defaultValue = "total") String category) {
-		SearchVoteListResponse responseDto =
-				searchVoteListService.searchVoteList(
+		SearchVotesResponse responseDto =
+				searchVotesService.execute(
 						userId,
 						page,
 						keyword,
-						getVoteListRequestConverter.toSort(sort),
-						getVoteListRequestConverter.toCategory(category));
+						getVotesRequestConverter.toSort(sort),
+						getVotesRequestConverter.toCategory(category));
 
 		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.GET);
 	}

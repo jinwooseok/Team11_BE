@@ -62,7 +62,7 @@ public class CreateVoteServiceTest {
 		when(voteRepository.save(any())).thenReturn(vote);
 		when(optionRepository.save(any())).thenReturn(optionEntity);
 
-		CreateVoteResponse result = createVoteService.createVote(request, userId);
+		CreateVoteResponse result = createVoteService.execute(request, userId);
 		// then
 		assertEquals(1L, result.getId()); // 예상되는 옵션 개수에 따라 수정
 	}

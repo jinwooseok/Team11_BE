@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class GetVoteListControllerTest {
+public class GetVotesControllerTest {
 
 	@Autowired private MockMvc mvc;
 	@Autowired private UserRepository userRepository;

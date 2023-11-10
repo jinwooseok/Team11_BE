@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -45,6 +46,7 @@ public class CloseVoteControllerTest {
 
 	@DisplayName("투표 마감 성공")
 	@Test
+	@Transactional
 	public void closeVote_test() throws Exception {
 		// given
 		LocalDateTime date = LocalDateTime.now().plusMinutes(240);

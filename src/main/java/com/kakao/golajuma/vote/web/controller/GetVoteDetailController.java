@@ -23,7 +23,7 @@ public class GetVoteDetailController {
 	@GetMapping("/votes/{voteId}")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVoteDetailResponse>> getVoteDetail(
 			@PathVariable Long voteId, @Login Long userId) {
-		GetVoteDetailResponse responseDto = getVoteDetailService.getVoteDetail(voteId, userId);
+		GetVoteDetailResponse responseDto = getVoteDetailService.execute(voteId, userId);
 		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.GET);
 	}
 }
