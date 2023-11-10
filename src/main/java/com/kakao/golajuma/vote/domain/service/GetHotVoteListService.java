@@ -7,6 +7,7 @@ import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,9 +23,8 @@ public class GetHotVoteListService {
 
 	private final HotVoteRepository hotVoteRepository;
 
-	private int size = 5;
-
-	public GetVoteListResponse.MainAndFinishPage getVoteList(final Long userId, final int page) {
+	public GetVoteListResponse.MainAndFinishPage execute(final Long userId, final int page) {
+		int size = 5;
 		int beforeHour = 1;
 		int interval = 1;
 		// 핫게시판에 반영할 1시간전을 계산
@@ -38,12 +38,12 @@ public class GetHotVoteListService {
 		// entity list >> dto list
 		List<VoteDto> voteDtoList = voteDtoConverter(voteEntitySlice, userId);
 		// 마지막 페이지인지 검사
-		boolean isLast = true;
+		boolean isLast = voteEntitySlice.isLast();
 		// responseDto로 변환 후 return
 		return new GetVoteListResponse.MainAndFinishPage(voteDtoList, isLast);
 	}
 
-	protected List<LocalDateTime> findLastTime(int before, int interval) {
+	private List<LocalDateTime> findLastTime(int before, int interval) {
 		LocalDateTime startTime =
 				LocalDateTime.now().minusHours(before).withMinute(0).withSecond(0).withNano(0);
 		LocalDateTime endTime = startTime.plusHours(interval);
@@ -53,13 +53,13 @@ public class GetHotVoteListService {
 		return timeSet;
 	}
 
-	protected List<VoteDto> voteDtoConverter(Slice<VoteEntity> voteEntitySlice, Long userId) {
-		List<VoteDto> voteDtoList = new ArrayList<>();
+	private List<VoteDto> voteDtoConverter(Slice<VoteEntity> voteEntitySlice, Long userId) {
+		List<VoteDto> voteDtoList;
 
-		for (VoteEntity voteEntity : voteEntitySlice) {
-			VoteDto voteDto = getVoteService.getVote(voteEntity, userId);
-			voteDtoList.add(voteDto);
-		}
+		voteDtoList =
+				voteEntitySlice.stream()
+						.map(voteEntity -> getVoteService.getVote(voteEntity, userId))
+						.collect(Collectors.toList());
 		return voteDtoList;
 	}
 }

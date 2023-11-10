@@ -40,7 +40,7 @@ public class GetVoteListControllerTest {
 
 	@DisplayName("메인페이지 투표 조회 정상 요청")
 	@Test
-	public void getVoteList_test() throws Exception {
+	public void mainPage_test() throws Exception {
 		// given
 		String page = "0";
 
@@ -67,7 +67,7 @@ public class GetVoteListControllerTest {
 
 	@DisplayName("완료된 페이지 조회 정상 요청")
 	@Test
-	public void getVoteList_finishPage_test() throws Exception {
+	public void completePage_test() throws Exception {
 		// given
 		String page = "0";
 
@@ -92,9 +92,87 @@ public class GetVoteListControllerTest {
 				.andExpect(jsonPath("$.message").hasJsonPath());
 	}
 
+	@DisplayName("투표 리스트 조회 에러 - sort")
+	@Test
+	public void error_test_active() throws Exception {
+		// given
+		String sort = "error";
+		String active = "continue";
+		String category = "total";
+
+		// when
+		ResultActions resultActions =
+				mvc.perform(
+						get("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.param("sort", sort)
+								.param("active", active)
+								.param("category", category));
+		// eye
+		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.message").hasJsonPath());
+	}
+
+	@DisplayName("투표 리스트 조회 에러 - active")
+	@Test
+	public void error_test_sort() throws Exception {
+		// given
+		String sort = "current";
+		String active = "error";
+		String category = "total";
+
+		// when
+		ResultActions resultActions =
+				mvc.perform(
+						get("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.param("sort", sort)
+								.param("active", active)
+								.param("category", category));
+		// eye
+		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.message").hasJsonPath());
+	}
+
+	@DisplayName("투표 리스트 조회 에러 - category")
+	@Test
+	public void error_test_category() throws Exception {
+		// given
+		String sort = "current";
+		String active = "continue";
+		String category = "error";
+
+		// when
+		ResultActions resultActions =
+				mvc.perform(
+						get("/votes")
+								.header("Authorization", "Bearer " + jwtToken)
+								.param("sort", sort)
+								.param("active", active)
+								.param("category", category));
+		// eye
+		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+		System.out.println("테스트 : " + responseBody);
+
+		// then
+		resultActions
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.message").hasJsonPath());
+	}
+
 	@DisplayName("마이페이지 내가한 질문 리스트 조회 정상 요청")
 	@Test
-	public void getVoteListInMyPageByAsk_test() throws Exception {
+	public void myPageByAsk_test() throws Exception {
 
 		// when
 		ResultActions resultActions =
@@ -116,7 +194,7 @@ public class GetVoteListControllerTest {
 
 	@DisplayName("마이페이지 내가한 참여한 질문 리스트 조회 정상 요청")
 	@Test
-	public void getVoteListInMyPageByParticipate_test() throws Exception {
+	public void myPageByParticipate_test() throws Exception {
 
 		// when
 		ResultActions resultActions =

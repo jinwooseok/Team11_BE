@@ -14,15 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class GetVoteDetailService {
 
-	private final VoteRepository voteJPARepository;
+	private final VoteRepository voteRepository;
 	private final GetVoteService getVoteService;
 
 	public GetVoteDetailResponse getVoteDetail(Long voteId, Long userId) {
 		// 투표와 옵션리스트 가져오기
 		VoteEntity vote =
-				voteJPARepository
-						.findById(voteId)
-						.orElseThrow(() -> new NullException("해당 투표가 존재하지 않습니다."));
+				voteRepository.findById(voteId).orElseThrow(() -> new NullException("해당 투표가 존재하지 않습니다."));
 
 		VoteDto voteDto = getVoteService.getVote(vote, userId);
 

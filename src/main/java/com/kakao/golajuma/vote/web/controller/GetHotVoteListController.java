@@ -23,8 +23,7 @@ public class GetHotVoteListController {
 	@GetMapping("/votes/hot")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVoteListResponse.MainAndFinishPage>>
 			readHotVotes(@Login Long userId, @RequestParam(defaultValue = "0") int page) {
-		GetVoteListResponse.MainAndFinishPage responseDto =
-				getHotVoteListService.getVoteList(userId, page);
+		GetVoteListResponse.MainAndFinishPage responseDto = getHotVoteListService.execute(userId, page);
 		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.GET);
 	}
 }

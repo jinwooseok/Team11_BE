@@ -1,6 +1,7 @@
 package com.kakao.golajuma.auth.domain.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
@@ -17,9 +18,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class UpdateUserEmailServiceTest {
+class UpdateUserEmailServiceTest {
 	@InjectMocks private UpdateUserEmailService updateUserEmailService;
 	@Mock private UserRepository userRepository;
+
+	@Mock private ValidEmailService validEmailService;
 
 	@Nested
 	@DisplayName("유저는 이메일을 변경하는데 성공한다.")
@@ -37,8 +40,11 @@ public class UpdateUserEmailServiceTest {
 			UserEntity userEntity = UserEntity.builder().id(1L).email("oldemail@gmail.com").build();
 
 			when(userRepository.findById(userId)).thenReturn(Optional.of(userEntity));
+
 			// when
 			UpdateEmailResponse response = updateUserEmailService.execute(requestDto, userId);
+
+			verify(validEmailService).execute(requestDto);
 			// then
 			assertThat(response.getEmail()).isEqualTo("newemail@gmail.com");
 		}

@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class DeleteCommentApiTest {
+class DeleteCommentApiTest {
 	@Autowired private MockMvc mvc;
 	@Autowired private TokenProvider tokenProvider;
 	@Autowired private CommentRepository commentRepository;
@@ -34,7 +34,7 @@ public class DeleteCommentApiTest {
 
 	@DisplayName("유저는 댓글을 삭제하는데 성공한다.")
 	@Test
-	public void delete_comment_success_tes() throws Exception {
+	void delete_comment_success_tes() throws Exception {
 		// given
 		CommentEntity commentEntity = commentRepository.findByUserId(1L).stream().findFirst().get();
 		Long voteId = commentEntity.getVoteId();

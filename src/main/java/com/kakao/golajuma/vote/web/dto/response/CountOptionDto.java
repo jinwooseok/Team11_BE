@@ -25,7 +25,7 @@ public class CountOptionDto extends OptionDto {
 	public static CountOptionDto makeCountOptionDto(
 			OptionEntity option, boolean choice, int totalCount) {
 		String image = ImageUploader.getImage(option.getOptionImage());
-		if (totalCount == 0) {
+		if (totalCount <= 0) {
 			totalCount = 1;
 		}
 		double ratio = OptionDivideUtil.getRatio(option.getOptionCount(), totalCount);

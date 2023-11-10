@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class GetHotVoteListControllerTest {
+class GetHotVoteListControllerTest {
 
 	@Autowired private MockMvc mvc;
 
@@ -28,13 +28,13 @@ public class GetHotVoteListControllerTest {
 	private String jwtToken;
 
 	@BeforeEach
-	public void setup() throws Exception {
+	void setup() {
 		jwtToken = tokenProvider.createAccessToken(1L);
 	}
 
 	@DisplayName("인기 투표 불러오기 정상 작동")
 	@Test
-	public void GetHotVoteListTest() throws Exception {
+	void GetHotVoteListTest() throws Exception {
 		System.out.println(jwtToken);
 		// when
 		ResultActions resultActions =

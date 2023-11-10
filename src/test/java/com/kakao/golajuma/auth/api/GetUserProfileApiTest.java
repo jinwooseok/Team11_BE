@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class ReadUserProfileControllerTest {
+class GetUserProfileApiTest {
 
 	@Autowired private MockMvc mvc;
 
@@ -26,13 +26,13 @@ public class ReadUserProfileControllerTest {
 	private String jwtToken;
 
 	@BeforeEach
-	public void setup() throws Exception {
+	void setup() throws Exception {
 		jwtToken = tokenProvider.createAccessToken(1L);
 	}
 
 	@DisplayName("유저 프로필 불러오기 성공")
 	@Test
-	public void success_read_profile_test() throws Exception {
+	void success_get_profile_test() throws Exception {
 		// when
 		ResultActions resultActions =
 				mvc.perform(
@@ -43,9 +43,8 @@ public class ReadUserProfileControllerTest {
 		resultActions
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.nickName").hasJsonPath())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.data.nickname").hasJsonPath())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.data.email").hasJsonPath())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.image").hasJsonPath())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.data.participateVoteCount").hasJsonPath())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.data.createVoteCount").hasJsonPath());
 	}

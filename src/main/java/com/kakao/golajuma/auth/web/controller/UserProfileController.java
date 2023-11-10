@@ -1,6 +1,6 @@
 package com.kakao.golajuma.auth.web.controller;
 
-import com.kakao.golajuma.auth.domain.service.ReadUserProfileService;
+import com.kakao.golajuma.auth.domain.service.GetUserProfileService;
 import com.kakao.golajuma.auth.domain.service.UpdateUserEmailService;
 import com.kakao.golajuma.auth.domain.service.UpdateUserNickNameService;
 import com.kakao.golajuma.auth.web.dto.request.UpdateUserEmailRequest;
@@ -23,17 +23,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserProfileController {
 
-	private final ReadUserProfileService readUserProfileService;
+	private final GetUserProfileService getUserProfileService;
 
 	private final UpdateUserEmailService updateUserEmailService;
 
 	private final UpdateUserNickNameService updateUserNickNameService;
 
 	@GetMapping("/profile")
-	public ApiResponse<ApiResponseBody.SuccessBody<UserProfileResponse>> readUserProfile(
+	public ApiResponse<ApiResponseBody.SuccessBody<UserProfileResponse>> getUserProfile(
 			@Login Long userId) {
 
-		UserProfileResponse responseData = readUserProfileService.execute(userId);
+		UserProfileResponse responseData = getUserProfileService.execute(userId);
 
 		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.GET);
 	}

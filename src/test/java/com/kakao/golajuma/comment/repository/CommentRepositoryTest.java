@@ -2,7 +2,6 @@ package com.kakao.golajuma.comment.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.comment.domain.exception.NullPointerException;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
@@ -22,7 +21,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @DataJpaTest
 @EnableJpaAuditing
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class CommentRepositoryTest {
+class CommentRepositoryTest {
 	@Autowired private CommentRepository commentRepository;
 
 	@BeforeEach
@@ -51,16 +50,17 @@ public class CommentRepositoryTest {
 	@Test
 	@Transactional
 	@DisplayName("댓글을 저장합니다.")
-	public void comment_save_test() throws JsonProcessingException {
+	void comment_save_test() {
 		CommentEntity commentEntity =
 				CommentEntity.builder().voteId(1L).userId(1L).content("content1").build();
-		commentRepository.save(commentEntity);
+		CommentEntity result = commentRepository.save(commentEntity);
+		assertThat(result.getContent()).isEqualTo("content1");
 	}
 
 	@Test
 	@Transactional
 	@DisplayName("댓글을 id에 따라 호출합니다.")
-	public void comment_findById_test() throws JsonProcessingException {
+	void comment_findById_test() {
 		// when
 		CommentEntity response =
 				commentRepository
@@ -75,7 +75,7 @@ public class CommentRepositoryTest {
 	@Test
 	@Transactional
 	@DisplayName("댓글을 투표의 id에 따라 호출합니다.")
-	public void comment_findByVoteId_test() throws JsonProcessingException {
+	void comment_findByVoteId_test() {
 		// when
 		List<CommentEntity> response = commentRepository.findByVoteId(2L);
 		// then
@@ -87,7 +87,7 @@ public class CommentRepositoryTest {
 	@Test
 	@Transactional
 	@DisplayName("댓글을 유저의 id에 따라 호출합니다.")
-	public void comment_findByUserId_test() throws JsonProcessingException {
+	void comment_findByUserId_test() {
 		// when
 		List<CommentEntity> response = commentRepository.findByUserId(1L);
 		// then

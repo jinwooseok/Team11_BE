@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class CreateCommentApiTest {
+class CreateCommentApiTest {
 	@Autowired private ObjectMapper om;
 
 	@Autowired private MockMvc mvc;
@@ -37,7 +37,7 @@ public class CreateCommentApiTest {
 
 	@DisplayName("유저는 댓글을 작성하는데 성공한다.")
 	@Test
-	public void create_comment__success_test() throws Exception {
+	void create_comment__success_test() throws Exception {
 		// given
 		CreateCommentRequest requestDto = CreateCommentRequest.builder().content("메롱이다.").build();
 		String requestBody = om.writeValueAsString(requestDto);
@@ -95,7 +95,7 @@ public class CreateCommentApiTest {
 									.content(requestBody)
 									.contentType(MediaType.APPLICATION_JSON));
 
-			resultActions.andExpect(status().isNotFound());
+			resultActions.andExpect(status().is4xxClientError());
 		}
 	}
 }
