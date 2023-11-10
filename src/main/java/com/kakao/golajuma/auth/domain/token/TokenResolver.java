@@ -9,10 +9,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Objects;
 import javax.crypto.SecretKey;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class TokenResolver {
 
 	private static final String USER_ID_CLAIM_KEY = "userId";
@@ -30,9 +32,11 @@ public class TokenResolver {
 		}
 	}
 
-	public Date getExpiredDate(final String token) {
+	public Long getExpiredDate(final String token) {
 		Objects.requireNonNull(token);
-		return getClaims(token).getExpiration();
+		Date expiration = getClaims(token).getExpiration();
+
+		return expiration.getTime();
 	}
 
 	public Long getUserInfo(final String token) {

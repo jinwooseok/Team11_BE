@@ -6,10 +6,12 @@ import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class TokenProvider {
 
 	private static final String USER_ID_CLAIM_KEY = "userId";
@@ -27,7 +29,7 @@ public class TokenProvider {
 	}
 
 	public String createAccessToken(final Long userId) {
-		Date now = new Date();
+		final Date now = new Date();
 
 		return Jwts.builder()
 				.setHeaderParam(Header.TYPE, Header.JWT_TYPE)
