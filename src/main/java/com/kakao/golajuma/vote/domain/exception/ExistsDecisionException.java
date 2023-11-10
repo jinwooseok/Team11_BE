@@ -4,8 +4,9 @@ import com.kakao.golajuma.common.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 
 public class ExistsDecisionException extends BusinessException {
+	private static final String MESSAGE = "해당 vote에 이미 투표했습니다.";
 
-	public ExistsDecisionException(String message) {
-		super(message, HttpStatus.BAD_REQUEST);
+	public ExistsDecisionException() {
+		super(MESSAGE, HttpStatus.BAD_REQUEST);
 	}
 }
