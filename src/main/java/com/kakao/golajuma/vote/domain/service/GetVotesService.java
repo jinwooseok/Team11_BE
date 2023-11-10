@@ -41,17 +41,17 @@ public class GetVotesService {
 		// 1. 메인페이지 or 완료된 페이지 active
 		// 2. 전체 카테고리 or 세부 카테고리
 		// 3. 최신순 or 인기순
-		Slice<VoteEntity> voteList = getVoteListByRequest(active, category, sort);
+		Slice<VoteEntity> voteEntities = getVoteListByRequest(active, category, sort);
 
 		List<VoteDto> votes = new ArrayList<>();
-		for (VoteEntity vote : voteList) {
-			VoteDto voteDto = getVoteService.execute(vote, userId);
+		for (VoteEntity voteEntity : voteEntities) {
+			VoteDto voteDto = getVoteService.execute(voteEntity, userId);
 			votes.add(voteDto);
 		}
 		// 마지막 페이지인지 검사
-		boolean isLast = voteList.isLast();
+		boolean isLast = voteEntities.isLast();
 
-		return new GetVotesResponse.MainAndFinishPage(votes, isLast);
+		return GetVotesResponse.MainAndFinishPage.convert(votes, isLast);
 	}
 
 	private Slice<VoteEntity> getVoteListByRequest(Active active, Category category, Sort sort) {

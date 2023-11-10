@@ -21,20 +21,20 @@ public class CreateVoteService {
 	private final ImageUploader imageUploader;
 
 	public CreateVoteResponse execute(CreateVoteRequest request, Long userId) {
-		VoteEntity vote = VoteEntity.createEntity(request, userId);
-		Long voteId = voteRepository.save(vote).getId();
+		VoteEntity voteEntity = VoteEntity.create(request, userId);
+		Long voteId = voteRepository.save(voteEntity).getId();
 		for (CreateVoteRequest.OptionDto optionDto : request.getOptions()) {
-			OptionEntity option = createOption(optionDto, voteId);
-			optionRepository.save(option);
+			OptionEntity optionEntity = createOption(optionDto, voteId);
+			optionRepository.save(optionEntity);
 		}
-		return new CreateVoteResponse(voteId);
+		return CreateVoteResponse.convert(voteId);
 	}
 
 	private OptionEntity createOption(CreateVoteRequest.OptionDto optionDto, Long voteId) {
 		if (optionDto.getImage() != null) {
 			String imagePath = imageUploader.uploadImageByBase64(optionDto);
-			return OptionEntity.createEntityWithImage(optionDto, imagePath, voteId);
+			return OptionEntity.createWithImage(optionDto, imagePath, voteId);
 		}
-		return OptionEntity.createEntity(optionDto, voteId);
+		return OptionEntity.create(optionDto, voteId);
 	}
 }

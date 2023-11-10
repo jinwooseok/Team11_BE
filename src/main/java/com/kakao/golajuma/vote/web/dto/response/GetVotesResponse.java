@@ -19,11 +19,18 @@ public class GetVotesResponse implements AbstractResponseDto {
 			this.votes = votes;
 			this.isLast = isLast;
 		}
+		public static MainAndFinishPage convert(List<VoteDto> votes, boolean isLast){
+			return new MainAndFinishPage(votes, isLast);
+		}
 	}
 
 	@Getter
 	public static class MyPage {
-		List<VoteListDto> votes = new ArrayList<>();
+		List<VoteListDto> votes;
+
+		public MyPage(List<VoteListDto> votes){
+			this.votes = votes;
+		}
 
 		@Builder
 		@Getter
@@ -33,19 +40,21 @@ public class GetVotesResponse implements AbstractResponseDto {
 			String title;
 		}
 
-		public void toDto(List<VoteEntity> votes) {
-			for (VoteEntity vote : votes) {
-				this.votes.add(voteToDto(vote));
-			}
+		private static VoteListDto voteToDto(VoteEntity voteEntity) {
+			String active = voteEntity.checkActive().getActive();
+			return VoteListDto.builder()
+					.id(voteEntity.getId())
+					.active(active)
+					.title(voteEntity.getVoteTitle())
+					.build();
 		}
 
-		public VoteListDto voteToDto(VoteEntity vote) {
-			String active = vote.checkActive().getActive();
-			return VoteListDto.builder()
-					.id(vote.getId())
-					.active(active)
-					.title(vote.getVoteTitle())
-					.build();
+		public static MyPage convert(List<VoteEntity> voteEntities) {
+			List<VoteListDto> votes = new ArrayList<>();
+			for (VoteEntity voteEntity : voteEntities) {
+				votes.add(voteToDto(voteEntity));
+			}
+			return new MyPage(votes);
 		}
 	}
 }

@@ -28,8 +28,7 @@ public class GetVoteService {
 		// 투표의 옵션을 찾는다
 		List<OptionEntity> optionEntities = optionRepository.findAllByVoteId(voteEntity.getId());
 		// 작성자 찾기
-		Long writerId = voteEntity.getUserId();
-		UserEntity userEntity = userRepository.findById(writerId).get();
+		UserEntity userEntity = findWriter(voteEntity);
 
 		boolean isOwner = voteEntity.isOwner(userId);
 
@@ -46,7 +45,7 @@ public class GetVoteService {
 		// 투표가 진행되고 있는 상태에서(on) && 주인이 아니고 && 참여하지 않았을때만 옵션 Count를 보여주지 않음 그냥 OptionDto
 		if (voteEntity.isOn() && !isOwner && !participate) {
 			for (OptionEntity optionEntity : optionEntities) {
-				OptionDto optionDto = OptionDto.makeOptionDto(optionEntity);
+				OptionDto optionDto = OptionDto.convert(optionEntity);
 				options.add(optionDto);
 			}
 		} else {
@@ -54,13 +53,18 @@ public class GetVoteService {
 				OptionEntity optionEntity = optionEntities.get(i);
 				boolean choice = choices.get(i);
 				CountOptionDto countOptionDto =
-						CountOptionDto.makeCountOptionDto(optionEntity, choice, voteEntity.getVoteTotalCount());
+						CountOptionDto.convert(optionEntity, choice, voteEntity.getVoteTotalCount());
 				options.add(countOptionDto);
 			}
 		}
 		String category = getCategory(voteEntity);
 
-		return VoteDto.makeDto(voteEntity, userEntity, active, isOwner, participate, category, options);
+		return VoteDto.convert(voteEntity, userEntity, active, isOwner, participate, category, options);
+	}
+
+	private UserEntity findWriter(VoteEntity voteEntity){
+		Long writerId = voteEntity.getUserId();
+		return userRepository.findById(writerId).get();
 	}
 
 	private String getCategory(VoteEntity voteEntity) {
