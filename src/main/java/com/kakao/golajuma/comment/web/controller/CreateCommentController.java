@@ -21,11 +21,11 @@ public class CreateCommentController {
 	private final CreateCommentService createCommentService;
 
 	@PostMapping
-	public ApiResponse<ApiResponseBody.SuccessBody<CreateCommentResponse>> create(
+	public ApiResponse<ApiResponseBody.SuccessBody<CreateCommentResponse>> createComment(
 			@PathVariable Long voteId,
 			@Valid @RequestBody CreateCommentRequest requestDto,
 			@Login Long userId) {
-		CreateCommentResponse responseData = createCommentService.execute(requestDto, voteId, userId);
-		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.CREATE);
+		CreateCommentResponse response = createCommentService.execute(requestDto, voteId, userId);
+		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.CREATE);
 	}
 }
