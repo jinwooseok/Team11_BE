@@ -33,9 +33,7 @@ public class AuthController {
 
 	@PostMapping("/reissue")
 	public ApiResponse<SuccessBody<TokenResponse>> reissue(@RequestBody ReissueRequest request) {
-
 		final TokenResponse tokenResponse = reissueService.execute(request.getRefreshToken());
-
 		return ApiResponseGenerator.success(tokenResponse, HttpStatus.OK, MessageCode.CREATE);
 	}
 }

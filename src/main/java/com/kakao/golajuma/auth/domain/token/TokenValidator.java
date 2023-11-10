@@ -11,9 +11,11 @@ public class TokenValidator {
 	private final TokenResolver tokenResolver;
 
 	public void valid(String token) {
-		Date expiredDate = tokenResolver.getExpiredDate(token);
+		Long expired = tokenResolver.getExpiredDate(token);
+		Date expiredDate = new Date(expired);
 
-		if (expiredDate.before(new Date())) {
+		Date now = new Date();
+		if (expiredDate.before(now)) {
 			throw new TokenExpiredException();
 		}
 	}
