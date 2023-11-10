@@ -20,5 +20,11 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
 	@Query("select c from CommentEntity c where c.userId = :userId and c.deleted = false")
 	List<CommentEntity> findByUserId(@Param("userId") Long userId);
 
-	int countByVoteId(Long voteId);
+	@Query(
+			"select c from CommentEntity c where c.userId = :userId and c.id = :commentId and c.deleted = false")
+	Optional<CommentEntity> findByCommentIdUserId(
+			@Param("commentId") Long id, @Param("userId") Long userId);
+
+	@Query("select count(c) from CommentEntity c where c.voteId = :voteId and c.deleted = false")
+	int countByVoteId(@Param("voteId") Long voteId);
 }
