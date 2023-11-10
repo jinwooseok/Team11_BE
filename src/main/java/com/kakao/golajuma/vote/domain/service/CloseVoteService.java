@@ -1,7 +1,8 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.domain.exception.CloseException;
-import com.kakao.golajuma.vote.domain.exception.NullException;
+import com.kakao.golajuma.vote.domain.exception.vote.AlreadyCloseException;
+import com.kakao.golajuma.vote.domain.exception.vote.NotFoundVoteException;
+import com.kakao.golajuma.vote.domain.exception.vote.NotWriterException;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +17,14 @@ public class CloseVoteService {
 
 	public void execute(Long voteId, Long userId) {
 		VoteEntity voteEntity =
-				voteRepository.findById(voteId).orElseThrow(() -> new NullException("해당 투표가 존재하지 않습니다."));
+				voteRepository.findById(voteId).orElseThrow(() -> new NotFoundVoteException());
 		// 작성자가 아닌 경우 예외
 		if (!voteEntity.isOwner(userId)) {
-			throw new CloseException("투표 작성자가 아닙니다.");
+			throw new NotWriterException();
 		}
 		// 이미 마감된 경우 예외
 		if (!voteEntity.isOn()) {
-			throw new CloseException("이미 완료된 투표입니다.");
+			throw new AlreadyCloseException();
 		}
 		voteEntity.close();
 	}

@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.kakao.golajuma.vote.domain.exception.CloseException;
-import com.kakao.golajuma.vote.domain.exception.NullException;
+import com.kakao.golajuma.vote.domain.exception.vote.AlreadyCloseException;
+import com.kakao.golajuma.vote.domain.exception.vote.NotFoundVoteException;
+import com.kakao.golajuma.vote.domain.exception.vote.NotWriterException;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import java.time.LocalDateTime;
@@ -55,7 +56,8 @@ public class CloseVoteServiceTest {
 		Long requestUserId = 1L;
 
 		// when & then
-		assertThrows(NullException.class, () -> closeVoteService.execute(voteId, requestUserId));
+		assertThrows(
+				NotFoundVoteException.class, () -> closeVoteService.execute(voteId, requestUserId));
 	}
 
 	@DisplayName("작성자가 아닌 경우 투표에 대한 마감 실패")
@@ -76,7 +78,7 @@ public class CloseVoteServiceTest {
 		when(voteRepository.findById((Long) any())).thenReturn(Optional.of(vote));
 
 		// then
-		assertThrows(CloseException.class, () -> closeVoteService.execute(voteId, requestUserId));
+		assertThrows(NotWriterException.class, () -> closeVoteService.execute(voteId, requestUserId));
 	}
 
 	@DisplayName("이미 완료된 투표인 경우 마감 실패")
@@ -98,6 +100,7 @@ public class CloseVoteServiceTest {
 		when(voteRepository.findById((Long) any())).thenReturn(Optional.of(vote));
 
 		// then
-		assertThrows(CloseException.class, () -> closeVoteService.execute(voteId, requestUserId));
+		assertThrows(
+				AlreadyCloseException.class, () -> closeVoteService.execute(voteId, requestUserId));
 	}
 }
