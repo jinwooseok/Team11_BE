@@ -2,7 +2,6 @@ package com.kakao.golajuma.vote.repository;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.vote.infra.entity.DecisionEntity;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
@@ -22,7 +21,7 @@ import org.springframework.data.domain.Slice;
 @Import(ObjectMapper.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class GetHotVoteListRepositoryTest {
+class GetHotVoteListRepositoryTest {
 
 	@Autowired private HotVoteRepository hotVoteRepository;
 
@@ -32,7 +31,7 @@ public class GetHotVoteListRepositoryTest {
 
 	@Test
 	@Transactional
-	public void hotVote_findByTimeLimitAndDecisionCount_test() throws JsonProcessingException {
+	void hotVote_findByTimeLimitAndDecisionCount_test() {
 		// given
 		// 1시간 전에 투표를 했음
 		DecisionEntity decisionEntity =

@@ -1,6 +1,7 @@
 package com.kakao.golajuma.auth.domain.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
@@ -17,9 +18,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class UpdateUserNickNameServiceTest {
+class UpdateUserNickNameServiceTest {
 	@InjectMocks private UpdateUserNickNameService updateUserNickNameService;
 	@Mock private UserRepository userRepository;
+
+	@Mock private ValidNicknameService validNicknameService;
 
 	@Nested
 	@DisplayName("유저는 닉네임을 변경하는데 성공한다.")
@@ -32,15 +35,17 @@ public class UpdateUserNickNameServiceTest {
 			Long userId = 1L;
 
 			UpdateUserNickNameRequest requestDto =
-					UpdateUserNickNameRequest.builder().nickName("newNickName").build();
+					UpdateUserNickNameRequest.builder().nickname("newNickName").build();
 
 			UserEntity userEntity = UserEntity.builder().id(1L).nickname("oldNickName").build();
 
 			when(userRepository.findById(userId)).thenReturn(Optional.of(userEntity));
 			// when
 			UpdateNickNameResponse response = updateUserNickNameService.execute(requestDto, userId);
+
+			verify(validNicknameService).execute(requestDto);
 			// then
-			assertThat(response.getNickName()).isEqualTo("newNickName");
+			assertThat(response.getNickname()).isEqualTo("newNickName");
 		}
 	}
 }

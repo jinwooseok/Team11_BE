@@ -16,10 +16,13 @@ public class UpdateUserNickNameService {
 
 	private final UserRepository userRepository;
 
+	private final ValidNicknameService validNicknameService;
+
 	public UpdateNickNameResponse execute(UpdateUserNickNameRequest requestDto, Long userId) {
+		validNicknameService.execute(requestDto);
 		UserEntity userEntity =
 				userRepository.findById(userId).orElseThrow(() -> new NotFoundException("존재하지 않은 유저입니다."));
-		String newNickName = requestDto.getNickName();
+		String newNickName = requestDto.getNickname();
 		userEntity.updateNickName(newNickName);
 		return new UpdateNickNameResponse(newNickName);
 	}
