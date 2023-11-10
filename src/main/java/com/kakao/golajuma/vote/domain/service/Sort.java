@@ -1,6 +1,6 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.domain.exception.SortException;
+import com.kakao.golajuma.vote.domain.exception.vote.SortException;
 import java.util.Arrays;
 
 public enum Sort {
@@ -21,7 +21,7 @@ public enum Sort {
 		return Arrays.stream(Sort.values())
 				.filter(Category -> Category.getSort().equals(sort))
 				.findAny()
-				.orElseThrow(() -> new SortException("잘못된 정렬 방식입니다."));
+				.orElseThrow(() -> new SortException());
 	}
 
 	public static boolean isCurrentRequest(Sort sort) {
