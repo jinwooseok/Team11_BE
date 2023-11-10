@@ -1,12 +1,12 @@
 package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.domain.converter.DecisionEntityConverter;
-import com.kakao.golajuma.vote.domain.exception.CompletionVoteException;
-import com.kakao.golajuma.vote.domain.exception.ExistsDecisionException;
-import com.kakao.golajuma.vote.domain.exception.NotFoundDecisionOptionException;
-import com.kakao.golajuma.vote.domain.exception.NotFoundDecisionVoteException;
-import com.kakao.golajuma.vote.domain.exception.NotFoundOptionException;
-import com.kakao.golajuma.vote.domain.exception.NotFoundVoteException;
+import com.kakao.golajuma.vote.domain.exception.decision.CompletionVoteException;
+import com.kakao.golajuma.vote.domain.exception.decision.ExistsDecisionException;
+import com.kakao.golajuma.vote.domain.exception.decision.NotFoundDecisionOptionException;
+import com.kakao.golajuma.vote.domain.exception.decision.NotFoundDecisionVoteException;
+import com.kakao.golajuma.vote.domain.exception.vote.NotFoundOptionException;
+import com.kakao.golajuma.vote.domain.exception.vote.NotFoundVoteException;
 import com.kakao.golajuma.vote.infra.entity.DecisionEntity;
 import com.kakao.golajuma.vote.infra.entity.OptionEntity;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
