@@ -132,6 +132,7 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 	@Query(
 			"select v from VoteEntity v"
 					+ " join DecisionEntity d on d.userId = :userId"
-					+ " join OptionEntity o on o.id = d.optionId and o.voteId = v.id")
+					+ " join OptionEntity o on o.id = d.optionId and o.voteId = v.id"
+					+ " order by v.createdDate desc")
 	List<VoteEntity> findAllParticipateListByUserId(Long userId);
 }
