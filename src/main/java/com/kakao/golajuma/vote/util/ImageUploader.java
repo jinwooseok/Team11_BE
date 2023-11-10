@@ -1,6 +1,6 @@
 package com.kakao.golajuma.vote.util;
 
-import com.kakao.golajuma.vote.domain.exception.ImageException;
+import com.kakao.golajuma.vote.domain.exception.vote.image.*;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -25,13 +25,11 @@ public class ImageUploader {
 		String base64 = request.getImage();
 		String fileName = request.getName();
 
-		// 파일이 업로드되지 않았거나 사이즈가 큰 경우를 체크합니다.
-		// 사이즈는 일반 바이트에서 1.33을 곱하면 BASE64 사이즈가 대략 나옵니다.
 		if (base64 == null || base64.equals("")) {
-			throw new ImageException("이미지가 null 입니다");
+			throw new NullImageException();
 		}
 		if (base64.length() > 400000) {
-			throw new ImageException("이미지가 너무 큽니다");
+			throw new ImageSizeException();
 		}
 
 		try {
@@ -63,7 +61,7 @@ public class ImageUploader {
 			fileOutputStream.close();
 			return storedPath;
 		} catch (IOException e) {
-			throw new ImageException("이미지 저장 실패");
+			throw new SaveImageException();
 		}
 	}
 
@@ -87,7 +85,7 @@ public class ImageUploader {
 			base64Image = ImageType(extension) + base64Image;
 			return base64Image;
 		} catch (Exception e) {
-			throw new ImageException("이미지를 찾을 수 없습니다.");
+			throw new NotFoundImageException();
 		}
 	}
 
@@ -101,7 +99,7 @@ public class ImageUploader {
 		if ("gif".equalsIgnoreCase(extension)) {
 			return "data:image/gif;base64,";
 		}
-		throw new ImageException("지원되지 않는 이미지 형식입니다.");
+		throw new UnSupportedFormatImageException();
 	}
 
 	private static String getExtension(String extension) {
@@ -114,6 +112,6 @@ public class ImageUploader {
 		if ("gif".equalsIgnoreCase(extension)) {
 			return "gif";
 		}
-		throw new ImageException("지원되지 않는 이미지 형식입니다.");
+		throw new UnSupportedFormatImageException();
 	}
 }
