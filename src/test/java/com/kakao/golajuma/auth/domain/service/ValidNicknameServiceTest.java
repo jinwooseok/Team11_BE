@@ -2,7 +2,7 @@ package com.kakao.golajuma.auth.domain.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.kakao.golajuma.auth.domain.exception.DuplicateException;
+import com.kakao.golajuma.auth.domain.exception.DuplicatedEmailException;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.request.SaveUserRequest;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +28,7 @@ class ValidNicknameServiceTest {
 		Mockito.when(userRepository.existsByNickname(request.getNickname())).thenReturn(Boolean.TRUE);
 
 		// when & then
-		assertThrows(DuplicateException.class, () -> validNicknameService.execute(request));
+		assertThrows(DuplicatedEmailException.class, () -> validNicknameService.execute(request));
 	}
 
 	@Test

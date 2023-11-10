@@ -1,6 +1,6 @@
 package com.kakao.golajuma.auth.domain.service;
 
-import com.kakao.golajuma.auth.domain.exception.NotFoundException;
+import com.kakao.golajuma.auth.domain.exception.NotFoundUserException;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.request.UpdateUserEmailRequest;
@@ -20,8 +20,7 @@ public class UpdateUserEmailService {
 
 	public UpdateEmailResponse execute(UpdateUserEmailRequest requestDto, Long userId) {
 		validEmailService.execute(requestDto);
-		UserEntity userEntity =
-				userRepository.findById(userId).orElseThrow(() -> new NotFoundException("존재하지 않은 유저입니다."));
+		UserEntity userEntity = userRepository.findById(userId).orElseThrow(NotFoundUserException::new);
 
 		String newEmail = requestDto.getEmail();
 		userEntity.updateEmail(newEmail);

@@ -1,6 +1,6 @@
 package com.kakao.golajuma.auth.domain.service;
 
-import com.kakao.golajuma.auth.domain.exception.AuthorizationException;
+import com.kakao.golajuma.auth.domain.exception.NotFoundTokenException;
 import com.kakao.golajuma.auth.domain.token.TokenResolver;
 import com.kakao.golajuma.auth.infra.entity.AuthInfoEntity;
 import com.kakao.golajuma.auth.infra.repository.AuthInfoRepository;
@@ -32,6 +32,6 @@ public class ReissueService {
 
 		return authInfoRepository
 				.findByUserIdAndToken(userId, token)
-				.orElseThrow(() -> new AuthorizationException("잘못된 토큰 입니다"));
+				.orElseThrow(NotFoundTokenException::new);
 	}
 }
