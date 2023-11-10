@@ -1,9 +1,11 @@
 package com.kakao.golajuma.vote.api;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
+import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,36 +15,51 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class GetHotVoteListControllerTest {
+public class SearchVotesControllerTest {
 
 	@Autowired private MockMvc mvc;
-
+	@Autowired private UserRepository userRepository;
 	@Autowired private TokenProvider tokenProvider;
-
-	@Autowired UserRepository userRepository;
-
 	private String jwtToken;
 
 	@BeforeEach
-	void setup() {
+	public void setup() throws Exception {
 		jwtToken = tokenProvider.createAccessToken(1L);
+		UserEntity user =
+				UserEntity.builder()
+						.id(1L)
+						.nickname("test")
+						.email("test@gmail.com")
+						.password("1234")
+						.build();
+		userRepository.save(user);
 	}
 
-	@DisplayName("인기 투표 불러오기 정상 작동")
+	@DisplayName("투표 리스트 검색 정상 응답")
 	@Test
-	void GetHotVoteListTest() throws Exception {
-		System.out.println(jwtToken);
+	public void searchVoteList_test() throws Exception {
+
+		String sort = "current";
+		String category = "total";
+		String keyword = "군대";
+
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						MockMvcRequestBuilders.get("/votes/hot").header("Authorization", "Bearer " + jwtToken));
+						get("/votes/search")
+								.header("Authorization", "Bearer " + jwtToken)
+								.param("page", "0")
+								.param("keyword", keyword)
+								.param("sort", sort)
+								.param("category", category));
+		// eye
+		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+		System.out.println("테스트 : " + responseBody);
 
-		resultActions.andExpect(status().is2xxSuccessful());
-
+		// then
 		resultActions
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.data").hasJsonPath())

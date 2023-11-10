@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.HotVoteRepository;
-import com.kakao.golajuma.vote.web.dto.response.GetVoteListResponse;
+import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,8 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 
 @ExtendWith(MockitoExtension.class)
-class GetHotVoteListServiceTest {
-	@InjectMocks private GetHotVoteListService getHotVoteListService;
+class GetHotVotesServiceTest {
+	@InjectMocks private GetHotVotesService getHotVotesService;
 
 	@Mock private GetVoteService getVoteService;
 
@@ -48,11 +48,11 @@ class GetHotVoteListServiceTest {
 			when(hotVoteRepository.findByTimeLimitAndDecisionCount(any(), any(), any()))
 					.thenReturn(voteEntitySlice);
 
-			when(getVoteService.getVote(voteEntity, 1L))
+			when(getVoteService.execute(voteEntity, 1L))
 					.thenReturn(new VoteDto(voteEntity, "username", "continue", false, false, "total"));
 
 			// when
-			GetVoteListResponse.MainAndFinishPage result = getHotVoteListService.execute(1L, 0);
+			GetVotesResponse.MainAndFinishPage result = getHotVotesService.execute(1L, 0);
 			// then
 			assertThat(result.getVotes().get(0).getClass()).isEqualTo(VoteDto.class);
 			assertThat(result.getVotes().get(0).getId()).isEqualTo(1L);
