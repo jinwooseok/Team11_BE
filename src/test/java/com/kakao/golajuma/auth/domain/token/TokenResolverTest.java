@@ -2,9 +2,8 @@ package com.kakao.golajuma.auth.domain.token;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
-import com.kakao.golajuma.auth.domain.exception.NotValidToken;
+import com.kakao.golajuma.auth.domain.exception.TokenExpiredException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +38,8 @@ class TokenResolverTest {
 		String token = expiredTokenProvider.createAccessToken(userId);
 
 		// when & then
-		assertThatThrownBy(() -> tokenResolver.getUserInfo(token)).isInstanceOf(NotValidToken.class);
+		assertThatThrownBy(() -> tokenResolver.getUserInfo(token))
+				.isInstanceOf(TokenExpiredException.class);
 	}
 
 	@Test
@@ -51,6 +51,7 @@ class TokenResolverTest {
 		String token = expiredTokenProvider.createRefreshToken(userId);
 
 		// when & then
-		assertThatThrownBy(() -> tokenResolver.getUserInfo(token)).isInstanceOf(NotValidToken.class);
+		assertThatThrownBy(() -> tokenResolver.getUserInfo(token))
+				.isInstanceOf(TokenExpiredException.class);
 	}
 }

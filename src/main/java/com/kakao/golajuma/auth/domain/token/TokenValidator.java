@@ -1,6 +1,6 @@
 package com.kakao.golajuma.auth.domain.token;
 
-import com.kakao.golajuma.auth.domain.exception.AuthorizationException;
+import com.kakao.golajuma.auth.domain.exception.TokenExpiredException;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class TokenValidator {
 		Date expiredDate = tokenResolver.getExpiredDate(token);
 
 		if (expiredDate.before(new Date())) {
-			throw new AuthorizationException("엑세스 토큰이 만료되었습니다");
+			throw new TokenExpiredException();
 		}
 	}
 }

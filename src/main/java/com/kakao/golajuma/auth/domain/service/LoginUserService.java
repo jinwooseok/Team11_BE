@@ -1,6 +1,7 @@
 package com.kakao.golajuma.auth.domain.service;
 
-import com.kakao.golajuma.auth.domain.exception.NotFoundException;
+import com.kakao.golajuma.auth.domain.exception.NotFoundEmailException;
+import com.kakao.golajuma.auth.domain.exception.NotFoundPasswordException;
 import com.kakao.golajuma.auth.domain.helper.Encoder;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
@@ -22,9 +23,7 @@ public class LoginUserService {
 	@Transactional
 	public TokenResponse execute(final LoginUserRequest request) {
 		UserEntity userEntity =
-				userRepository
-						.findByEmail(request.getEmail())
-						.orElseThrow(() -> new NotFoundException("존재하지 않는 이메일입니다."));
+				userRepository.findByEmail(request.getEmail()).orElseThrow(NotFoundEmailException::new);
 
 		validPassword(request.getPassword(), userEntity);
 
@@ -33,7 +32,7 @@ public class LoginUserService {
 
 	private void validPassword(final String requestPassword, final UserEntity userEntity) {
 		if (!matchPassword(requestPassword, userEntity.getPassword())) {
-			throw new NotFoundException("존재하지 않는 비밀번호입니다");
+			throw new NotFoundPasswordException();
 		}
 	}
 
