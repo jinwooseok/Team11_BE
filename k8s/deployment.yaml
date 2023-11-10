@@ -40,16 +40,16 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: secret_key
-          resources:
-            requests:
-              memory: 1Gi
           volumeMounts:
             - name: image
               mountPath: /home/gradle/src/main/java/com/kakao/golajuma/vote/infra/images
+          resources:
+            requests:
+              memory: 1Gi
       volumes:
         - name: image
           hostPath:
-            path: /workspace/TeamBE_11
+            path: /workspace/TeamBE_11/images
 ---
 apiVersion: v1
 kind: Service
