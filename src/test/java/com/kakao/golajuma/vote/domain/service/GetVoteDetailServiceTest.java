@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.kakao.golajuma.vote.domain.exception.NullException;
+import com.kakao.golajuma.vote.domain.exception.vote.NotFoundVoteException;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteDetailResponse;
@@ -43,9 +43,9 @@ public class GetVoteDetailServiceTest {
 	@Test
 	public void getVoteDetailTest_NotFoundVote() {
 		// when
-		when(voteRepository.findById((Long) any())).thenThrow(new NullException("message"));
+		when(voteRepository.findById((Long) any())).thenThrow(new NotFoundVoteException());
 
 		// then
-		assertThrows(NullException.class, () -> getVoteDetailService.execute(0L, 1L));
+		assertThrows(NotFoundVoteException.class, () -> getVoteDetailService.execute(0L, 1L));
 	}
 }

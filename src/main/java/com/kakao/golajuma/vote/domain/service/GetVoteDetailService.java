@@ -1,6 +1,6 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.domain.exception.NullException;
+import com.kakao.golajuma.vote.domain.exception.vote.NotFoundVoteException;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVoteDetailResponse;
@@ -20,7 +20,7 @@ public class GetVoteDetailService {
 	public GetVoteDetailResponse execute(Long voteId, Long userId) {
 		// 투표와 옵션리스트 가져오기
 		VoteEntity voteEntity =
-				voteRepository.findById(voteId).orElseThrow(() -> new NullException("해당 투표가 존재하지 않습니다."));
+				voteRepository.findById(voteId).orElseThrow(() -> new NotFoundVoteException());
 
 		VoteDto voteDto = getVoteService.execute(voteEntity, userId);
 
