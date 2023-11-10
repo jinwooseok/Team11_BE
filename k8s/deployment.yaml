@@ -43,7 +43,13 @@ spec:
           resources:
             requests:
               memory: 1Gi
-
+          volumeMounts:
+            - name: image
+              mountPath: /home/gradle/src/main/java/com/kakao/golajuma/vote/infra/images
+      volumes:
+        - name: image
+          hostPath:
+            path: /workspace/TeamBE_11
 ---
 apiVersion: v1
 kind: Service
