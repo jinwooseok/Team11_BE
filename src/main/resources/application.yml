@@ -4,7 +4,9 @@ spring:
       local:
         - local-mysql
         - local-token
+        - local-image
       dev:
         - dev-mysql
         - dev-token
+        - dev-image
     active: local

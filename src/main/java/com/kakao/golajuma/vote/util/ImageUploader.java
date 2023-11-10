@@ -2,6 +2,7 @@ package com.kakao.golajuma.vote.util;
 
 import com.kakao.golajuma.vote.domain.exception.vote.image.*;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Base64;
@@ -9,17 +10,21 @@ import java.util.UUID;
 import javax.imageio.ImageIO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 @Getter
 public class ImageUploader {
 
 	private static final String SYSTEM_PATH = System.getProperty("user.dir");
-	private static final String UPLOAD_PATH = "/src/main/java/com/kakao/golajuma/vote/infra/images/";
+	private final String UPLOAD_PATH;
 	private static final String PNG = ".png";
 	private static final String JPEG = ".jpeg";
+
+	public ImageUploader(@Value("${image.upload.path}") String UPLOAD_PATH) {
+		this.UPLOAD_PATH = UPLOAD_PATH;
+	}
 
 	public String uploadImageByBase64(CreateVoteRequest.OptionDto request) {
 		String base64 = request.getImage();

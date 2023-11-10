@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: dev-image
+
+image:
+  upload:
+    path: /src/main/java/com/kakao/golajuma/vote/infra/images/
