@@ -1,4 +1,4 @@
-package com.kakao.golajuma.vote.domain.exception;
+package com.kakao.golajuma.vote.domain.exception.decision;
 
 import com.kakao.golajuma.common.exception.BusinessException;
 import org.springframework.http.HttpStatus;
