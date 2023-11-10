@@ -18,7 +18,7 @@ public class OptionDto {
 		this.image = image;
 	}
 
-	public static OptionDto makeOptionDto(OptionEntity option) {
+	public static OptionDto convert(OptionEntity option) {
 		String image = ImageUploader.getImage(option.getOptionImage());
 		return OptionDto.builder()
 				.id(option.getId())

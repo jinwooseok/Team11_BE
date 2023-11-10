@@ -1,6 +1,6 @@
 package com.kakao.golajuma.auth.web.support;
 
-import com.kakao.golajuma.auth.domain.exception.TokenExpiredException;
+import com.kakao.golajuma.auth.domain.exception.AuthorizationException;
 import com.kakao.golajuma.auth.domain.token.TokenResolver;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +35,7 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
 
 		try {
 			return getUserInfo(webRequest);
-		} catch (TokenExpiredException e) {
+		} catch (AuthorizationException e) {
 			return NONE_MEMBER;
 		}
 	}

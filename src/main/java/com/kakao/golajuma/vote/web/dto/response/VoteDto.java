@@ -44,7 +44,7 @@ public class VoteDto implements AbstractResponseDto {
 		this.content = vote.getVoteContent();
 	}
 
-	public static VoteDto makeDto(
+	public static VoteDto convert(
 			VoteEntity vote,
 			UserEntity username,
 			Active active,

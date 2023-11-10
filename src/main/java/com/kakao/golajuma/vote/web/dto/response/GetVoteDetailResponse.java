@@ -12,4 +12,8 @@ public class GetVoteDetailResponse implements AbstractResponseDto {
 	public GetVoteDetailResponse(VoteDto voteDto) {
 		this.vote = voteDto;
 	}
+
+	public static GetVoteDetailResponse convert(VoteDto voteDto) {
+		return new GetVoteDetailResponse(voteDto);
+	}
 }

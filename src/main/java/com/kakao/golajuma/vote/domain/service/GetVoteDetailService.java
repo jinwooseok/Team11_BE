@@ -24,6 +24,6 @@ public class GetVoteDetailService {
 
 		VoteDto voteDto = getVoteService.execute(voteEntity, userId);
 
-		return new GetVoteDetailResponse(voteDto);
+		return GetVoteDetailResponse.convert(voteDto);
 	}
 }

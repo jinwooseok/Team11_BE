@@ -12,4 +12,8 @@ public class CreateVoteResponse implements AbstractResponseDto {
 	public CreateVoteResponse(Long id) {
 		this.id = id;
 	}
+
+	public static CreateVoteResponse convert(Long id) {
+		return new CreateVoteResponse(id);
+	}
 }

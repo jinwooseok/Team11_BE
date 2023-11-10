@@ -29,17 +29,17 @@ public class SearchVotesService {
 		this.page = page;
 
 		// 1. vote list 를 가져온다
-		Slice<VoteEntity> voteList = findVotes(keyword, category, sort);
+		Slice<VoteEntity> voteEntities = findVotes(keyword, category, sort);
 
 		List<VoteDto> votes =
-				voteList.stream()
+				voteEntities.stream()
 						.map(voteEntity -> getVoteService.execute(voteEntity, userId))
 						.collect(Collectors.toList());
 
 		// 마지막 페이지인지 검사
-		boolean isLast = voteList.isLast();
+		boolean isLast = voteEntities.isLast();
 
-		return new SearchVotesResponse(votes, isLast);
+		return SearchVotesResponse.convert(votes, isLast);
 	}
 
 	private Slice<VoteEntity> findVotes(String keyword, Category category, Sort sort) {
