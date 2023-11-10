@@ -13,7 +13,8 @@ public class SearchVotesResponse implements AbstractResponseDto {
 		this.votes = votes;
 		this.isLast = isLast;
 	}
-	public static SearchVotesResponse convert(List<VoteDto> votes, boolean isLast){
+
+	public static SearchVotesResponse convert(List<VoteDto> votes, boolean isLast) {
 		return new SearchVotesResponse(votes, isLast);
 	}
 }
