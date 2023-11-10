@@ -1,9 +1,8 @@
 package com.kakao.golajuma.comment.web.controller;
 
 import com.kakao.golajuma.auth.web.support.AnonymousAvailable;
-import com.kakao.golajuma.auth.web.support.Login;
-import com.kakao.golajuma.comment.domain.service.GetCommentListService;
-import com.kakao.golajuma.comment.web.dto.response.GetCommentListResponse;
+import com.kakao.golajuma.comment.domain.service.GetCommentCountService;
+import com.kakao.golajuma.comment.web.dto.response.GetCommentCountResponse;
 import com.kakao.golajuma.common.support.respnose.ApiResponse;
 import com.kakao.golajuma.common.support.respnose.ApiResponseBody;
 import com.kakao.golajuma.common.support.respnose.ApiResponseGenerator;
@@ -17,16 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/votes/{voteId}/comments")
-public class GetCommentListController {
-
-	private final GetCommentListService getCommentListService;
+@RequestMapping("/votes/{voteId}/comments/count")
+public class GetCommentCountController {
+	private final GetCommentCountService getCommentCountService;
 
 	@AnonymousAvailable
 	@GetMapping
-	public ApiResponse<ApiResponseBody.SuccessBody<GetCommentListResponse>> readList(
-			@PathVariable Long voteId, @Login Long userId) {
-		GetCommentListResponse responseData = getCommentListService.execute(voteId, userId);
-		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.GET);
+	public ApiResponse<ApiResponseBody.SuccessBody<GetCommentCountResponse>> getCommentCount(
+			@PathVariable Long voteId) {
+		GetCommentCountResponse response = getCommentCountService.execute(voteId);
+		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.GET);
 	}
 }

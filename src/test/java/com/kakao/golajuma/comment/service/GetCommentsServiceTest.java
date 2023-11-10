@@ -5,11 +5,11 @@ import static org.mockito.Mockito.when;
 
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
 import com.kakao.golajuma.auth.infra.repository.UserRepository;
-import com.kakao.golajuma.comment.domain.service.GetCommentListService;
+import com.kakao.golajuma.comment.domain.service.GetCommentsService;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
 import com.kakao.golajuma.comment.infra.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.response.CommentDto;
-import com.kakao.golajuma.comment.web.dto.response.GetCommentListResponse;
+import com.kakao.golajuma.comment.web.dto.response.GetCommentsResponse;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,8 +22,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class GetCommentListServiceTest {
-	@InjectMocks private GetCommentListService getCommentListService;
+class GetCommentsServiceTest {
+	@InjectMocks private GetCommentsService getCommentsService;
 
 	@Mock private CommentRepository commentRepository;
 
@@ -49,13 +49,11 @@ class GetCommentListServiceTest {
 		when(commentRepository.findByVoteId(voteId)).thenReturn(commentEntityList);
 		when(userRepository.findById(userId)).thenReturn(Optional.of(userEntity));
 		// when
-		GetCommentListResponse response = getCommentListService.execute(voteId, userId);
+		GetCommentsResponse response = getCommentsService.execute(voteId, userId);
 		// then
 		assertThat(response.getComments().get(0).getClass()).isEqualTo(CommentDto.class);
 
 		assertThat(response.getComments().get(0).getContent()).isEqualTo("content1");
 		assertThat(response.getComments().get(1).getContent()).isEqualTo("content2");
-
-		assertThat(response.getCommentCount()).isEqualTo(2);
 	}
 }

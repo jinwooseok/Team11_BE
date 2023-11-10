@@ -21,12 +21,11 @@ public class UpdateCommentController {
 	private final UpdateCommentService updateCommentService;
 
 	@PutMapping("/{commentId}")
-	public ApiResponse<ApiResponseBody.SuccessBody<UpdateCommentResponse>> update(
+	public ApiResponse<ApiResponseBody.SuccessBody<UpdateCommentResponse>> updateComment(
 			@PathVariable Long commentId,
 			@Valid @RequestBody UpdateCommentRequest requestDto,
 			@Login Long userId) {
-		UpdateCommentResponse responseData =
-				updateCommentService.execute(requestDto, commentId, userId);
-		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.UPDATE);
+		UpdateCommentResponse response = updateCommentService.execute(requestDto, commentId, userId);
+		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.UPDATE);
 	}
 }
