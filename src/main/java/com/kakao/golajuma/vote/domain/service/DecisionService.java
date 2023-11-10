@@ -1,10 +1,12 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.auth.domain.exception.NotFoundException;
 import com.kakao.golajuma.vote.domain.converter.DecisionEntityConverter;
 import com.kakao.golajuma.vote.domain.exception.CompletionVoteException;
 import com.kakao.golajuma.vote.domain.exception.ExistsDecisionException;
-import com.kakao.golajuma.vote.domain.exception.NotFoundDecisionException;
+import com.kakao.golajuma.vote.domain.exception.NotFoundDecisionOptionException;
+import com.kakao.golajuma.vote.domain.exception.NotFoundDecisionVoteException;
+import com.kakao.golajuma.vote.domain.exception.NotFoundOptionException;
+import com.kakao.golajuma.vote.domain.exception.NotFoundVoteException;
 import com.kakao.golajuma.vote.infra.entity.DecisionEntity;
 import com.kakao.golajuma.vote.infra.entity.OptionEntity;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
@@ -36,14 +38,14 @@ public class DecisionService {
 	 * @param userId 유저 식별자
 	 * @param optionId 옵션 식별자
 	 * @throws ExistsDecisionException 해당 옵션에 대해 이미 투표를 진행했을 시 에외 처리
-	 * @throws NotFoundDecisionException 존재하지 않는 vote에 투표 했을 시 에외 처리
+	 * @throws NotFoundDecisionVoteException 존재하지 않는 vote에 투표 했을 시 에외 처리
 	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에외 처리
 	 * @throws ExistsDecisionException 해당 vote에 이미 투표했을 경우 에외 처리
 	 */
 	public DecisionResponse createDecision(final Long userId, final Long optionId) {
 		boolean isExist = existDecisionByVote(userId, optionId);
 		if (isExist) {
-			throw new ExistsDecisionException("해당 vote에 이미 투표했습니다.");
+			throw new ExistsDecisionException();
 		}
 
 		saveDecision(userId, optionId);
@@ -68,8 +70,8 @@ public class DecisionService {
 	 *
 	 * @param userId 유저 식별자
 	 * @param optionId 옵션 식별자
-	 * @throws NotFoundDecisionException 해당 옵션에 투표를 한 기록이 없을 시 예외 처리
-	 * @throws NotFoundDecisionException 존재하지 않는 vote에 투표 했을 시 예외 처리
+	 * @throws NotFoundDecisionVoteException 해당 옵션에 투표를 한 기록이 없을 시 예외 처리
+	 * @throws NotFoundDecisionVoteException 존재하지 않는 vote에 투표 했을 시 예외 처리
 	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에외 처리
 	 */
 	public DecisionResponse deleteVote(final Long userId, final Long optionId) {
@@ -95,14 +97,14 @@ public class DecisionService {
 	 *
 	 * @param userId 유저 식별자
 	 * @param optionId 옵션 식별자
-	 * @throws NotFoundDecisionException 해당 옵션에 투표를 한 기록이 없을 시 에러가 발생한다.
-	 * @throws NotFoundDecisionException 존재하지 않는 vote에 투표 했을 시 에러가 발생한다.
+	 * @throws NotFoundDecisionVoteException 해당 옵션에 투표를 한 기록이 없을 시 에러가 발생한다.
+	 * @throws NotFoundDecisionVoteException 존재하지 않는 vote에 투표 했을 시 에러가 발생한다.
 	 * @throws CompletionVoteException 종료된 투표에 대해 투표를 변경했을 시 에러가 발생한다.
 	 */
 	public DecisionResponse updateVote(final Long userId, final Long optionId) {
 		boolean isExist = existDecisionByVote(userId, optionId);
 		if (!isExist) {
-			throw new NotFoundDecisionException("해당 vote에 대한 투표가 없습니다.");
+			throw new NotFoundDecisionVoteException();
 		}
 
 		DecisionEntity existDecision = findExistDecisionByVote(userId, optionId);
@@ -116,13 +118,11 @@ public class DecisionService {
 	private DecisionEntity findDecision(final Long userId, final Long optionId) {
 		return decisionRepository
 				.findByUserIdAndOptionId(userId, optionId)
-				.orElseThrow(() -> new NotFoundDecisionException("해당 옵션에 투표한 적이 없습니다."));
+				.orElseThrow(NotFoundDecisionOptionException::new);
 	}
 
 	private OptionEntity findOption(final Long optionId) {
-		return optionRepository
-				.findById(optionId)
-				.orElseThrow(() -> new NotFoundException("존재하지 않는 옵션 입니다."));
+		return optionRepository.findById(optionId).orElseThrow(NotFoundOptionException::new);
 	}
 
 	private boolean existDecisionByVote(Long userId, Long optionId) {
@@ -145,18 +145,16 @@ public class DecisionService {
 				.filter(Optional::isPresent)
 				.map(Optional::get)
 				.findAny()
-				.orElseThrow(() -> new NotFoundDecisionException("해당 vote에 투표한 적이 없습니다."));
+				.orElseThrow(NotFoundDecisionVoteException::new);
 	}
 
 	private VoteEntity findVote(final Long optionId) {
-		return voteRepository
-				.findVoteByOption(optionId)
-				.orElseThrow(() -> new NotFoundException("존재하지 않는 투표 입니다."));
+		return voteRepository.findVoteByOption(optionId).orElseThrow(NotFoundVoteException::new);
 	}
 
 	private void validateVoteStatus(final VoteEntity voteEntity) {
 		if (voteEntity.isComplete()) {
-			throw new CompletionVoteException("종료된 투표에 대해선 참여할 수 없습니다.");
+			throw new CompletionVoteException();
 		}
 	}
 
