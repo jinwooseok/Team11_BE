@@ -39,7 +39,7 @@ class CreateCommentApiTest {
 	@DisplayName("유저는 댓글을 작성하는데 성공한다.")
 	@Transactional
 	@Test
-	void create_comment__success_test() throws Exception {
+	void create_comment_success_test() throws Exception {
 		// given
 		CreateCommentRequest requestDto = CreateCommentRequest.builder().content("메롱이다.").build();
 		String requestBody = om.writeValueAsString(requestDto);

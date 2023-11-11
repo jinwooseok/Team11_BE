@@ -136,4 +136,17 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 					+ " where v.deleted = false"
 					+ " order by v.createdDate desc")
 	List<VoteEntity> findAllParticipateListByUserId(Long userId);
+
+	@Query(
+			"SELECT v "
+					+ "FROM VoteEntity v "
+					+ "JOIN OptionEntity o ON o.voteId = v.id "
+					+ "JOIN DecisionEntity d ON o.id = d.optionId "
+					+ "WHERE d.updatedDate >= :startTime AND d.updatedDate < :endTime AND v.deleted = false "
+					+ "GROUP BY v.id "
+					+ "ORDER BY count(d.id) DESC")
+	Slice<VoteEntity> findByTimeLimitAndDecisionCount(
+			@Param("startTime") LocalDateTime startTime,
+			@Param("endTime") LocalDateTime endTime,
+			Pageable pageable);
 }
