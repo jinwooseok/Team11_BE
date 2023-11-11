@@ -5,7 +5,9 @@ import com.kakao.golajuma.common.support.respnose.ApiResponse;
 import com.kakao.golajuma.common.support.respnose.ApiResponseBody.SuccessBody;
 import com.kakao.golajuma.common.support.respnose.ApiResponseGenerator;
 import com.kakao.golajuma.common.support.respnose.MessageCode;
-import com.kakao.golajuma.vote.domain.service.DecisionService;
+import com.kakao.golajuma.vote.domain.service.CreateDecisionService;
+import com.kakao.golajuma.vote.domain.service.DeleteDecisionService;
+import com.kakao.golajuma.vote.domain.service.UpdateDecisionService;
 import com.kakao.golajuma.vote.web.dto.response.DecisionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,26 +22,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/votes/participate")
 public class DecisionController {
-	private final DecisionService decisionService;
+	private final CreateDecisionService createDecisionService;
+	private final UpdateDecisionService updateDecisionService;
+	private final DeleteDecisionService deleteDecisionService;
 
 	@PostMapping("/options/{optionId}")
 	public ApiResponse<SuccessBody<DecisionResponse>> createVote(
 			@PathVariable Long optionId, @Login Long userId) {
-		DecisionResponse response = decisionService.createDecision(userId, optionId);
+		DecisionResponse response = createDecisionService.execute(userId, optionId);
 		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.CREATE);
 	}
 
 	@DeleteMapping("/options/{optionId}")
 	public ApiResponse<SuccessBody<DecisionResponse>> deleteVote(
 			@PathVariable Long optionId, @Login Long userId) {
-		DecisionResponse response = decisionService.deleteVote(userId, optionId);
+		DecisionResponse response = deleteDecisionService.execute(userId, optionId);
 		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.DELETE);
 	}
 
 	@PutMapping("/options/{optionId}")
 	public ApiResponse<SuccessBody<DecisionResponse>> updateVote(
 			@PathVariable Long optionId, @Login Long userId) {
-		DecisionResponse response = decisionService.updateVote(userId, optionId);
+		DecisionResponse response = updateDecisionService.execute(userId, optionId);
 		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.UPDATE);
 	}
 }
