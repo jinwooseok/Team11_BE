@@ -38,6 +38,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
+    kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/proxy_body_size: "1024M"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "100"
