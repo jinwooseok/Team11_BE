@@ -97,7 +97,7 @@ class CreateCommentApiTest {
 									.content(requestBody)
 									.contentType(MediaType.APPLICATION_JSON));
 			// then
-			resultActions.andExpect(status().isNotFound());
+			resultActions.andExpect(status().isForbidden());
 		}
 	}
 }

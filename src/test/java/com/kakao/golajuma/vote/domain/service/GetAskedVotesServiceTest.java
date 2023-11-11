@@ -44,7 +44,7 @@ public class GetAskedVotesServiceTest {
 						.id(1L)
 						.userId(1L)
 						.voteTitle("title")
-						.voteEndDate(LocalDateTime.now())
+						.voteEndDate(LocalDateTime.now().minusMinutes(3))
 						.category(Category.TOTAL)
 						.build();
 		votes = new ArrayList<>();
