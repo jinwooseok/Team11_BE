@@ -1,10 +1,9 @@
-package com.kakao.golajuma.comment.service;
+package com.kakao.golajuma.comment.domain.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import com.kakao.golajuma.comment.domain.exception.NotFoundCommentException;
-import com.kakao.golajuma.comment.domain.service.DeleteCommentService;
 import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
 import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import java.util.Optional;

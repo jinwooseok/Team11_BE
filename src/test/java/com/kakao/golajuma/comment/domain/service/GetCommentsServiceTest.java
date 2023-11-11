@@ -1,10 +1,8 @@
-package com.kakao.golajuma.comment.service;
+package com.kakao.golajuma.comment.domain.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.kakao.golajuma.comment.domain.service.GetCommentsService;
-import com.kakao.golajuma.comment.domain.service.GetUserNameService;
 import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
 import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.response.CommentDto;
