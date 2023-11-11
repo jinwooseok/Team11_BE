@@ -27,7 +27,7 @@ public class ReissueService {
 		return createTokenService.execute(authInfoEntity.getUserId());
 	}
 
-	public AuthInfoEntity getExistAuthInfo(String token) {
+	private AuthInfoEntity getExistAuthInfo(String token) {
 		Long userId = tokenResolver.getUserInfo(token);
 
 		return authInfoRepository
