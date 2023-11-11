@@ -4,7 +4,7 @@ import com.kakao.golajuma.auth.web.supplier.EmailSupplier;
 import com.kakao.golajuma.auth.web.supplier.NicknameSupplier;
 import com.kakao.golajuma.common.marker.AbstractRequestDto;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class SaveUserRequest implements AbstractRequestDto, EmailSupplier, NicknameSupplier {
-	@NotNull private String nickname;
-	@NotNull @Email private String email;
-	@NotNull private String password;
+	@NotBlank(message = ValidExceptionMessage.EMPTY_MESSAGE)
+	private String nickname;
+
+	@NotBlank(message = ValidExceptionMessage.EMPTY_MESSAGE)
+	@Email
+	private String email;
+
+	@NotBlank(message = ValidExceptionMessage.EMPTY_MESSAGE)
+	private String password;
 }

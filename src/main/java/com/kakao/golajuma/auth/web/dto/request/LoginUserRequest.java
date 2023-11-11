@@ -3,7 +3,7 @@ package com.kakao.golajuma.auth.web.dto.request;
 import com.kakao.golajuma.auth.web.supplier.EmailSupplier;
 import com.kakao.golajuma.common.marker.AbstractRequestDto;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +16,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class LoginUserRequest implements AbstractRequestDto, EmailSupplier {
 
-	@NotNull @Email private String email;
+	@NotBlank(message = ValidExceptionMessage.EMPTY_MESSAGE)
+	@Email(message = ValidExceptionMessage.EMAIL_FORMAT_MESSAGE)
+	private String email;
 
-	@NotNull
+	@NotBlank(message = ValidExceptionMessage.EMAIL_FORMAT_MESSAGE)
 	@Size(min = 8)
 	private String password;
 }

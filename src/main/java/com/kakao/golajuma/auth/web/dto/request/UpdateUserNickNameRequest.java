@@ -10,5 +10,6 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(toBuilder = true)
 public class UpdateUserNickNameRequest implements AbstractRequestDto, NicknameSupplier {
-	@NotBlank private String nickname;
+	@NotBlank(message = ValidExceptionMessage.EMPTY_MESSAGE)
+	private String nickname;
 }
