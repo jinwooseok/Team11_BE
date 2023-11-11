@@ -1,6 +1,5 @@
 package com.kakao.golajuma.auth.domain.service;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
