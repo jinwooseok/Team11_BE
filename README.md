@@ -1,3 +1,36 @@
+# 골라주마 Goalajuma
+<img src="https://github.com/Step3-kakao-tech-campus/Team11_BE/assets/88030920/6a88f83b-480e-4e8b-8202-fce540e659d3">
+
+<p align="center">
+당신의 모든 순간
+<br>
+"골라주마"
+<br>
+인생은 선택의 연속입니다.
+<br>
+수많은 선택의 순간 앞에서 당신의 모든 순간이 더 행복해지도록
+<br>
+<br>
+언제 어디서든 누구나 쉽게 투표를 등록하고 응답하는 오픈 투표 플랫폼
+</p>
+
+### 배포링크
+- [**FE링크**](https://k0c0f9c1d73ada.user-app.krampoline.com/)
+- [**BE링크**](https://ke48313f43733a.user-app.krampoline.com/)
+
+### ERD 이미지
+<img src="https://github.com/Step3-kakao-tech-campus/Team11_BE/assets/88030920/99b580b7-f5e6-467b-8578-cc974b21978f">
+
+### 컨벤션
+[**11조 BE의 컨벤션**](https://github.com/Step3-kakao-tech-campus/Team11_BE/issues/4)
+
+<details>
+<summary>
+  토글 제목
+</summary>
+   토글 안 내용
+</details>
+
 # Team11_BE
 11조
 ## 카카오 테크 캠퍼스 3단계 진행 보드
