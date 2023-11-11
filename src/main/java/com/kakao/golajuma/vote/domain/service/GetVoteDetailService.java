@@ -18,7 +18,6 @@ public class GetVoteDetailService {
 	private final GetVoteService getVoteService;
 
 	public GetVoteDetailResponse execute(Long voteId, Long userId) {
-		// 투표와 옵션리스트 가져오기
 		VoteEntity voteEntity =
 				voteRepository.findById(voteId).orElseThrow(() -> new NotFoundVoteException());
 

@@ -9,7 +9,6 @@ import java.util.Base64;
 import java.util.UUID;
 import javax.imageio.ImageIO;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +37,6 @@ public class ImageUploader {
 		}
 
 		try {
-			// 저장할 파일 경로를 지정합니다.
 			String changedName = UUID.randomUUID().toString() + "_" + fileName;
 			String uploadPath = SYSTEM_PATH + UPLOAD_PATH;
 
@@ -58,7 +56,6 @@ public class ImageUploader {
 			String storedPath = uploadPath + changedName;
 			File file = new File(storedPath);
 
-			// BASE64를 일반 파일로 변환하고 저장합니다.
 			Base64.Decoder decoder = Base64.getDecoder();
 			byte[] decodedBytes = decoder.decode(base64.getBytes());
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -81,7 +78,6 @@ public class ImageUploader {
 		File imageFile = new File(imagePath);
 		try {
 			BufferedImage image = ImageIO.read(imageFile);
-			// 이미지 파일의 확장자를 추출
 			String extension = imagePath.substring(imagePath.lastIndexOf('.') + 1);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ImageIO.write(image, getExtension(extension), baos);
