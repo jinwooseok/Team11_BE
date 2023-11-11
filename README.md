@@ -44,7 +44,7 @@
 6. 자신이 작성한 글, 자신이 투표에 참여한 글을 확인할 수 있는 기능
 
 ### ERD 이미지
-![ERD-이미지](![image](https://github.com/Step3-kakao-tech-campus/Team11_BE/assets/101163507/cffd06ae-35e2-4b11-8e16-6486e2a56cf9))
+![ERD-이미지](https://github.com/Step3-kakao-tech-campus/Team11_BE/assets/101163507/cffd06ae-35e2-4b11-8e16-6486e2a56cf9)
 투표라는 컨텐츠를 갖고 있고 실시간으로 투표를 하거나 취소, 변경 등이 빠른 시간에 이뤄져야 하기 때문에 과도한 제약이 단점이 될 수 있다고 생각했고, 개발 도중 편의성을 증진시키기 위해 외래키를 제외하는 구조로 설계했습니다.
 또 deleted필드를 구성해 soft delete방식으로 삭제처리했습니다.
 
