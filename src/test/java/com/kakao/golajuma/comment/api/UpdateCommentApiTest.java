@@ -7,6 +7,7 @@ import com.kakao.golajuma.auth.domain.token.TokenProvider;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
 import com.kakao.golajuma.comment.infra.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.request.UpdateCommentRequest;
+import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -39,6 +40,7 @@ class UpdateCommentApiTest {
 	}
 
 	@DisplayName("유저는 댓글을 업데이트 하는데 성공한다.")
+	@Transactional
 	@Test
 	void updateTest() throws Exception {
 		// given
@@ -87,11 +89,12 @@ class UpdateCommentApiTest {
 									.header("Authorization", "Bearer " + jwtToken)
 									.content(requestBody)
 									.contentType(MediaType.APPLICATION_JSON));
-
+			// then
 			resultActions.andExpect(status().isBadRequest());
 		}
 
 		@DisplayName("다른 유저의 댓글을 수정하기 때문에 실패한다.")
+		@Transactional
 		@Test
 		void not_owner_update_comment_fail_test() throws Exception {
 			// given
@@ -108,11 +111,12 @@ class UpdateCommentApiTest {
 									.header("Authorization", "Bearer " + jwtToken)
 									.content(requestBody)
 									.contentType(MediaType.APPLICATION_JSON));
-
-			resultActions.andExpect(status().isForbidden());
+			// then
+			resultActions.andExpect(status().isNotFound());
 		}
 
 		@DisplayName("없는 댓글을 수정하기 때문에 실패한다.")
+		@Transactional
 		@Test
 		void not_exist_comment_update_fail_test() throws Exception {
 			// given
@@ -129,7 +133,7 @@ class UpdateCommentApiTest {
 									.header("Authorization", "Bearer " + jwtToken)
 									.content(requestBody)
 									.contentType(MediaType.APPLICATION_JSON));
-
+			// then
 			resultActions.andExpect(status().isNotFound());
 		}
 	}

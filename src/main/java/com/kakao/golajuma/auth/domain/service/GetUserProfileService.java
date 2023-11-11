@@ -23,28 +23,18 @@ public class GetUserProfileService {
 		int createVoteCount = countCreatedVote(userId);
 		int participateVoteCount = countParticipatedVote(userId);
 
-		return userProfileConverter(userEntity, createVoteCount, participateVoteCount);
+		return UserProfileResponse.from(userEntity, createVoteCount, participateVoteCount);
 	}
 
-	protected UserEntity validateUserEntity(Long userId) {
+	private UserEntity validateUserEntity(Long userId) {
 		return userRepository.findById(userId).orElseThrow(NotFoundUserException::new);
 	}
 
-	protected int countCreatedVote(Long userId) {
+	private int countCreatedVote(Long userId) {
 		return voteRepository.findAllByUserId(userId).size();
 	}
 
-	protected int countParticipatedVote(Long userId) {
+	private int countParticipatedVote(Long userId) {
 		return voteRepository.findAllParticipateListByUserId(userId).size();
-	}
-
-	protected UserProfileResponse userProfileConverter(
-			UserEntity userEntity, int createVoteCount, int participateVoteCount) {
-		return UserProfileResponse.builder()
-				.email(userEntity.getEmail())
-				.nickname(userEntity.getNickname())
-				.createVoteCount(createVoteCount)
-				.participateVoteCount(participateVoteCount)
-				.build();
 	}
 }

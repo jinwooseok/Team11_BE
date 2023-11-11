@@ -33,26 +33,26 @@ public class UserProfileController {
 	public ApiResponse<ApiResponseBody.SuccessBody<UserProfileResponse>> getUserProfile(
 			@Login Long userId) {
 
-		UserProfileResponse responseData = getUserProfileService.execute(userId);
+		UserProfileResponse response = getUserProfileService.execute(userId);
 
-		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.GET);
+		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.GET);
 	}
 
 	@PatchMapping("/nickname")
 	public ApiResponse<ApiResponseBody.SuccessBody<UpdateNickNameResponse>> updateNickName(
 			@RequestBody @Valid UpdateUserNickNameRequest request, @Login Long userId) {
 
-		UpdateNickNameResponse responseData = updateUserNickNameService.execute(request, userId);
+		UpdateNickNameResponse response = updateUserNickNameService.execute(request, userId);
 
-		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.UPDATE);
+		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.UPDATE);
 	}
 
 	@PatchMapping("/email")
 	public ApiResponse<ApiResponseBody.SuccessBody<UpdateEmailResponse>> updateEmail(
 			@RequestBody @Valid UpdateUserEmailRequest request, @Login Long userId) {
 
-		UpdateEmailResponse responseData = updateUserEmailService.execute(request, userId);
+		UpdateEmailResponse response = updateUserEmailService.execute(request, userId);
 
-		return ApiResponseGenerator.success(responseData, HttpStatus.OK, MessageCode.UPDATE);
+		return ApiResponseGenerator.success(response, HttpStatus.OK, MessageCode.UPDATE);
 	}
 }

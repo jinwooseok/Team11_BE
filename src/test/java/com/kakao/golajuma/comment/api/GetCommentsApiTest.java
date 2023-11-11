@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class GetCommentListApiTest {
+class GetCommentsApiTest {
 
 	@Autowired private MockMvc mvc;
 	@Autowired private TokenProvider tokenProvider;
@@ -37,7 +37,7 @@ class GetCommentListApiTest {
 						MockMvcRequestBuilders.get("/votes/1/comments")
 								.header("Authorization", "Bearer " + jwtToken)
 								.contentType(MediaType.APPLICATION_JSON));
-
+		// then
 		resultActions
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
