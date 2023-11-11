@@ -21,8 +21,10 @@ spec:
             - containerPort: 80
           volumeMounts:
             - name: nginx-config
+              readOnly: false
               mountPath: /etc/nginx/conf.d
             - name: time-zone
+              readOnly: false
               mountPath: /etc/localtime
 
       volumes:
