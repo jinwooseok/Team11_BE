@@ -4,8 +4,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
-import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.VoteRepository;
+import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
+import com.kakao.golajuma.vote.persistence.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.util.ArrayList;

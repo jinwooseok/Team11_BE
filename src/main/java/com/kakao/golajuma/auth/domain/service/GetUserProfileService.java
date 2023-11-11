@@ -1,10 +1,10 @@
 package com.kakao.golajuma.auth.domain.service;
 
 import com.kakao.golajuma.auth.domain.exception.NotFoundUserException;
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.auth.persistence.entity.UserEntity;
+import com.kakao.golajuma.auth.persistence.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.response.UserProfileResponse;
-import com.kakao.golajuma.vote.infra.repository.VoteRepository;
+import com.kakao.golajuma.vote.persistence.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

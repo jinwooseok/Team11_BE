@@ -1,9 +1,9 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.infra.entity.OptionEntity;
-import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.OptionRepository;
-import com.kakao.golajuma.vote.infra.repository.VoteRepository;
+import com.kakao.golajuma.vote.persistence.entity.OptionEntity;
+import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
+import com.kakao.golajuma.vote.persistence.repository.OptionRepository;
+import com.kakao.golajuma.vote.persistence.repository.VoteRepository;
 import com.kakao.golajuma.vote.util.ImageUploader;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;
 import com.kakao.golajuma.vote.web.dto.response.CreateVoteResponse;

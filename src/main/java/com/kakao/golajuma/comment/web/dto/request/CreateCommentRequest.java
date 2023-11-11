@@ -1,6 +1,6 @@
 package com.kakao.golajuma.comment.web.dto.request;
 
-import com.kakao.golajuma.comment.infra.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
 import com.kakao.golajuma.common.marker.AbstractRequestDto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

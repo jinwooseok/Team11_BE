@@ -1,6 +1,6 @@
 package com.kakao.golajuma.auth.web.dto.response;
 
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
+import com.kakao.golajuma.auth.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.kakao.golajuma.comment.domain.service;
 
-import com.kakao.golajuma.comment.infra.repository.CommentRepository;
+import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.response.GetCommentCountResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

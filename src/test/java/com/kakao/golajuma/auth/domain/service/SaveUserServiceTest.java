@@ -3,9 +3,9 @@ package com.kakao.golajuma.auth.domain.service;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.kakao.golajuma.auth.infra.converter.UserEntityConverter;
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.auth.persistence.converter.UserEntityConverter;
+import com.kakao.golajuma.auth.persistence.entity.UserEntity;
+import com.kakao.golajuma.auth.persistence.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.request.SaveUserRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.VoteRepository;
+import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
+import com.kakao.golajuma.vote.persistence.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

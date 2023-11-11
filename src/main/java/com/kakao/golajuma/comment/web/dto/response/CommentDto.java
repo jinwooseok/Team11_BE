@@ -1,6 +1,6 @@
 package com.kakao.golajuma.comment.web.dto.response;
 
-import com.kakao.golajuma.comment.infra.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
 import com.kakao.golajuma.common.marker.AbstractResponseDto;
 import java.time.LocalDateTime;
 import lombok.Getter;

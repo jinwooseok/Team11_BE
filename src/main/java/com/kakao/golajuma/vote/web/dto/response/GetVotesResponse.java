@@ -1,7 +1,7 @@
 package com.kakao.golajuma.vote.web.dto.response;
 
 import com.kakao.golajuma.common.marker.AbstractResponseDto;
-import com.kakao.golajuma.vote.infra.entity.VoteEntity;
+import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
