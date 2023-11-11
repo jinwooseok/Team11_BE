@@ -1,4 +1,4 @@
-package com.kakao.golajuma.comment.api;
+package com.kakao.golajuma.comment.web.controller;
 
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
 import org.junit.jupiter.api.BeforeEach;

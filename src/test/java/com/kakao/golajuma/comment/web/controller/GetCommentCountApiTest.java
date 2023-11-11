@@ -1,4 +1,4 @@
-package com.kakao.golajuma.comment.api;
+package com.kakao.golajuma.comment.web.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

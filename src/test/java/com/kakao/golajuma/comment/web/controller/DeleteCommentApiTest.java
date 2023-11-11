@@ -1,10 +1,10 @@
-package com.kakao.golajuma.comment.api;
+package com.kakao.golajuma.comment.web.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
-import com.kakao.golajuma.comment.web.dto.request.CreateCommentRequest;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,13 +21,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class CreateCommentApiTest {
-	@Autowired private ObjectMapper om;
-
+class DeleteCommentApiTest {
 	@Autowired private MockMvc mvc;
-
 	@Autowired private TokenProvider tokenProvider;
-
+	@Autowired private CommentRepository commentRepository;
 	private String jwtToken;
 
 	@BeforeEach
@@ -36,65 +33,62 @@ class CreateCommentApiTest {
 		jwtToken = tokenProvider.createAccessToken(1L);
 	}
 
-	@DisplayName("유저는 댓글을 작성하는데 성공한다.")
+	@DisplayName("유저는 댓글을 삭제하는데 성공한다.")
 	@Transactional
 	@Test
-	void create_comment_success_test() throws Exception {
+	void delete_comment_success_tes() throws Exception {
 		// given
-		CreateCommentRequest requestDto = CreateCommentRequest.builder().content("메롱이다.").build();
-		String requestBody = om.writeValueAsString(requestDto);
-
+		CommentEntity commentEntity = commentRepository.findByUserId(1L).stream().findFirst().get();
+		Long voteId = commentEntity.getVoteId();
+		Long commentId = commentEntity.getId();
 		// when
 		ResultActions resultActions =
 				mvc.perform(
-						MockMvcRequestBuilders.post("/votes/1/comments")
+						MockMvcRequestBuilders.delete("/votes/" + voteId + "/comments/" + commentId)
 								.header("Authorization", "Bearer " + jwtToken)
-								.content(requestBody)
 								.contentType(MediaType.APPLICATION_JSON));
 		// then
 		resultActions
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.id").hasJsonPath())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.isOwner").hasJsonPath())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.username").hasJsonPath())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.data.content").hasJsonPath())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.message").hasJsonPath());
 	}
 
-	@DisplayName("유저는 새로운 댓글을 저장하는데 실패한다.")
+	@DisplayName("유저는 댓글을 삭제하는데 실패한다.")
 	@Nested
-	class create_comment_fail_case {
-		@DisplayName("유저는 아무런 댓글을 작성하지 않고 저장해서 실패한다.")
+	class delete_comment_fail_case {
+		@DisplayName("본인에게 존재하지 않은 댓글을 삭제하기 때문에 실패한다.")
+		@Transactional
 		@Test
-		void create_empty_comment_fail_test() throws Exception {
+		void not_owner_delete_comment_fail_test() throws Exception {
 			// given
-			CreateCommentRequest requestDto = CreateCommentRequest.builder().content("").build();
-			String requestBody = om.writeValueAsString(requestDto);
+			CommentEntity commentEntity = commentRepository.findByUserId(2L).stream().findFirst().get();
+			Long voteId = commentEntity.getVoteId();
+			Long commentId = commentEntity.getId();
 
 			// when
 			ResultActions resultActions =
 					mvc.perform(
-							MockMvcRequestBuilders.post("/votes/1/comments")
+							MockMvcRequestBuilders.delete("/votes/" + voteId + "/comments/" + commentId)
 									.header("Authorization", "Bearer " + jwtToken)
-									.content(requestBody)
 									.contentType(MediaType.APPLICATION_JSON));
 			// then
-			resultActions.andExpect(status().isBadRequest());
+			resultActions.andExpect(status().isNotFound());
 		}
 
-		@DisplayName("비로그인 유저가 댓글을 작성하려 하기 때문에 실패한다.")
+		@DisplayName("없는 댓글을 삭제하기 때문에 실패한다.")
+		@Transactional
 		@Test
-		void not_exist_user_create_comment_fail_test() throws Exception {
+		void not_exist_comment_delete_fail_test() throws Exception {
 			// given
-			CreateCommentRequest requestDto = CreateCommentRequest.builder().content("").build();
-			String requestBody = om.writeValueAsString(requestDto);
-
+			CommentEntity commentEntity = commentRepository.findByUserId(1L).stream().findFirst().get();
+			Long voteId = commentEntity.getVoteId();
+			Long commentId = 999999L;
 			// when
 			ResultActions resultActions =
 					mvc.perform(
-							MockMvcRequestBuilders.post("/votes/1/comments")
-									.content(requestBody)
+							MockMvcRequestBuilders.delete("/votes/" + voteId + "/comments/" + commentId)
+									.header("Authorization", "Bearer " + jwtToken)
 									.contentType(MediaType.APPLICATION_JSON));
 			// then
 			resultActions.andExpect(status().isNotFound());

@@ -1,4 +1,4 @@
-package com.kakao.golajuma.vote.api;
+package com.kakao.golajuma.vote.web.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

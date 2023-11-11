@@ -1,4 +1,4 @@
-package com.kakao.golajuma.auth.api;
+package com.kakao.golajuma.auth.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.auth.domain.token.TokenProvider;

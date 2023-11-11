@@ -1,4 +1,4 @@
-package com.kakao.golajuma.auth.api;
+package com.kakao.golajuma.auth.web.controller;
 
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
 import com.kakao.golajuma.auth.persistence.repository.UserRepository;
