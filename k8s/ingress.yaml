@@ -39,8 +39,6 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/proxy-body-size: 2tb
-    nginx.ingress.kubernetes.io/client-body-buffer-size: 2tb
 
   labels:
     app.kubernetes.io/managed-by: kargocd
