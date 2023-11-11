@@ -4,7 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.when;
 
 import com.kakao.golajuma.comment.domain.service.GetCommentCountService;
-import com.kakao.golajuma.comment.infra.repository.CommentRepository;
+import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.response.GetCommentCountResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

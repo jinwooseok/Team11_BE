@@ -1,12 +1,10 @@
-package com.kakao.golajuma.vote.repository;
+package com.kakao.golajuma.vote.persistence.repository;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kakao.golajuma.vote.infra.entity.DecisionEntity;
-import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.DecisionRepository;
-import com.kakao.golajuma.vote.infra.repository.VoteRepository;
+import com.kakao.golajuma.vote.persistence.entity.DecisionEntity;
+import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
 import java.time.LocalDateTime;
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;

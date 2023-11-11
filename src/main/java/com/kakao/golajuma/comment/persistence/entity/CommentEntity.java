@@ -1,6 +1,6 @@
-package com.kakao.golajuma.comment.infra.entity;
+package com.kakao.golajuma.comment.persistence.entity;
 
-import static com.kakao.golajuma.comment.infra.entity.CommentEntity.ENTITY_PREFIX;
+import static com.kakao.golajuma.comment.persistence.entity.CommentEntity.ENTITY_PREFIX;
 
 import com.kakao.golajuma.common.BaseEntity;
 import javax.persistence.*;

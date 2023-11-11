@@ -2,8 +2,8 @@ package com.kakao.golajuma.auth.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.auth.persistence.entity.UserEntity;
+import com.kakao.golajuma.auth.persistence.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.request.UpdateUserEmailRequest;
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,9 +1,9 @@
 package com.kakao.golajuma.vote.domain.service;
 
-import com.kakao.golajuma.vote.infra.entity.Active;
-import com.kakao.golajuma.vote.infra.entity.Category;
-import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.VoteRepository;
+import com.kakao.golajuma.vote.persistence.entity.Active;
+import com.kakao.golajuma.vote.persistence.entity.Category;
+import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
+import com.kakao.golajuma.vote.persistence.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.time.LocalDateTime;

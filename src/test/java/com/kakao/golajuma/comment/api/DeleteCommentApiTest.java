@@ -3,8 +3,8 @@ package com.kakao.golajuma.comment.api;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
-import com.kakao.golajuma.comment.infra.entity.CommentEntity;
-import com.kakao.golajuma.comment.infra.repository.CommentRepository;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

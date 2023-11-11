@@ -1,6 +1,6 @@
-package com.kakao.golajuma.auth.infra.repository;
+package com.kakao.golajuma.auth.persistence.repository;
 
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
+import com.kakao.golajuma.auth.persistence.entity.UserEntity;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

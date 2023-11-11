@@ -1,7 +1,7 @@
 package com.kakao.golajuma.auth.domain.service;
 
 import com.kakao.golajuma.auth.domain.exception.DuplicatedEmailException;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.auth.persistence.repository.UserRepository;
 import com.kakao.golajuma.auth.web.supplier.EmailSupplier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

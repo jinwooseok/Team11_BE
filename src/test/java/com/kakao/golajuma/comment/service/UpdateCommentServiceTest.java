@@ -4,12 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
+import com.kakao.golajuma.auth.persistence.entity.UserEntity;
 import com.kakao.golajuma.comment.domain.exception.NotFoundCommentException;
 import com.kakao.golajuma.comment.domain.service.GetUserNameService;
 import com.kakao.golajuma.comment.domain.service.UpdateCommentService;
-import com.kakao.golajuma.comment.infra.entity.CommentEntity;
-import com.kakao.golajuma.comment.infra.repository.CommentRepository;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.request.UpdateCommentRequest;
 import com.kakao.golajuma.comment.web.dto.response.UpdateCommentResponse;
 import java.util.Optional;

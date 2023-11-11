@@ -1,7 +1,7 @@
 package com.kakao.golajuma.auth.domain.service;
 
 import com.kakao.golajuma.auth.domain.exception.DuplicatedNicknameException;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.auth.persistence.repository.UserRepository;
 import com.kakao.golajuma.auth.web.supplier.NicknameSupplier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

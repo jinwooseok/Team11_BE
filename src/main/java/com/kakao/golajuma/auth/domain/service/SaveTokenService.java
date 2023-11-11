@@ -1,8 +1,8 @@
 package com.kakao.golajuma.auth.domain.service;
 
-import com.kakao.golajuma.auth.infra.converter.AuthInfoEntityConverter;
-import com.kakao.golajuma.auth.infra.entity.AuthInfoEntity;
-import com.kakao.golajuma.auth.infra.repository.AuthInfoRepository;
+import com.kakao.golajuma.auth.persistence.converter.AuthInfoEntityConverter;
+import com.kakao.golajuma.auth.persistence.entity.AuthInfoEntity;
+import com.kakao.golajuma.auth.persistence.repository.AuthInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

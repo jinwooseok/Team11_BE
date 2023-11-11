@@ -5,8 +5,8 @@ import static org.mockito.Mockito.*;
 
 import com.kakao.golajuma.comment.domain.exception.NotFoundCommentException;
 import com.kakao.golajuma.comment.domain.service.DeleteCommentService;
-import com.kakao.golajuma.comment.infra.entity.CommentEntity;
-import com.kakao.golajuma.comment.infra.repository.CommentRepository;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

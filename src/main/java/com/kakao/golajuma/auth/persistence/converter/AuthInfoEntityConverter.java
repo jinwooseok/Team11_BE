@@ -1,6 +1,6 @@
-package com.kakao.golajuma.auth.infra.converter;
+package com.kakao.golajuma.auth.persistence.converter;
 
-import com.kakao.golajuma.auth.infra.entity.AuthInfoEntity;
+import com.kakao.golajuma.auth.persistence.entity.AuthInfoEntity;
 import org.springframework.stereotype.Component;
 
 @Component

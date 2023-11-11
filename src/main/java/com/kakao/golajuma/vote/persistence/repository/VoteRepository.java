@@ -1,7 +1,7 @@
-package com.kakao.golajuma.vote.infra.repository;
+package com.kakao.golajuma.vote.persistence.repository;
 
-import com.kakao.golajuma.vote.infra.entity.Category;
-import com.kakao.golajuma.vote.infra.entity.VoteEntity;
+import com.kakao.golajuma.vote.persistence.entity.Category;
+import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

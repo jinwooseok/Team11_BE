@@ -7,11 +7,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.kakao.golajuma.auth.domain.exception.NotFoundUserException;
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
+import com.kakao.golajuma.auth.persistence.entity.UserEntity;
 import com.kakao.golajuma.comment.domain.service.CreateCommentService;
 import com.kakao.golajuma.comment.domain.service.GetUserNameService;
-import com.kakao.golajuma.comment.infra.entity.CommentEntity;
-import com.kakao.golajuma.comment.infra.repository.CommentRepository;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.request.CreateCommentRequest;
 import com.kakao.golajuma.comment.web.dto.response.CreateCommentResponse;
 import org.junit.jupiter.api.DisplayName;

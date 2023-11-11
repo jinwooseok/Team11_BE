@@ -4,8 +4,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
-import com.kakao.golajuma.comment.infra.entity.CommentEntity;
-import com.kakao.golajuma.comment.infra.repository.CommentRepository;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.request.UpdateCommentRequest;
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;

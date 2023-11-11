@@ -1,6 +1,6 @@
 package com.kakao.golajuma.vote.web.dto.response;
 
-import com.kakao.golajuma.vote.infra.entity.OptionEntity;
+import com.kakao.golajuma.vote.persistence.entity.OptionEntity;
 import com.kakao.golajuma.vote.util.ImageUploader;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;

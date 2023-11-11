@@ -1,7 +1,7 @@
-package com.kakao.golajuma.auth.infra.converter;
+package com.kakao.golajuma.auth.persistence.converter;
 
 import com.kakao.golajuma.auth.domain.helper.Encoder;
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
+import com.kakao.golajuma.auth.persistence.entity.UserEntity;
 import com.kakao.golajuma.auth.web.dto.request.SaveUserRequest;
 import com.kakao.golajuma.common.support.converter.AbstractEntityConverter;
 import lombok.RequiredArgsConstructor;

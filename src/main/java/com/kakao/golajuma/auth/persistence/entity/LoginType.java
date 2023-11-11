@@ -1,4 +1,4 @@
-package com.kakao.golajuma.auth.infra.entity;
+package com.kakao.golajuma.auth.persistence.entity;
 
 import java.util.Arrays;
 import java.util.Optional;

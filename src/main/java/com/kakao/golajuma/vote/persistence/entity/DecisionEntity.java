@@ -1,4 +1,4 @@
-package com.kakao.golajuma.auth.infra.entity;
+package com.kakao.golajuma.vote.persistence.entity;
 
 import com.kakao.golajuma.common.BaseEntity;
 import javax.persistence.Column;
@@ -20,29 +20,19 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @SuperBuilder(toBuilder = true)
 @Entity
-@Table(name = UserEntity.ENTITY_PREFIX)
-public class UserEntity extends BaseEntity {
-	public static final String ENTITY_PREFIX = "user";
+@Table(name = DecisionEntity.ENTITY_PREFIX)
+public class DecisionEntity extends BaseEntity {
+
+	public static final String ENTITY_PREFIX = "decision";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = ENTITY_PREFIX + "_id", nullable = false)
 	private Long id;
 
-	@Column(name = ENTITY_PREFIX + "_nickname", nullable = false)
-	private String nickname;
+	@Column(name = ENTITY_PREFIX + "_option_id", nullable = false)
+	private Long optionId;
 
-	@Column(name = ENTITY_PREFIX + "_email", nullable = false)
-	private String email;
-
-	@Column(name = ENTITY_PREFIX + "_password", nullable = false)
-	private String password;
-
-	public void updateEmail(String email) {
-		this.email = email;
-	}
-
-	public void updateNickName(String nickname) {
-		this.nickname = nickname;
-	}
+	@Column(name = ENTITY_PREFIX + "_user_id", nullable = false)
+	private Long userId;
 }

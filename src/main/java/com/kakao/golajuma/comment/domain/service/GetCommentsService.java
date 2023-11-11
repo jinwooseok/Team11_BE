@@ -1,7 +1,7 @@
 package com.kakao.golajuma.comment.domain.service;
 
-import com.kakao.golajuma.comment.infra.entity.CommentEntity;
-import com.kakao.golajuma.comment.infra.repository.CommentRepository;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.response.CommentDto;
 import com.kakao.golajuma.comment.web.dto.response.GetCommentsResponse;
 import java.util.List;

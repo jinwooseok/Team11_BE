@@ -2,9 +2,9 @@ package com.kakao.golajuma.auth.domain.service;
 
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
 import com.kakao.golajuma.auth.domain.token.TokenResolver;
-import com.kakao.golajuma.auth.infra.converter.AuthInfoEntityConverter;
-import com.kakao.golajuma.auth.infra.entity.AuthInfoEntity;
-import com.kakao.golajuma.auth.infra.repository.AuthInfoRepository;
+import com.kakao.golajuma.auth.persistence.converter.AuthInfoEntityConverter;
+import com.kakao.golajuma.auth.persistence.entity.AuthInfoEntity;
+import com.kakao.golajuma.auth.persistence.repository.AuthInfoRepository;
 import com.kakao.golajuma.auth.web.dto.converter.TokenConverter;
 import com.kakao.golajuma.auth.web.dto.response.TokenResponse;
 import lombok.RequiredArgsConstructor;

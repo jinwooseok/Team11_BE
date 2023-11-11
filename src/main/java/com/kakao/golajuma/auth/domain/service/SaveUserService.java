@@ -1,7 +1,7 @@
 package com.kakao.golajuma.auth.domain.service;
 
-import com.kakao.golajuma.auth.infra.converter.UserEntityConverter;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.auth.persistence.converter.UserEntityConverter;
+import com.kakao.golajuma.auth.persistence.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.request.SaveUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

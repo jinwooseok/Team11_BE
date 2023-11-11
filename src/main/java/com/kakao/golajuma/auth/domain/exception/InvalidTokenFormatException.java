@@ -6,6 +6,6 @@ public class InvalidTokenFormatException extends AuthorizationException {
 	private static final String MESSAGE = "token 형식이 맞지 않습니다.";
 
 	public InvalidTokenFormatException() {
-		super(MESSAGE, HttpStatus.BAD_REQUEST);
+		super(MESSAGE, HttpStatus.FORBIDDEN);
 	}
 }

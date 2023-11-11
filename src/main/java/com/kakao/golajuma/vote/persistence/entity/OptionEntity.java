@@ -1,4 +1,4 @@
-package com.kakao.golajuma.vote.infra.entity;
+package com.kakao.golajuma.vote.persistence.entity;
 
 import com.kakao.golajuma.common.BaseEntity;
 import com.kakao.golajuma.vote.web.dto.request.CreateVoteRequest;

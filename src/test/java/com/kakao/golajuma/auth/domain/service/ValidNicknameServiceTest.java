@@ -3,7 +3,7 @@ package com.kakao.golajuma.auth.domain.service;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.kakao.golajuma.auth.domain.exception.DuplicatedNicknameException;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.auth.persistence.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.request.SaveUserRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

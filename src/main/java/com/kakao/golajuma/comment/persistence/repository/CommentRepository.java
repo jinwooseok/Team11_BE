@@ -1,6 +1,6 @@
-package com.kakao.golajuma.comment.infra.repository;
+package com.kakao.golajuma.comment.persistence.repository;
 
-import com.kakao.golajuma.comment.infra.entity.CommentEntity;
+import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
