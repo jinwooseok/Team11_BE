@@ -28,7 +28,6 @@ public class SearchVotesService {
 			Long userId, int page, String keyword, Sort sort, Category category) {
 		this.page = page;
 
-		// 1. vote list 를 가져온다
 		Slice<VoteEntity> voteEntities = findVotes(keyword, category, sort);
 
 		List<VoteDto> votes =
@@ -36,14 +35,12 @@ public class SearchVotesService {
 						.map(voteEntity -> getVoteService.execute(voteEntity, userId))
 						.collect(Collectors.toList());
 
-		// 마지막 페이지인지 검사
 		boolean isLast = voteEntities.isLast();
 
 		return SearchVotesResponse.convert(votes, isLast);
 	}
 
 	private Slice<VoteEntity> findVotes(String keyword, Category category, Sort sort) {
-		// 카테고리 요청 확인
 		if (Category.isTotalRequest(category)) {
 			return OrderBySort(keyword, sort);
 		}

@@ -16,7 +16,6 @@ public class GetAskedVotesService {
 	private final VoteRepository voteRepository;
 
 	public GetVotesResponse.MyPage execute(Long userId) {
-		// userId가 올린 투표를 가져옴
 		List<VoteEntity> voteEntities = voteRepository.findAllByUserId(userId);
 
 		return GetVotesResponse.MyPage.convert(voteEntities);

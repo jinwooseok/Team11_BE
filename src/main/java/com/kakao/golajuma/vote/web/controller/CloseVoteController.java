@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CloseVoteController {
 	private final CloseVoteService closeVoteService;
 
-	// 투표 마감
 	@PatchMapping("/votes/{voteId}/close")
 	public ApiResponse<ApiResponseBody.SuccessBody<Void>> closeVote(
 			@PathVariable Long voteId, @Login Long userId) {

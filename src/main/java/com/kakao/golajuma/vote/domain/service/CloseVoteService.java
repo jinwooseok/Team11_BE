@@ -18,11 +18,9 @@ public class CloseVoteService {
 	public void execute(Long voteId, Long userId) {
 		VoteEntity voteEntity =
 				voteRepository.findById(voteId).orElseThrow(() -> new NotFoundVoteException());
-		// 작성자가 아닌 경우 예외
 		if (!voteEntity.isOwner(userId)) {
 			throw new NotWriterException();
 		}
-		// 이미 마감된 경우 예외
 		if (!voteEntity.isOn()) {
 			throw new AlreadyCloseException();
 		}
