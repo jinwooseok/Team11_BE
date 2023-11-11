@@ -42,7 +42,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/proxy_body_size: "1024M"
+    nginx.ingress.kubernetes.io/proxy_body_size: "10G"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "100"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
