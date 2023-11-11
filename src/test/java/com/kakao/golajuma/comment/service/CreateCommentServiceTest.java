@@ -6,15 +6,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.kakao.golajuma.auth.domain.exception.NotFoundUserException;
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
-import com.kakao.golajuma.comment.domain.exception.NullPointerException;
 import com.kakao.golajuma.comment.domain.service.CreateCommentService;
+import com.kakao.golajuma.comment.domain.service.GetUserNameService;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
 import com.kakao.golajuma.comment.infra.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.request.CreateCommentRequest;
 import com.kakao.golajuma.comment.web.dto.response.CreateCommentResponse;
-import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ class CreateCommentServiceTest {
 
 	@Mock private CommentRepository commentRepository;
 
-	@Mock private UserRepository userRepository;
+	@Mock private GetUserNameService getUserNameService;
 
 	@Test
 	@DisplayName("유저가 새로운 댓글을 저장하는데 성공한다.")
@@ -37,17 +36,27 @@ class CreateCommentServiceTest {
 		// given
 		Long userId = 1L;
 		Long voteId = 1L;
+		Long commentId = 1L;
 
 		CreateCommentRequest requestDto = CreateCommentRequest.builder().content("contents").build();
 
+		CommentEntity commentEntity =
+				CommentEntity.builder()
+						.id(commentId)
+						.voteId(voteId)
+						.userId(userId)
+						.content("contents")
+						.build();
+
 		UserEntity userEntity = UserEntity.builder().id(1L).nickname("tester").build();
 
-		when(userRepository.findById(userId)).thenReturn(Optional.of(userEntity));
+		when(getUserNameService.execute(userId)).thenReturn(userEntity.getNickname());
+
+		when(commentRepository.save(any())).thenReturn(commentEntity);
 
 		// when
 		CreateCommentResponse response = createCommentService.execute(requestDto, voteId, userId);
 		// then
-
 		verify(commentRepository).save(any(CommentEntity.class));
 
 		assertThat(response.getUsername()).isEqualTo("tester");
@@ -67,9 +76,11 @@ class CreateCommentServiceTest {
 
 			CreateCommentRequest requestDto = CreateCommentRequest.builder().content("contents").build();
 
+			when(getUserNameService.execute(userId)).thenThrow(NotFoundUserException.class);
+
 			// when & then
 			assertThrows(
-					NullPointerException.class,
+					NotFoundUserException.class,
 					() -> createCommentService.execute(requestDto, voteId, userId));
 		}
 	}

@@ -1,6 +1,5 @@
 package com.kakao.golajuma.comment.domain.service;
 
-import com.kakao.golajuma.comment.domain.exception.NullPointerException;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
 import com.kakao.golajuma.comment.infra.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.request.CreateCommentRequest;
@@ -25,12 +24,11 @@ public class CreateCommentService {
 	 * @param voteId 투표 식별자
 	 * @param userId 유저 식별자
 	 * @return 생성한 댓글의 정보
-	 * @throws NullPointerException 존재하지 않은 유저가 생성을 요청했을 때
 	 */
 	public CreateCommentResponse execute(CreateCommentRequest requestDto, Long voteId, Long userId) {
 
 		CommentEntity commentEntity = saveComment(requestDto.toEntity(voteId, userId));
-		// return
+
 		String username = getUserNameService.execute(userId);
 
 		return new CreateCommentResponse(commentEntity, true, username);

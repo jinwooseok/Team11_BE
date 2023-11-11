@@ -5,9 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import com.kakao.golajuma.auth.infra.entity.UserEntity;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
-import com.kakao.golajuma.comment.domain.exception.NoOwnershipException;
-import com.kakao.golajuma.comment.domain.exception.NullPointerException;
+import com.kakao.golajuma.comment.domain.exception.NotFoundCommentException;
+import com.kakao.golajuma.comment.domain.service.GetUserNameService;
 import com.kakao.golajuma.comment.domain.service.UpdateCommentService;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
 import com.kakao.golajuma.comment.infra.repository.CommentRepository;
@@ -28,7 +27,7 @@ class UpdateCommentServiceTest {
 
 	@Mock private CommentRepository commentRepository;
 
-	@Mock private UserRepository userRepository;
+	@Mock private GetUserNameService getUserNameService;
 
 	@Test
 	@DisplayName("유저가 댓글을 업데이트를 하는데 성공한다.")
@@ -50,8 +49,9 @@ class UpdateCommentServiceTest {
 						.content("old content")
 						.build();
 
-		when(commentRepository.findById(commentId)).thenReturn(Optional.of(commentEntity));
-		when(userRepository.findById(userId)).thenReturn(Optional.of(userEntity));
+		when(commentRepository.findByCommentIdUserId(commentId, userId))
+				.thenReturn(Optional.of(commentEntity));
+		when(getUserNameService.execute(userId)).thenReturn(userEntity.getNickname());
 		// when
 		UpdateCommentResponse response = updateCommentService.execute(requestDto, commentId, userId);
 		// then
@@ -73,9 +73,11 @@ class UpdateCommentServiceTest {
 			UpdateCommentRequest requestDto =
 					UpdateCommentRequest.builder().content("new content").build();
 
+			when(commentRepository.findByCommentIdUserId(commentId, userId))
+					.thenThrow(NotFoundCommentException.class);
 			// when & then
 			assertThrows(
-					NullPointerException.class,
+					NotFoundCommentException.class,
 					() -> updateCommentService.execute(requestDto, commentId, userId));
 		}
 
@@ -84,24 +86,16 @@ class UpdateCommentServiceTest {
 		void no_owner_update_test() {
 			// given
 			Long commentId = 1L;
-			Long userId = 1L;
 			Long wrongUserId = 2L;
 
 			UpdateCommentRequest requestDto =
 					UpdateCommentRequest.builder().content("new content").build();
 
-			CommentEntity commentEntity =
-					CommentEntity.builder()
-							.id(commentId)
-							.voteId(1L)
-							.userId(userId)
-							.content("content1")
-							.build();
-			// 존재하는지 확인하면서 반환
-			when(commentRepository.findById(commentId)).thenReturn(Optional.of(commentEntity));
+			when(commentRepository.findByCommentIdUserId(commentId, wrongUserId))
+					.thenThrow(NotFoundCommentException.class);
 			// when & then
 			assertThrows(
-					NoOwnershipException.class,
+					NotFoundCommentException.class,
 					() -> updateCommentService.execute(requestDto, commentId, wrongUserId));
 		}
 	}

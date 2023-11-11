@@ -31,8 +31,6 @@ class UpdateUserEmailApiTest {
 
 	private String jwtToken;
 
-	//	private String beforeNickname;
-
 	@BeforeEach
 	void setup() {
 		jwtToken = tokenProvider.createAccessToken(10L);

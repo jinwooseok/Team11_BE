@@ -22,7 +22,6 @@ public class SearchVotesController {
 	private final SearchVotesService searchVotesService;
 	private final GetVotesRequestConverter getVotesRequestConverter;
 
-	// 투표 검색 -> 투표 리스트 조회
 	@AnonymousAvailable
 	@GetMapping("/votes/search")
 	public ApiResponse<ApiResponseBody.SuccessBody<SearchVotesResponse>> searchVoteList(

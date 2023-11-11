@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class DecisionResponse implements AbstractResponseDto {
 	private List<OptionResult> result;
+	private int total;
 }

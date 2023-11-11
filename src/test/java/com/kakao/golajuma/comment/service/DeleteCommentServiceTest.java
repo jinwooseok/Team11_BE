@@ -3,8 +3,7 @@ package com.kakao.golajuma.comment.service;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-import com.kakao.golajuma.comment.domain.exception.NoOwnershipException;
-import com.kakao.golajuma.comment.domain.exception.NullPointerException;
+import com.kakao.golajuma.comment.domain.exception.NotFoundCommentException;
 import com.kakao.golajuma.comment.domain.service.DeleteCommentService;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
 import com.kakao.golajuma.comment.infra.repository.CommentRepository;
@@ -29,10 +28,9 @@ class DeleteCommentServiceTest {
 		// given
 		Long commentId = 1L;
 		Long userId = 1L;
-
 		CommentEntity commentEntity = mock(CommentEntity.class);
-		// 존재하는지 확인하면서 반환
-		when(commentRepository.findById(commentId)).thenReturn(Optional.of(commentEntity));
+		when(commentRepository.findByCommentIdUserId(commentId, userId))
+				.thenReturn(Optional.of(commentEntity));
 		// when
 		deleteCommentService.execute(commentId, userId);
 		// then
@@ -48,10 +46,11 @@ class DeleteCommentServiceTest {
 			// given
 			Long commentId = 99999999L;
 			Long userId = 1L;
-
+			when(commentRepository.findByCommentIdUserId(commentId, userId))
+					.thenThrow(NotFoundCommentException.class);
 			// when & then
 			assertThrows(
-					NullPointerException.class, () -> deleteCommentService.execute(commentId, userId));
+					NotFoundCommentException.class, () -> deleteCommentService.execute(commentId, userId));
 		}
 
 		@Test
@@ -59,20 +58,13 @@ class DeleteCommentServiceTest {
 		void no_owner_delete_test() {
 			// given
 			Long commentId = 1L;
-			Long userId = 1L;
 			Long wrongUserId = 2L;
-			CommentEntity commentEntity =
-					CommentEntity.builder()
-							.id(commentId)
-							.voteId(1L)
-							.userId(userId)
-							.content("content1")
-							.build();
-			// 존재하는지 확인하면서 반환
-			when(commentRepository.findById(commentId)).thenReturn(Optional.of(commentEntity));
+			when(commentRepository.findByCommentIdUserId(commentId, wrongUserId))
+					.thenThrow(NotFoundCommentException.class);
 			// when & then
 			assertThrows(
-					NoOwnershipException.class, () -> deleteCommentService.execute(commentId, wrongUserId));
+					NotFoundCommentException.class,
+					() -> deleteCommentService.execute(commentId, wrongUserId));
 		}
 	}
 }

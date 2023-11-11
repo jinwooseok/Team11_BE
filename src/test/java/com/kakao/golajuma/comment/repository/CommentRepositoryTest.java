@@ -3,7 +3,7 @@ package com.kakao.golajuma.comment.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kakao.golajuma.comment.domain.exception.NullPointerException;
+import com.kakao.golajuma.comment.domain.exception.NotFoundCommentException;
 import com.kakao.golajuma.comment.infra.entity.CommentEntity;
 import com.kakao.golajuma.comment.infra.repository.CommentRepository;
 import java.util.List;
@@ -51,21 +51,22 @@ class CommentRepositoryTest {
 	@Transactional
 	@DisplayName("댓글을 저장합니다.")
 	void comment_save_test() {
+		// given
 		CommentEntity commentEntity =
 				CommentEntity.builder().voteId(1L).userId(1L).content("content1").build();
+		// when
 		CommentEntity result = commentRepository.save(commentEntity);
+		// then
 		assertThat(result.getContent()).isEqualTo("content1");
 	}
 
 	@Test
 	@Transactional
 	@DisplayName("댓글을 id에 따라 호출합니다.")
-	void comment_findById_test() {
+	void comment_findBycommentIdUserId_test() {
 		// when
 		CommentEntity response =
-				commentRepository
-						.findById(1L)
-						.orElseThrow(() -> new NullPointerException("댓글이 존재하지 않습니다."));
+				commentRepository.findByCommentIdUserId(1L, 1L).orElseThrow(NotFoundCommentException::new);
 		// then
 		assertThat(response.getClass()).isEqualTo(CommentEntity.class);
 		assertThat(response.getUserId()).isEqualTo(1L);

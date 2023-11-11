@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.auth.domain.token.TokenProvider;
 import com.kakao.golajuma.comment.web.dto.request.CreateCommentRequest;
+import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -36,6 +37,7 @@ class CreateCommentApiTest {
 	}
 
 	@DisplayName("유저는 댓글을 작성하는데 성공한다.")
+	@Transactional
 	@Test
 	void create_comment__success_test() throws Exception {
 		// given
@@ -49,7 +51,7 @@ class CreateCommentApiTest {
 								.header("Authorization", "Bearer " + jwtToken)
 								.content(requestBody)
 								.contentType(MediaType.APPLICATION_JSON));
-
+		// then
 		resultActions
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
@@ -77,7 +79,7 @@ class CreateCommentApiTest {
 									.header("Authorization", "Bearer " + jwtToken)
 									.content(requestBody)
 									.contentType(MediaType.APPLICATION_JSON));
-
+			// then
 			resultActions.andExpect(status().isBadRequest());
 		}
 
@@ -94,8 +96,8 @@ class CreateCommentApiTest {
 							MockMvcRequestBuilders.post("/votes/1/comments")
 									.content(requestBody)
 									.contentType(MediaType.APPLICATION_JSON));
-
-			resultActions.andExpect(status().is4xxClientError());
+			// then
+			resultActions.andExpect(status().isNotFound());
 		}
 	}
 }

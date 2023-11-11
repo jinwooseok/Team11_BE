@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class UpdateUserEmailServiceTest {
 	@InjectMocks private UpdateUserEmailService updateUserEmailService;
 	@Mock private UserRepository userRepository;
-
 	@Mock private ValidEmailService validEmailService;
 
 	@Nested
@@ -43,9 +42,8 @@ class UpdateUserEmailServiceTest {
 
 			// when
 			UpdateEmailResponse response = updateUserEmailService.execute(requestDto, userId);
-
-			verify(validEmailService).execute(requestDto);
 			// then
+			verify(validEmailService).execute(requestDto);
 			assertThat(response.getEmail()).isEqualTo("newemail@gmail.com");
 		}
 	}
