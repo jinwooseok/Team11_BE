@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.HotVoteRepository;
+import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ class GetHotVotesServiceTest {
 
 	@Mock private GetVoteService getVoteService;
 
-	@Mock private HotVoteRepository hotVoteRepository;
+	@Mock private VoteRepository voteRepository;
 
 	@Nested
 	@DisplayName("핫게시판 요청 성공 시 이전 1시간 동안 투표 수가 가장 많은 순서로 리스트를 반환한다.")
@@ -45,7 +45,7 @@ class GetHotVotesServiceTest {
 			Slice<VoteEntity> voteEntitySlice =
 					new SliceImpl<>(voteEntityList, Pageable.unpaged(), false);
 
-			when(hotVoteRepository.findByTimeLimitAndDecisionCount(any(), any(), any()))
+			when(voteRepository.findByTimeLimitAndDecisionCount(any(), any(), any()))
 					.thenReturn(voteEntitySlice);
 
 			when(getVoteService.execute(voteEntity, 1L))
