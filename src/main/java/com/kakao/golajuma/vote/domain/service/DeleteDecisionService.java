@@ -1,5 +1,6 @@
 package com.kakao.golajuma.vote.domain.service;
 
+import com.kakao.golajuma.vote.domain.event.DeletedDecisionEvent;
 import com.kakao.golajuma.vote.domain.exception.decision.CompletionVoteException;
 import com.kakao.golajuma.vote.domain.exception.decision.NotFoundDecisionOptionException;
 import com.kakao.golajuma.vote.domain.exception.vote.NotFoundOptionException;
@@ -14,6 +15,7 @@ import com.kakao.golajuma.vote.web.dto.converter.DecisionResponseConverter;
 import com.kakao.golajuma.vote.web.dto.response.DecisionResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,7 @@ public class DeleteDecisionService {
 	private final DecisionRepository decisionRepository;
 	private final OptionRepository optionRepository;
 	private final VoteRepository voteRepository;
+	private final ApplicationEventPublisher eventPublisher;
 	private final DecisionResponseConverter responseConverter;
 
 	public DecisionResponse execute(final Long userId, final Long optionId) {
@@ -33,6 +36,8 @@ public class DeleteDecisionService {
 		DecisionEntity decisionEntity = findDecision(userId, optionEntity.getId());
 
 		deleteDecision(voteEntity, optionEntity, decisionEntity);
+
+		eventPublisher.publishEvent(DeletedDecisionEvent.of(voteEntity.getId(), userId));
 
 		return generateResponse(findVote(optionId));
 	}
