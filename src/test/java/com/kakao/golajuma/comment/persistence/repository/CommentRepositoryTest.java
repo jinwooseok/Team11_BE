@@ -1,11 +1,10 @@
-package com.kakao.golajuma.comment.repository;
+package com.kakao.golajuma.comment.persistence.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.comment.domain.exception.NotFoundCommentException;
 import com.kakao.golajuma.comment.persistence.entity.CommentEntity;
-import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
