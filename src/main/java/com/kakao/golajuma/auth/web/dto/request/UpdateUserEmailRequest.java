@@ -11,5 +11,7 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(toBuilder = true)
 public class UpdateUserEmailRequest implements AbstractRequestDto, EmailSupplier {
-	@NotBlank @Email private String email;
+	@NotBlank(message = ValidExceptionMessage.EMPTY_MESSAGE)
+	@Email(message = ValidExceptionMessage.EMAIL_FORMAT_MESSAGE)
+	private String email;
 }
