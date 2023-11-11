@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.golajuma.vote.infra.entity.DecisionEntity;
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
 import com.kakao.golajuma.vote.infra.repository.DecisionRepository;
-import com.kakao.golajuma.vote.infra.repository.HotVoteRepository;
 import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import java.time.LocalDateTime;
 import javax.transaction.Transactional;
@@ -23,9 +22,7 @@ import org.springframework.data.domain.Slice;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class GetHotVoteListRepositoryTest {
 
-	@Autowired private HotVoteRepository hotVoteRepository;
-
-	@Autowired VoteRepository voteRepository;
+	@Autowired private VoteRepository voteRepository;
 
 	@Autowired DecisionRepository decisionRepository;
 
@@ -33,7 +30,6 @@ class GetHotVoteListRepositoryTest {
 	@Transactional
 	void hotVote_findByTimeLimitAndDecisionCount_test() {
 		// given
-		// 1시간 전에 투표를 했음
 		DecisionEntity decisionEntity =
 				DecisionEntity.builder()
 						.userId(1L)
@@ -43,14 +39,13 @@ class GetHotVoteListRepositoryTest {
 						.deleted(false)
 						.build();
 		decisionRepository.save(decisionEntity);
-		// 1시간 전의 시간 데이터
+
 		LocalDateTime startTime = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
 		LocalDateTime endTime = startTime.plusHours(1);
 
 		// when
-		// 1시간 전 투표를 받았던 투표들을 가져옴.
 		Slice<VoteEntity> voteEntitySlice =
-				hotVoteRepository.findByTimeLimitAndDecisionCount(startTime, endTime, Pageable.unpaged());
+				voteRepository.findByTimeLimitAndDecisionCount(startTime, endTime, Pageable.unpaged());
 		// then
 		assertThat(voteEntitySlice.toList().get(0).getClass()).isEqualTo(VoteEntity.class);
 	}

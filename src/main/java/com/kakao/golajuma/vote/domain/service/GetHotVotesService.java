@@ -1,7 +1,7 @@
 package com.kakao.golajuma.vote.domain.service;
 
 import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.HotVoteRepository;
+import com.kakao.golajuma.vote.infra.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import com.kakao.golajuma.vote.web.dto.response.VoteDto;
 import java.time.LocalDateTime;
@@ -21,32 +21,29 @@ import org.springframework.transaction.annotation.Transactional;
 public class GetHotVotesService {
 	private final GetVoteService getVoteService;
 
-	private final HotVoteRepository hotVoteRepository;
+	private final VoteRepository voteRepository;
 
 	public GetVotesResponse.MainAndFinishPage execute(final Long userId, final int page) {
-		int size = 5;
-		int beforeHour = 1;
-		int interval = 1;
-		// 핫게시판에 반영할 1시간전을 계산
-		List<LocalDateTime> lastTime = findLastTime(beforeHour, interval);
-		// 어디서부터 몇개씩 가져올건지
-		Pageable pageable = PageRequest.of(page, size);
-		// repository를 통해 찾음
+		final int SIZE = 5;
+
+		List<LocalDateTime> lastTime = findLastTime();
+
+		Pageable pageable = PageRequest.of(page, SIZE);
+
 		Slice<VoteEntity> voteEntities =
-				hotVoteRepository.findByTimeLimitAndDecisionCount(
-						lastTime.get(0), lastTime.get(1), pageable);
-		// entity list >> dto list
+				voteRepository.findByTimeLimitAndDecisionCount(lastTime.get(0), lastTime.get(1), pageable);
+
 		List<VoteDto> voteDtoList = voteDtoConverter(voteEntities, userId);
-		// 마지막 페이지인지 검사
+
 		boolean isLast = voteEntities.isLast();
-		// responseDto로 변환 후 return
+
 		return new GetVotesResponse.MainAndFinishPage(voteDtoList, isLast);
 	}
 
-	private List<LocalDateTime> findLastTime(int before, int interval) {
+	private List<LocalDateTime> findLastTime() {
 		LocalDateTime startTime =
-				LocalDateTime.now().minusHours(before).withMinute(0).withSecond(0).withNano(0);
-		LocalDateTime endTime = startTime.plusHours(interval);
+				LocalDateTime.now().minusHours(1).withMinute(0).withSecond(0).withNano(0);
+		LocalDateTime endTime = startTime.plusHours(1);
 		List<LocalDateTime> timeSet = new ArrayList<>();
 		timeSet.add(startTime);
 		timeSet.add(endTime);
@@ -55,7 +52,6 @@ public class GetHotVotesService {
 
 	private List<VoteDto> voteDtoConverter(Slice<VoteEntity> voteEntitySlice, Long userId) {
 		List<VoteDto> voteDtoList;
-
 		voteDtoList =
 				voteEntitySlice.stream()
 						.map(voteEntity -> getVoteService.execute(voteEntity, userId))
