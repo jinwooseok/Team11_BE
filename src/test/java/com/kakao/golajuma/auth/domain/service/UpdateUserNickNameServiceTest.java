@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class UpdateUserNickNameServiceTest {
 	@InjectMocks private UpdateUserNickNameService updateUserNickNameService;
 	@Mock private UserRepository userRepository;
-
 	@Mock private ValidNicknameService validNicknameService;
 
 	@Nested
@@ -42,9 +41,8 @@ class UpdateUserNickNameServiceTest {
 			when(userRepository.findById(userId)).thenReturn(Optional.of(userEntity));
 			// when
 			UpdateNickNameResponse response = updateUserNickNameService.execute(requestDto, userId);
-
-			verify(validNicknameService).execute(requestDto);
 			// then
+			verify(validNicknameService).execute(requestDto);
 			assertThat(response.getNickname()).isEqualTo("newNickName");
 		}
 	}

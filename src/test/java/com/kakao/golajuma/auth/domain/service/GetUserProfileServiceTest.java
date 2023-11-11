@@ -37,9 +37,7 @@ class GetUserProfileServiceTest {
 			// given
 			UserEntity userEntity =
 					UserEntity.builder().id(1L).email("test@gmail.com").nickname("tester").build();
-			// 본인이 생성한 투표리스트
 			List<VoteEntity> createdVoteEntityList = new ArrayList<>();
-			// 본인이 투표한 투표리스트
 			List<VoteEntity> participatedVoteEntityList = new ArrayList<>();
 
 			when(userRepository.findById(anyLong())).thenReturn(Optional.of(userEntity));
@@ -65,8 +63,7 @@ class GetUserProfileServiceTest {
 		@DisplayName("존재하지 않는 유저의 데이터를 요청하는 경우")
 		void null_read_user_entity() {
 			// given
-			UserEntity userEntity = UserEntity.builder().build();
-			when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
+			when(userRepository.findById(anyLong())).thenThrow(NotFoundUserException.class);
 			// when & then
 			assertThrows(NotFoundUserException.class, () -> getUserProfileService.execute(anyLong()));
 		}

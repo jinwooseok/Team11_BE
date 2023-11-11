@@ -21,7 +21,6 @@ public class UpdateUserEmailService {
 	public UpdateEmailResponse execute(UpdateUserEmailRequest requestDto, Long userId) {
 		validEmailService.execute(requestDto);
 		UserEntity userEntity = userRepository.findById(userId).orElseThrow(NotFoundUserException::new);
-
 		String newEmail = requestDto.getEmail();
 		userEntity.updateEmail(newEmail);
 		return new UpdateEmailResponse(newEmail);

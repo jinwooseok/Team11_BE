@@ -26,7 +26,7 @@ class GetUserProfileApiTest {
 	private String jwtToken;
 
 	@BeforeEach
-	void setup() throws Exception {
+	void setup() {
 		jwtToken = tokenProvider.createAccessToken(1L);
 	}
 
@@ -38,8 +38,7 @@ class GetUserProfileApiTest {
 				mvc.perform(
 						MockMvcRequestBuilders.get("/users/profile")
 								.header("Authorization", "Bearer " + jwtToken));
-		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-
+		// then
 		resultActions
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))

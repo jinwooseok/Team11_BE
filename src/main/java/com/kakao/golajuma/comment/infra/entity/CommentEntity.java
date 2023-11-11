@@ -38,8 +38,4 @@ public class CommentEntity extends BaseEntity {
 	public Boolean isOwner(Long userId) {
 		return this.userId.equals(userId);
 	}
-
-	public Boolean isNotOwner(Long userId) {
-		return !this.userId.equals(userId);
-	}
 }
