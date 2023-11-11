@@ -1,4 +1,4 @@
-package com.kakao.golajuma.vote;
+package com.kakao.golajuma.vote.web.dto.request;
 
 public class ImageDto {
 	String image =
