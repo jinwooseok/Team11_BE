@@ -16,7 +16,6 @@ public class GetParticipatedVotesService {
 	private final VoteRepository voteRepository;
 
 	public GetVotesResponse.MyPage execute(Long userId) {
-		// userId가 투표한 투표 리스트를 decision 레포에서 찾아야함
 		List<VoteEntity> voteEntities = voteRepository.findAllParticipateListByUserId(userId);
 
 		return GetVotesResponse.MyPage.convert(voteEntities);

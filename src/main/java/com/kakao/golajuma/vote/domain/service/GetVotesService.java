@@ -29,18 +29,8 @@ public class GetVotesService {
 
 	public GetVotesResponse.MainAndFinishPage execute(
 			Long userId, int page, Sort sort, Active active, Category category) {
-		/*
-		투표 중 active = continue 이고, createdDate가 최신순으로 정렬하여 가져와서 보여준다
-		사용자의 id를 가져와서 참여한 투표와 참여하지 않은 투표를 다른 데이터 형식으로 반환한다.
-		*/
 		this.page = page;
 
-		// 1. vote list 를 가져온다
-		// 투표 리스트 가져 오는 방법
-		// 정렬 기준
-		// 1. 메인페이지 or 완료된 페이지 active
-		// 2. 전체 카테고리 or 세부 카테고리
-		// 3. 최신순 or 인기순
 		Slice<VoteEntity> voteEntities = getVoteListByRequest(active, category, sort);
 
 		List<VoteDto> votes = new ArrayList<>();
@@ -48,14 +38,12 @@ public class GetVotesService {
 			VoteDto voteDto = getVoteService.execute(voteEntity, userId);
 			votes.add(voteDto);
 		}
-		// 마지막 페이지인지 검사
 		boolean isLast = voteEntities.isLast();
 
 		return GetVotesResponse.MainAndFinishPage.convert(votes, isLast);
 	}
 
 	private Slice<VoteEntity> getVoteListByRequest(Active active, Category category, Sort sort) {
-		// 메인페이지 요청인지 완료된 페이지 요청인지 검사
 		if (Active.isContinueRequest(active)) {
 			return findContinueVotes(category, sort);
 		}
@@ -63,7 +51,6 @@ public class GetVotesService {
 	}
 
 	private Slice<VoteEntity> findCompleteVotes(Category category, Sort sort) {
-		// 카테고리 요청 확인
 		if (Category.isTotalRequest(category)) {
 			return completeOrderBySort(sort);
 		}
@@ -74,7 +61,6 @@ public class GetVotesService {
 		Pageable pageable = PageRequest.of(page, size);
 		LocalDateTime now = LocalDateTime.now();
 
-		// 정렬 요청 확인
 		if (Sort.isCurrentRequest(sort)) {
 			return voteRepository.findAllFinishVotesOrderByCreatedDate(now, pageable);
 		}
@@ -86,7 +72,6 @@ public class GetVotesService {
 
 		LocalDateTime now = LocalDateTime.now();
 
-		// 정렬 요청 확인
 		if (Sort.isCurrentRequest(sort)) {
 			return voteRepository.findAllFinishVotesByCategoryOrderByCreatedDate(now, category, pageable);
 		}
@@ -95,7 +80,6 @@ public class GetVotesService {
 	}
 
 	private Slice<VoteEntity> findContinueVotes(Category category, Sort sort) {
-		// 카테고리 요청 확인
 		if (Category.isTotalRequest(category)) {
 			return continueOrderBySort(sort);
 		}
@@ -106,7 +90,6 @@ public class GetVotesService {
 		Pageable pageable = PageRequest.of(page, size);
 		LocalDateTime now = LocalDateTime.now();
 
-		// 정렬 요청 확인
 		if (Sort.isCurrentRequest(sort)) {
 			return voteRepository.findAllContinueVotesOrderByCreatedDate(now, pageable);
 		}
@@ -117,7 +100,6 @@ public class GetVotesService {
 		Pageable pageable = PageRequest.of(page, size);
 		LocalDateTime now = LocalDateTime.now();
 
-		// 정렬 요청 확인
 		if (Sort.isCurrentRequest(sort)) {
 			return voteRepository.findAllContinueVotesByCategoryOrderByCreatedDate(
 					now, category, pageable);

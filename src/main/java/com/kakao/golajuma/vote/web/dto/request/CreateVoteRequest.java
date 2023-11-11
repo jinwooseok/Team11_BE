@@ -20,7 +20,7 @@ public class CreateVoteRequest implements AbstractRequestDto {
 	@OptionCheck List<OptionDto> options;
 
 	private String category;
-	private int timeLimit; // 시간 제한 받아서 연산해야함
+	private int timeLimit;
 
 	public CreateVoteRequest(
 			String voteTitle,

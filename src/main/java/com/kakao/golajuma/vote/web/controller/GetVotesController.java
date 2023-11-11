@@ -26,7 +26,6 @@ public class GetVotesController {
 	private final GetParticipatedVotesService getParticipatedVotesService;
 	private final GetVotesRequestConverter getVotesRequestConverter;
 
-	// 투표 조회 - 메인페이지, 완료된 페이지
 	@AnonymousAvailable
 	@GetMapping("/votes")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVotesResponse.MainAndFinishPage>> getVoteList(
@@ -47,7 +46,6 @@ public class GetVotesController {
 		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.GET);
 	}
 
-	// 투표 리스트 조회 - 마이페이지 참여한 투표
 	@GetMapping("/users/votes/participate")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVotesResponse.MyPage>>
 			getVoteListInMyPageByParticipate(@Login Long userId) {
@@ -56,7 +54,6 @@ public class GetVotesController {
 		return ApiResponseGenerator.success(responseDto, HttpStatus.OK, MessageCode.GET);
 	}
 
-	// 투표 리스트 조회 - 마이페이지 올린 투표
 	@GetMapping("/users/votes/ask")
 	public ApiResponse<ApiResponseBody.SuccessBody<GetVotesResponse.MyPage>> getVoteListInMyPageByAsk(
 			@Login Long userId) {
