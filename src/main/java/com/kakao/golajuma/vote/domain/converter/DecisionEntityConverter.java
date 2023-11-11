@@ -1,6 +1,6 @@
 package com.kakao.golajuma.vote.domain.converter;
 
-import com.kakao.golajuma.vote.infra.entity.DecisionEntity;
+import com.kakao.golajuma.vote.persistence.entity.DecisionEntity;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,8 +1,8 @@
 package com.kakao.golajuma.vote.web.controller.converter;
 
 import com.kakao.golajuma.vote.domain.service.Sort;
-import com.kakao.golajuma.vote.infra.entity.Active;
-import com.kakao.golajuma.vote.infra.entity.Category;
+import com.kakao.golajuma.vote.persistence.entity.Active;
+import com.kakao.golajuma.vote.persistence.entity.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

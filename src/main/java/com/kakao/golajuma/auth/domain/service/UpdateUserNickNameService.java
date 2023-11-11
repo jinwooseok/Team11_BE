@@ -1,8 +1,8 @@
 package com.kakao.golajuma.auth.domain.service;
 
 import com.kakao.golajuma.auth.domain.exception.NotFoundUserException;
-import com.kakao.golajuma.auth.infra.entity.UserEntity;
-import com.kakao.golajuma.auth.infra.repository.UserRepository;
+import com.kakao.golajuma.auth.persistence.entity.UserEntity;
+import com.kakao.golajuma.auth.persistence.repository.UserRepository;
 import com.kakao.golajuma.auth.web.dto.request.UpdateUserNickNameRequest;
 import com.kakao.golajuma.auth.web.dto.response.UpdateNickNameResponse;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.kakao.golajuma.vote.web.dto.converter;
 
-import com.kakao.golajuma.vote.infra.entity.OptionEntity;
+import com.kakao.golajuma.vote.persistence.entity.OptionEntity;
 import com.kakao.golajuma.vote.web.dto.response.DecisionResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

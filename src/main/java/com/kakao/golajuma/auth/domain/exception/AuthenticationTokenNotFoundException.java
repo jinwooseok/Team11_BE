@@ -6,6 +6,6 @@ public class AuthenticationTokenNotFoundException extends AuthorizationException
 	private static final String MESSAGE = "인증 토큰이 존재하지 않습니다.";
 
 	public AuthenticationTokenNotFoundException() {
-		super(MESSAGE, HttpStatus.NOT_FOUND);
+		super(MESSAGE, HttpStatus.FORBIDDEN);
 	}
 }

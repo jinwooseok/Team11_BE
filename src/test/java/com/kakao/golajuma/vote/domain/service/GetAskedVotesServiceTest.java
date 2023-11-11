@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.kakao.golajuma.vote.infra.entity.Category;
-import com.kakao.golajuma.vote.infra.entity.VoteEntity;
-import com.kakao.golajuma.vote.infra.repository.VoteRepository;
+import com.kakao.golajuma.vote.persistence.entity.Category;
+import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
+import com.kakao.golajuma.vote.persistence.repository.VoteRepository;
 import com.kakao.golajuma.vote.web.dto.response.GetVotesResponse;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class GetAskedVotesServiceTest {
 						.id(1L)
 						.userId(1L)
 						.voteTitle("title")
-						.voteEndDate(LocalDateTime.now())
+						.voteEndDate(LocalDateTime.now().minusMinutes(3))
 						.category(Category.TOTAL)
 						.build();
 		votes = new ArrayList<>();

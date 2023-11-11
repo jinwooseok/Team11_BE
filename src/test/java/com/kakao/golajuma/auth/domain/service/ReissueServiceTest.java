@@ -4,8 +4,8 @@ import static org.mockito.Mockito.*;
 
 import com.kakao.golajuma.auth.domain.exception.NotFoundTokenException;
 import com.kakao.golajuma.auth.domain.token.TokenResolver;
-import com.kakao.golajuma.auth.infra.entity.AuthInfoEntity;
-import com.kakao.golajuma.auth.infra.repository.AuthInfoRepository;
+import com.kakao.golajuma.auth.persistence.entity.AuthInfoEntity;
+import com.kakao.golajuma.auth.persistence.repository.AuthInfoRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

@@ -2,9 +2,9 @@ package com.kakao.golajuma.auth.domain.service;
 
 import static org.mockito.Mockito.verify;
 
-import com.kakao.golajuma.auth.infra.converter.AuthInfoEntityConverter;
-import com.kakao.golajuma.auth.infra.entity.AuthInfoEntity;
-import com.kakao.golajuma.auth.infra.repository.AuthInfoRepository;
+import com.kakao.golajuma.auth.persistence.converter.AuthInfoEntityConverter;
+import com.kakao.golajuma.auth.persistence.entity.AuthInfoEntity;
+import com.kakao.golajuma.auth.persistence.repository.AuthInfoRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
