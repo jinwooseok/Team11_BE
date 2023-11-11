@@ -32,7 +32,7 @@ public class ImageUploader {
 		if (base64 == null || base64.equals("")) {
 			throw new NullImageException();
 		}
-		if (base64.length() > 400000) {
+		if (base64.length() > 40000000) {
 			throw new ImageSizeException();
 		}
 
