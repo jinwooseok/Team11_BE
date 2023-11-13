@@ -3,8 +3,10 @@ package com.kakao.golajuma.config;
 import com.kakao.golajuma.auth.domain.token.TokenResolver;
 import com.kakao.golajuma.auth.web.interceptor.AuthInterceptor;
 import com.kakao.golajuma.auth.web.support.AuthenticationPrincipalArgumentResolver;
+import com.kakao.golajuma.auth.web.support.TokenExtractor;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -16,9 +18,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
 
-	private final long MAX_AGE_SECS = 3600;
+	private static final long MAX_AGE_SECS = 3600;
 	private final AuthInterceptor authInterceptor;
 	private final TokenResolver tokenResolver;
+
+	@Qualifier("auth")
+	private final TokenExtractor tokenExtractor;
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
@@ -47,6 +52,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Bean
 	public AuthenticationPrincipalArgumentResolver authenticationPrincipalArgumentResolver() {
-		return new AuthenticationPrincipalArgumentResolver(tokenResolver);
+		return new AuthenticationPrincipalArgumentResolver(tokenResolver, tokenExtractor);
 	}
 }
