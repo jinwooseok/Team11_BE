@@ -4,12 +4,17 @@ import com.kakao.golajuma.auth.domain.exception.AuthenticationTokenNotFoundExcep
 import com.kakao.golajuma.auth.domain.exception.InvalidTokenFormatException;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 
-public class AuthorizationExtractor {
+@Component
+@Qualifier("auth")
+public class AuthorizationExtractor implements TokenExtractor {
 	private static final String BEARER_TYPE = "Bearer";
 
-	public static String extract(final HttpServletRequest request) {
+	@Override
+	public String extract(final HttpServletRequest request) {
 		String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 		if (Objects.isNull(authorization)) {
 			throw new AuthenticationTokenNotFoundException();

@@ -5,6 +5,7 @@ import com.kakao.golajuma.auth.domain.token.TokenResolver;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -15,6 +16,9 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArgumentResolver {
 	private static final Long NONE_MEMBER = 0L;
 	private final TokenResolver tokenResolver;
+
+	@Qualifier("auth")
+	private final TokenExtractor tokenExtractor;
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
@@ -42,7 +46,7 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
 
 	private Long getUserInfo(NativeWebRequest webRequest) {
 		HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-		String token = AuthorizationExtractor.extract(Objects.requireNonNull(request));
+		String token = tokenExtractor.extract(Objects.requireNonNull(request));
 		return tokenResolver.getUserInfo(token);
 	}
 }

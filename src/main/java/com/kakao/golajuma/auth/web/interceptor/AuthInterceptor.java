@@ -1,10 +1,11 @@
 package com.kakao.golajuma.auth.web.interceptor;
 
 import com.kakao.golajuma.auth.domain.token.TokenValidator;
-import com.kakao.golajuma.auth.web.support.AuthorizationExtractor;
+import com.kakao.golajuma.auth.web.support.TokenExtractor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -13,6 +14,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @RequiredArgsConstructor
 public class AuthInterceptor implements HandlerInterceptor {
 	private final TokenValidator tokenValidator;
+
+	@Qualifier("auth")
+	private final TokenExtractor tokenExtractor;
 
 	@Override
 	public boolean preHandle(
@@ -35,6 +39,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 	}
 
 	private String extractToken(HttpServletRequest request) {
-		return AuthorizationExtractor.extract(request);
+		return tokenExtractor.extract(request);
 	}
 }
