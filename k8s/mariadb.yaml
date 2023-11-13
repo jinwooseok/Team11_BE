@@ -21,19 +21,19 @@ spec:
           env:
             - name: TZ
               value: Asia/Seoul
-            - name: MARIADB_USERNAME
+            - name: MYSQL_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: my-secret
                   key: username
 
-            - name: MARIADB_ROOT_PASSWORD
+            - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: my-secret
                   key: password
 
-            - name: MARIADB_DATABASE
+            - name: MYSQL_DATABASE
               value: krampoline
 
             - name: MARIADB_DISABLE_UPGRADE_BACKUP
