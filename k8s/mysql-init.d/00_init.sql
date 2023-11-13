@@ -1,6 +1,5 @@
-CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
-GRANT ALL ON krampoline.* TO 'root'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root' WITH GRANT OPTION;
+GRANT ALL ON krampoline.* TO 'root'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
 CREATE
