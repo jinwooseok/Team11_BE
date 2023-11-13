@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.Optional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+@Qualifier("cookie")
 public class CookieExtractor implements TokenExtractor {
 	private static final String REFRESH_KEY = "refreshToken";
 
