@@ -15,7 +15,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Entity
 @Table(
 		name = VoteEntity.ENTITY_PREFIX,
-		indexes = @Index(name = "idx__title__content", columnList = "vote_title, vote_content"))
+		indexes = @Index(name = "idx_vote_content_title", columnList = "vote_title, vote_content"))
 public class VoteEntity extends BaseEntity {
 
 	public static final String ENTITY_PREFIX = "vote";
