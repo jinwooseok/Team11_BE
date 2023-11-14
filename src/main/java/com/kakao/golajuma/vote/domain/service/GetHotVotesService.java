@@ -42,8 +42,8 @@ public class GetHotVotesService {
 
 	private List<LocalDateTime> findLastTime() {
 		LocalDateTime startTime =
-				LocalDateTime.now().minusHours(1).withMinute(0).withSecond(0).withNano(0);
-		LocalDateTime endTime = startTime.plusHours(1);
+				LocalDateTime.now().minusHours(24).withMinute(0).withSecond(0).withNano(0);
+		LocalDateTime endTime = startTime.plusHours(24);
 		List<LocalDateTime> timeSet = new ArrayList<>();
 		timeSet.add(startTime);
 		timeSet.add(endTime);
