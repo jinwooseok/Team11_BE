@@ -87,7 +87,7 @@ class CreateCommentApiTest {
 		@Test
 		void not_exist_user_create_comment_fail_test() throws Exception {
 			// given
-			CreateCommentRequest requestDto = CreateCommentRequest.builder().content("").build();
+			CreateCommentRequest requestDto = CreateCommentRequest.builder().content("content").build();
 			String requestBody = om.writeValueAsString(requestDto);
 
 			// when
@@ -98,6 +98,24 @@ class CreateCommentApiTest {
 									.contentType(MediaType.APPLICATION_JSON));
 			// then
 			resultActions.andExpect(status().isForbidden());
+		}
+
+		@DisplayName("유저는 투표하지 않고 댓글을 달아서 실패한다.")
+		@Test
+		void not_exist_decision_create_comment_fail_test() throws Exception {
+			// given
+			CreateCommentRequest requestDto = CreateCommentRequest.builder().content("content").build();
+			String requestBody = om.writeValueAsString(requestDto);
+
+			// when
+			ResultActions resultActions =
+					mvc.perform(
+							MockMvcRequestBuilders.post("/votes/5/comments")
+									.header("Authorization", "Bearer " + jwtToken)
+									.content(requestBody)
+									.contentType(MediaType.APPLICATION_JSON));
+			// then
+			resultActions.andExpect(status().isNotFound());
 		}
 	}
 }
