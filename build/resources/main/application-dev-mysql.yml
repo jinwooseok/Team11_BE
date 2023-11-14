@@ -7,7 +7,7 @@ server:
 spring:
   datasource:
     url: ${DATABASE_URL}
-    driver-class-name: org.mariadb.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${MARIADB_USERNAME}
     password: ${MARIADB_ROOT_PASSWORD}
   jpa:
