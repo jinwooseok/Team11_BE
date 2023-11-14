@@ -150,7 +150,7 @@ public interface VoteRepository extends JpaRepository<VoteEntity, Integer> {
 					+ "FROM VoteEntity v "
 					+ "JOIN OptionEntity o ON o.voteId = v.id "
 					+ "JOIN DecisionEntity d ON o.id = d.optionId "
-					+ "WHERE d.updatedDate >= :startTime AND d.updatedDate < :endTime AND v.deleted = false "
+					+ "WHERE d.updatedDate >= :startTime AND d.updatedDate < :endTime AND v.voteEndDate > :now "
 					+ "GROUP BY v.id "
 					+ "ORDER BY count(d.id) DESC")
 	Slice<VoteEntity> findByTimeLimitAndDecisionCount(
