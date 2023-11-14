@@ -24,7 +24,7 @@ public class GetHotVotesService {
 	private final VoteRepository voteRepository;
 
 	public GetVotesResponse.MainAndFinishPage execute(final Long userId, final int page) {
-		final int SIZE = 5;
+		final int SIZE = 10;
 
 		List<LocalDateTime> lastTime = findLastTime();
 
