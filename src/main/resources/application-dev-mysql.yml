@@ -11,8 +11,6 @@ spring:
     username: ${MARIADB_USERNAME}
     password: ${MARIADB_ROOT_PASSWORD}
   jpa:
-    database: mysql   # 추가 해준 부분
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # 추가 해준 부분
     hibernate:
       ddl-auto: none
     show-sql: true
