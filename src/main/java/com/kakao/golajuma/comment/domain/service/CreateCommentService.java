@@ -5,11 +5,15 @@ import com.kakao.golajuma.comment.persistence.repository.CommentRepository;
 import com.kakao.golajuma.comment.web.dto.request.CreateCommentRequest;
 import com.kakao.golajuma.comment.web.dto.response.CreateCommentResponse;
 import com.kakao.golajuma.vote.domain.exception.decision.NotFoundDecisionVoteException;
+import com.kakao.golajuma.vote.domain.exception.vote.NotFoundVoteException;
 import com.kakao.golajuma.vote.persistence.entity.OptionEntity;
+import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
 import com.kakao.golajuma.vote.persistence.repository.DecisionRepository;
 import com.kakao.golajuma.vote.persistence.repository.OptionRepository;
 import java.util.List;
 import java.util.function.Predicate;
+
+import com.kakao.golajuma.vote.persistence.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +31,8 @@ public class CreateCommentService {
 
 	private final OptionRepository optionRepository;
 
+	private final VoteRepository voteRepository;
+
 	/**
 	 * 댓글을 생성한다.
 	 *
@@ -36,9 +42,10 @@ public class CreateCommentService {
 	 * @return 생성한 댓글의 정보
 	 */
 	public CreateCommentResponse execute(CreateCommentRequest requestDto, Long voteId, Long userId) {
-
-		if (!existDecisionByVote(userId, voteId)) throw new NotFoundDecisionVoteException();
-
+		VoteEntity voteEntity = voteRepository.findById(voteId).orElseThrow(NotFoundVoteException::new);
+		if (!voteEntity.isOwner(userId)) {
+			if (!existDecisionByVote(userId, voteId)) throw new NotFoundDecisionVoteException();
+		}
 		CommentEntity commentEntity = saveComment(requestDto.toEntity(voteId, userId));
 
 		String username = getUserNameService.execute(userId);
