@@ -10,10 +10,9 @@ import com.kakao.golajuma.vote.persistence.entity.OptionEntity;
 import com.kakao.golajuma.vote.persistence.entity.VoteEntity;
 import com.kakao.golajuma.vote.persistence.repository.DecisionRepository;
 import com.kakao.golajuma.vote.persistence.repository.OptionRepository;
+import com.kakao.golajuma.vote.persistence.repository.VoteRepository;
 import java.util.List;
 import java.util.function.Predicate;
-
-import com.kakao.golajuma.vote.persistence.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
